@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Pacifico&family=Sora:wght@100..800&display=swap");
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@theme {
+  --font-primary: "Mona Sans", sans-serif;
+  --font-body: "Sora", sans-serif;
+  --font-cursive: "Pacifico", cursive;
+}
+
+@plugin "daisyui/theme" {
+  name: light;
+  default: true;
+  --color-primary: #33baae;
+  --color-secondary: #f29d42;
+  --color-accent: #fae9e2;
+  --color-base-content: #1b2e28;
+}
+
+html,
+body {
+  font-family: "Sora", sans-serif;
+  font-weight: 300;
+}

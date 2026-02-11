@@ -1,0 +1,4 @@
+#1B2E28 -- text
+#F29D42 -- accent 1
+#33BAAE -- accent 2
+#FAE9E2 -- background

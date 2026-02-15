@@ -114,13 +114,13 @@ const Header = () => {
                                 <hr className='h-5 bg-gray-300 w-px border-0' />
                                 {/* CTA Button */}
 
-                                <a href="https://demo.tuitionlms.com/courses/" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-semibold shadow-md shadow-stone-300 leading-none">
+                                <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-semibold shadow-md shadow-stone-300 leading-none">
                                     Find Tutor
-                                </a>
+                                </Link>
 
-                                <a href="https://demo.tuitionlms.com/courses/" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300">
+                                <Link to="/register" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300">
                                     Be a Tutor
-                                </a>
+                                </Link>
 
                             </div>
                         </div>

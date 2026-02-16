@@ -86,7 +86,7 @@ const WhyChooseUs = () => {
                 {/* Header Section */}
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-primary md:text-4xl lg:text-5xl font-bold text-base-content mb-4">
-                        Why our working is so <span className="text-primary">unique</span>
+                        Why our working is so <span className="text-primary">#unique</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         See how our working process easily adapt to your needs

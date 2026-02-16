@@ -141,7 +141,7 @@ const LatestTuitions = () => {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h2 className="font-primary text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-4">
-                        Featured <span className="text-primary">Tuitions</span>
+                        Featured <span className="text-primary">#Tuitions</span>
                     </h2>
                     <p className="text-base-content/70 text-lg max-w-2xl mx-auto">
                         Find the perfect teaching opportunity that matches your expertise and schedule

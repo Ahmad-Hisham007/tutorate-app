@@ -2,10 +2,13 @@ import React from 'react';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import shape from "../../assets/shap.svg";
 import bookShape from "../../assets/book.svg"
+import { useLocation } from 'react-router';
 
 const PageHeroes = ({ pageTitle }) => {
+    const location = useLocation();
+    console.log(location)
     const breadcrumbItems = [
-        { title: 'Tuitions', path: "/tuitions" }
+        { title: pageTitle, path: location.pathname }
     ];
     return (
         <section className="md:py-20 bg-gradient-to-br from-cyan-300/20 to-amber-200/20 py-12 px-4 sm:px-6 lg:px-8">

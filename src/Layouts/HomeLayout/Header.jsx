@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Logo from '../../assets/tutorate-logo.png'
 import { CgMenuGridR } from 'react-icons/cg';
-import { LuPhoneCall } from 'react-icons/lu';
+import { LuCircleUser, LuPhoneCall } from 'react-icons/lu';
 import { FiMenu } from 'react-icons/fi';
-import { IoClose } from 'react-icons/io5';
+import { IoClose, IoNewspaperOutline } from 'react-icons/io5';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link, NavLink, useLocation } from 'react-router';
-import { MdLogin } from 'react-icons/md';
+import { MdCreditScore, MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaRegUser } from 'react-icons/fa6';
 
@@ -15,7 +15,7 @@ const Header = () => {
     const [isMobileDepDropdownOpened, setIsMobileDepDropdownOpened] = useState(false);
     const [isProfileDropDownOpened, setIsProfileDropDownOpened] = useState(false);
     const profileDropdown = useRef(null);
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const mobileDepDropdown = useRef(null);
     const drawerCheckbox = useRef(null);
 
@@ -57,6 +57,14 @@ const Header = () => {
             <NavLink to="/tuitions">Tuitions</NavLink>
         </li>
     </>
+
+    const studentProfileMenu = <>
+        <li><a className='flex items-center gap-3'><LuCircleUser /> Profile</a></li>
+        <li><a className='flex items-center gap-3'><MdOutlineDashboardCustomize /> My tuition posts</a></li>
+        <li><a className='flex items-center gap-3'><IoNewspaperOutline /> Tutor Applications</a></li>
+        <li><a className='flex items-center gap-3'><MdCreditScore /> Payment History</a></li>
+        <li><a className='flex items-center gap-3' onClick={logOut}><MdLogout /> Log-out</a></li>
+    </>
     return (
         <header>
             {/* Header Area Start */}
@@ -77,8 +85,8 @@ const Header = () => {
                         </div>
 
                         {/* Middle Navigation - Desktop */}
-                        <div className="lg:w-2/12 xl:w-7/12 w-auto mt-1 lg:ms-10 hidden lg:block">
-                            <div className="flex items-center justify-start gap-18">
+                        <div className="lg:w-2/12 2xl:w-7/12 xl:w-6/12 w-auto mt-1 xl:ms-10 hidden lg:block">
+                            <div className="flex items-center justify-start 2xl:gap-18 lg:gap-6">
                                 {/* Categories Menu */}
 
                                 <div className="flex items-center">
@@ -108,7 +116,7 @@ const Header = () => {
                         </div>
 
                         {/* Right Side - Desktop */}
-                        <div className="hidden lg:block lg:w-4/12">
+                        <div className="hidden lg:block lg:w-5/12">
                             {user ?
                                 <div className="flex items-center justify-end space-x-4">
                                     <details ref={profileDropdown} className="dropdown relative" onClick={() => setIsProfileDropDownOpened(!isProfileDropDownOpened)}>
@@ -123,12 +131,7 @@ const Header = () => {
                                                 setIsProfileDropDownOpened(!isProfileDropDownOpened);
                                             }
                                         }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
-                                            <li><a>English & Grammer</a></li>
-                                            <li><a>Science</a></li>
-                                            <li><a>Biology</a></li>
-                                            <li><a>Physics</a></li>
-                                            <li><a>Mathemetics</a></li>
-                                            <li><a>ICT</a></li>
+                                            {studentProfileMenu}
                                         </ul>
                                     </details>
                                 </div>
@@ -166,16 +169,40 @@ const Header = () => {
                                 <div className="drawer-content">
                                     {/* Page content here */}
 
-                                    <label htmlFor="my-drawer-1" className="btn btn-circle swap swap-rotate [&_.swap-off]:opacity-0 ![&_.swap-active]:opacity-1 [&_.swap-active]:rotate-180  transition-all duration-300 *:text-xl bg-linear-to-r from-primary to-sky-200 border-0 w-7.5 h-7.5 ">
+                                    <div className='flex items-center gap-5'>
 
-                                        {/* hamburger icon */}
-                                        <FiMenu className={`${isDrawerOpen === false ? 'swap-active' : 'swap-off'}`} />
+                                        {user ?
+                                            <div className="flex items-center justify-end space-x-4">
+                                                <details ref={profileDropdown} className="dropdown relative" onClick={() => setIsProfileDropDownOpened(!isProfileDropDownOpened)}>
+                                                    <summary className={`border rounded-full flex items-center  gap-2 cursor-pointer justify-center w-8 h-8 transition-all duration-200 ${isProfileDropDownOpened ? "border-primary text-primary" : "border-stone-300 text-base-content"}`} >
+
+                                                        <FaRegUser />
+                                                    </summary>
+
+                                                    <ul onClick={(e) => {
+                                                        if (e.target.tagName === "a" | e.target.tagName === "A") {
+                                                            profileDropdown.current?.removeAttribute('open');
+                                                            setIsProfileDropDownOpened(!isProfileDropDownOpened);
+                                                        }
+                                                    }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
+                                                        {studentProfileMenu}
+                                                    </ul>
+                                                </details>
+                                            </div>
+                                            :
+                                            ""
+                                        }
+                                        <label htmlFor="my-drawer-1" className="btn btn-circle swap swap-rotate [&_.swap-off]:opacity-0 ![&_.swap-active]:opacity-1 [&_.swap-active]:rotate-180  transition-all duration-300 *:text-xl bg-linear-to-r from-primary to-sky-200 border-0 w-7.5 h-7.5 ">
+
+                                            {/* hamburger icon */}
+                                            <FiMenu className={`${isDrawerOpen === false ? 'swap-active' : 'swap-off'}`} />
 
 
-                                        {/* close icon */}
-                                        <IoClose className={`${isDrawerOpen ? 'swap-active' : 'swap-off'}`} />
+                                            {/* close icon */}
+                                            <IoClose className={`${isDrawerOpen ? 'swap-active' : 'swap-off'}`} />
 
-                                    </label>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div className="drawer-side top-[unset] bottom-0 max-h-[calc(100vh-62px)]" >
                                     <label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -209,7 +236,7 @@ const Header = () => {
                                             </ul>
                                         </details>
 
-                                        <ul className="flex mt-10 flex-col [&_a]:transition-all [&_a]:duration-200 font-body text-base-content text-base font-medium gap-0 [&_a.active]:text-primary [&_a:hover]:text-primary [&_li]:border-b [&_li]:border-stone-300 [&_a]:py-3 [&_a]:px-0">
+                                        <ul className="flex mt-10 mb-5 flex-col [&_a]:transition-all [&_a]:duration-200 font-body text-base-content text-base font-medium gap-0 [&_a.active]:text-primary [&_a:hover]:text-primary [&_li]:border-b [&_li]:border-stone-300 [&_a]:py-3 [&_a]:px-0">
                                             {primaryNav}
                                         </ul>
 
@@ -221,14 +248,21 @@ const Header = () => {
                                             </a>
 
                                             {/* CTA Button */}
+                                            {user ?
+                                                <button className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300" onClick={logOut}>
+                                                    <MdLogout /> Logout
+                                                </button>
+                                                :
+                                                <>
+                                                    <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-bold shadow-md shadow-stone-300 leading-none">
+                                                        Find Tutor
+                                                    </Link>
 
-                                            <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-bold shadow-md shadow-stone-300 leading-none">
-                                                Find Tutor
-                                            </Link>
+                                                    <Link to="/login" className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300">
+                                                        <MdLogin /> Login
+                                                    </Link>
+                                                </>}
 
-                                            <Link to="/login" className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300">
-                                                <MdLogin /> Login
-                                            </Link>
                                         </div>
 
 

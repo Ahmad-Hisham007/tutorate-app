@@ -12,6 +12,7 @@ export const auth = getAuth(app);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    // eslint-disable-next-line no-unused-vars
     const [error, setError] = useState('');
     // const [isAuthenticated, setIsAuthenticated] = useState(false)
 

@@ -10,8 +10,155 @@ import { LuMapPin, LuMessageCircleMore } from 'react-icons/lu';
 import { MdLocalPhone } from 'react-icons/md';
 import { FaChevronLeft, FaChevronRight, FaUserGraduate } from 'react-icons/fa';
 import pattern from "../../assets/pattren.svg"
+import TutorsCard from '../../Components/TutorsCard/TutorsCard';
 
 const TopInstructors = () => {
+    const tutorsData = [
+        {
+            id: 1,
+            initials: "DG",
+            name: "Dwayne Garrett",
+            location: "Arlington, TN",
+            rating: 5.0,
+            reviews: 66951,
+            hourlyRate: 893.30,
+            phone: "+1 (555) 123-4567",
+            whatsapp: "+1 (555) 987-6543",
+            qualification: "B.Tech in Mechanical Engineering",
+            specializations: ["Calculus", "Physics", "SAT Math"],
+            availability: {
+                weekdays: "Mon-Fri: 4 PM - 9 PM",
+                weekends: "Weekends: 9 AM - 6 PM",
+                nextAvailable: "Tomorrow"
+            }
+        },
+        {
+            id: 2,
+            initials: "GP",
+            name: "Gwendolyn Parker",
+            location: "Las Vegas, NV",
+            rating: 5.0,
+            reviews: 38494,
+            hourlyRate: 1385.10,
+            phone: "+1 (555) 234-5678",
+            whatsapp: "+1 (555) 876-5432",
+            qualification: "M.A. in English Literature",
+            specializations: ["Creative Writing", "SAT/ACT English", "College Essays"],
+            availability: {
+                weekdays: "Mon-Fri: 3 PM - 8 PM",
+                weekends: "Weekends: 10 AM - 4 PM",
+                nextAvailable: "Today"
+            }
+        },
+        {
+            id: 3,
+            initials: "GB",
+            name: "Glen Burns",
+            location: "Chicago, IL",
+            rating: 5.0,
+            reviews: 47044,
+            hourlyRate: 1336.83,
+            phone: "+1 (555) 345-6789",
+            whatsapp: "+1 (555) 765-4321",
+            qualification: "Ph.D. in Chemistry",
+            specializations: ["AP Chemistry", "Organic Chemistry", "Biochemistry"],
+            availability: {
+                weekdays: "Mon-Fri: 5 PM - 10 PM",
+                weekends: "Weekends: 9 AM - 5 PM",
+                nextAvailable: "Tomorrow"
+            }
+        },
+        {
+            id: 4,
+            initials: "WW",
+            name: "William Williams",
+            location: "Nashville, TN",
+            rating: 5.0,
+            reviews: 57282,
+            hourlyRate: 1198.12,
+            phone: "+1 (555) 456-7890",
+            whatsapp: "+1 (555) 654-3210",
+            qualification: "M.Sc. in Mathematics",
+            specializations: ["Algebra", "Geometry", "Statistics"],
+            availability: {
+                weekdays: "Mon, Wed, Fri: 4 PM - 9 PM",
+                weekends: "Sat: 10 AM - 3 PM",
+                nextAvailable: "In 2 days"
+            }
+        },
+        {
+            id: 5,
+            initials: "MR",
+            name: "Maria Rodriguez",
+            location: "Miami, FL",
+            rating: 4.9,
+            reviews: 42150,
+            hourlyRate: 945.50,
+            phone: "+1 (555) 567-8901",
+            whatsapp: "+1 (555) 543-2109",
+            qualification: "M.A. in Spanish Linguistics",
+            specializations: ["Spanish", "French", "ESL"],
+            availability: {
+                weekdays: "Daily: 9 AM - 8 PM",
+                weekends: "Weekends: 10 AM - 6 PM",
+                nextAvailable: "Today"
+            }
+        },
+        {
+            id: 6,
+            initials: "AK",
+            name: "Alex Kim",
+            location: "San Francisco, CA",
+            rating: 5.0,
+            reviews: 31882,
+            hourlyRate: 1450.75,
+            phone: "+1 (555) 678-9012",
+            whatsapp: "+1 (555) 432-1098",
+            qualification: "M.S. Computer Science",
+            specializations: ["Python", "JavaScript", "Machine Learning"],
+            availability: {
+                weekdays: "Flexible schedule",
+                weekends: "By appointment",
+                nextAvailable: "Tomorrow"
+            }
+        },
+        {
+            id: 7,
+            initials: "SJ",
+            name: "Sarah Johnson",
+            location: "Seattle, WA",
+            rating: 4.9,
+            reviews: 28345,
+            hourlyRate: 875.00,
+            phone: "+1 (555) 789-0123",
+            whatsapp: "+1 (555) 321-0987",
+            qualification: "B.F.A. in Fine Arts",
+            specializations: ["Drawing", "Painting", "Digital Art"],
+            availability: {
+                weekdays: "Tue, Thu: 2 PM - 8 PM",
+                weekends: "Sat: 11 AM - 5 PM",
+                nextAvailable: "Thursday"
+            }
+        },
+        {
+            id: 8,
+            initials: "JC",
+            name: "James Chen",
+            location: "New York, NY",
+            rating: 5.0,
+            reviews: 52341,
+            hourlyRate: 1599.99,
+            phone: "+1 (555) 890-1234",
+            whatsapp: "+1 (555) 210-9876",
+            qualification: "Ph.D. in Physics",
+            specializations: ["Quantum Physics", "Mechanics", "Astrophysics"],
+            availability: {
+                weekdays: "By appointment",
+                weekends: "Limited availability",
+                nextAvailable: "Next week"
+            }
+        }
+    ];
     return (
         <section className='relative top-instructors after:absolute after:top-0 after:right-0 after:w-9/12 after:content-[""] after:-z-1 after:bg-slate-50 after:rounded-t-[10px] after:rounded-b-[10px] after:h-full py-25 overflow-x-hidden'>
             <img src={pattern} alt="pattern" className='absolute left-1/12 top-1/12' />
@@ -29,12 +176,10 @@ const TopInstructors = () => {
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
                     breakpoints={{
-                        // When window width is >= 640px (tablet)
                         640: {
                             slidesPerView: 2,
                             spaceBetween: 20,
                         },
-                        // When window width is >= 1024px (desktop)
                         1024: {
                             slidesPerView: 3,
                             spaceBetween: 20,
@@ -42,298 +187,11 @@ const TopInstructors = () => {
                     }}
                     className='mt-10'
                 >
-                    <SwiperSlide>
-                        <div className="bg-white rounded-sm shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
-                            <div className="p-6 h-full flex flex-col">
-                                {/* Badge and Image */}
-
-                                <div className="flex items-center flex-wrap gap-2 mb-6">
-                                    <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white  font-bold mr-4">
-                                        DG
-                                    </div>
-                                    <div>
-                                        <h3 className="md:text-xl text-lg font-bold text-gray-800">Dwayne Garrett</h3>
-                                        <div className="flex items-center mt-1">
-                                            <div className="flex text-yellow-400">
-                                                ★★★★★
-                                            </div>
-                                            <span className="text-gray-600 text-sm font-medium ml-2">5.0 (66,951)</span>
-                                        </div>
-                                        <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1"><LuMapPin /> Arlington, TN</p>
-                                    </div>
-                                </div>
-
-                                {/* Details */}
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-500">Starting from:</span>
-                                        <span className="font-bold text-gray-800">$893.30/hr</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><MdLocalPhone /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 123-4567</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><LuMessageCircleMore /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 987-6543</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><FaUserGraduate /></span>
-                                        <span className="text-gray-700 text-sm font-medium">B.Tech in Mechanical Engineering</span>
-                                    </div>
-                                </div>
-
-                                {/* Specializations */}
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Calculus</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Physics</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">SAT Math</span>
-                                    </div>
-                                </div>
-
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Availability:</p>
-                                    <div className="bg-gray-50 p-3 rounded-lg">
-                                        <p className="text-sm text-gray-700">Mon-Fri: 4 PM - 9 PM</p>
-                                        <p className="text-sm text-gray-700">Weekends: 9 AM - 6 PM</p>
-                                        <p className="text-xs text-green-600 mt-1">Next available: Tomorrow</p>
-                                    </div>
-                                </div>
-                                {/* Action Buttons */}
-                                <div className="flex flex-col items-stretch gap-3 mt-auto">
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
-                                        <span>Contact now</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2  items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
-                                        <span>View full profile</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="bg-white rounded-sm shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
-                            <div className="p-6 h-full flex flex-col">
-                                {/* Badge and Image */}
-
-                                <div className="flex items-center flex-wrap gap-2 mb-6">
-                                    <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white  font-bold mr-4">
-                                        DG
-                                    </div>
-                                    <div>
-                                        <h3 className="md:text-xl text-lg font-bold text-gray-800">Dwayne Garrett</h3>
-                                        <div className="flex items-center mt-1">
-                                            <div className="flex text-yellow-400">
-                                                ★★★★★
-                                            </div>
-                                            <span className="text-gray-600 text-sm font-medium ml-2">5.0 (66,951)</span>
-                                        </div>
-                                        <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1"><LuMapPin /> Arlington, TN</p>
-                                    </div>
-                                </div>
-
-                                {/* Details */}
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-500">Starting from:</span>
-                                        <span className="font-bold text-gray-800">$893.30/hr</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><MdLocalPhone /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 123-4567</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><LuMessageCircleMore /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 987-6543</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><FaUserGraduate /></span>
-                                        <span className="text-gray-700 text-sm font-medium">B.Tech in Mechanical Engineering</span>
-                                    </div>
-                                </div>
-
-                                {/* Specializations */}
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Calculus</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Physics</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">SAT Math</span>
-                                    </div>
-                                </div>
-
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Availability:</p>
-                                    <div className="bg-gray-50 p-3 rounded-lg">
-                                        <p className="text-sm text-gray-700">Mon-Fri: 4 PM - 9 PM</p>
-                                        <p className="text-sm text-gray-700">Weekends: 9 AM - 6 PM</p>
-                                        <p className="text-xs text-green-600 mt-1">Next available: Tomorrow</p>
-                                    </div>
-                                </div>
-                                {/* Action Buttons */}
-                                <div className="flex flex-col items-stretch gap-3 mt-auto">
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
-                                        <span>Contact now</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2  items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
-                                        <span>View full profile</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="bg-white rounded-sm shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
-                            <div className="p-6 h-full flex flex-col">
-                                {/* Badge and Image */}
-
-                                <div className="flex items-center flex-wrap gap-2 mb-6">
-                                    <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white  font-bold mr-4">
-                                        DG
-                                    </div>
-                                    <div>
-                                        <h3 className="md:text-xl text-lg font-bold text-gray-800">Dwayne Garrett</h3>
-                                        <div className="flex items-center mt-1">
-                                            <div className="flex text-yellow-400">
-                                                ★★★★★
-                                            </div>
-                                            <span className="text-gray-600 text-sm font-medium ml-2">5.0 (66,951)</span>
-                                        </div>
-                                        <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1"><LuMapPin /> Arlington, TN</p>
-                                    </div>
-                                </div>
-
-                                {/* Details */}
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-500">Starting from:</span>
-                                        <span className="font-bold text-gray-800">$893.30/hr</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><MdLocalPhone /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 123-4567</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><LuMessageCircleMore /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 987-6543</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><FaUserGraduate /></span>
-                                        <span className="text-gray-700 text-sm font-medium">B.Tech in Mechanical Engineering</span>
-                                    </div>
-                                </div>
-
-                                {/* Specializations */}
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Calculus</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Physics</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">SAT Math</span>
-                                    </div>
-                                </div>
-
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Availability:</p>
-                                    <div className="bg-gray-50 p-3 rounded-lg">
-                                        <p className="text-sm text-gray-700">Mon-Fri: 4 PM - 9 PM</p>
-                                        <p className="text-sm text-gray-700">Weekends: 9 AM - 6 PM</p>
-                                        <p className="text-xs text-green-600 mt-1">Next available: Tomorrow</p>
-                                    </div>
-                                </div>
-                                {/* Action Buttons */}
-                                <div className="flex flex-col items-stretch gap-3 mt-auto">
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
-                                        <span>Contact now</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2  items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
-                                        <span>View full profile</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="bg-white rounded-sm shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
-                            <div className="p-6 h-full flex flex-col">
-                                {/* Badge and Image */}
-
-                                <div className="flex items-center flex-wrap gap-2 mb-6">
-                                    <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white  font-bold mr-4">
-                                        DG
-                                    </div>
-                                    <div>
-                                        <h3 className="md:text-xl text-lg font-bold text-gray-800">Dwayne Garrett</h3>
-                                        <div className="flex items-center mt-1">
-                                            <div className="flex text-yellow-400">
-                                                ★★★★★
-                                            </div>
-                                            <span className="text-gray-600 text-sm font-medium ml-2">5.0 (66,951)</span>
-                                        </div>
-                                        <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1"><LuMapPin /> Arlington, TN</p>
-                                    </div>
-                                </div>
-
-                                {/* Details */}
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-500">Starting from:</span>
-                                        <span className="font-bold text-gray-800">$893.30/hr</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><MdLocalPhone /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 123-4567</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><LuMessageCircleMore /></span>
-                                        <span className="text-gray-700 text-sm font-medium">+1 (555) 987-6543</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <span className="text-gray-500 mr-2"><FaUserGraduate /></span>
-                                        <span className="text-gray-700 text-sm font-medium">B.Tech in Mechanical Engineering</span>
-                                    </div>
-                                </div>
-
-                                {/* Specializations */}
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Calculus</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">Physics</span>
-                                        <span className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full">SAT Math</span>
-                                    </div>
-                                </div>
-
-                                <div className="mb-6">
-                                    <p className="text-gray-500 text-sm mb-2">Availability:</p>
-                                    <div className="bg-gray-50 p-3 rounded-lg">
-                                        <p className="text-sm text-gray-700">Mon-Fri: 4 PM - 9 PM</p>
-                                        <p className="text-sm text-gray-700">Weekends: 9 AM - 6 PM</p>
-                                        <p className="text-xs text-green-600 mt-1">Next available: Tomorrow</p>
-                                    </div>
-                                </div>
-                                {/* Action Buttons */}
-                                <div className="flex flex-col items-stretch gap-3 mt-auto">
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
-                                        <span>Contact now</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                    <button href="signup.html" className="rounded-sm cursor-pointer flex gap-2  items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
-                                        <span>View full profile</span>
-                                        <IoChevronForwardOutline className='text-lg' />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
+                    {tutorsData.map((tutor) => (
+                        <SwiperSlide key={tutor.id} style={{ height: 'auto' }}>
+                            <TutorsCard tutor={tutor}></TutorsCard>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
                 <button className="custom-prev absolute md:top-4 top-25 md:right-20 right-15 z-10 md:h-15 md:w-15 w-7 h-7 md:text-base text-sm rounded-full border border-slate-200 bg-white flex justify-center items-center hover:bg-slate-200 cursor-pointer leading-none"><FaChevronLeft /></button>
                 <button className="custom-next absolute md:top-4 top-25 right-4 z-10 md:h-15 md:w-15 w-7 h-7 md:text-base text-sm rounded-full border border-slate-200 bg-white flex justify-center items-center hover:bg-slate-200 cursor-pointer leading-none"><FaChevronRight /></button>

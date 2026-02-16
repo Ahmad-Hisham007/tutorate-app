@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Logo from '../../assets/tutorate-logo.png'
 import { CgMenuGridR } from 'react-icons/cg';
 import { LuPhoneCall } from 'react-icons/lu';
@@ -7,10 +7,15 @@ import { IoClose } from 'react-icons/io5';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link, NavLink, useLocation } from 'react-router';
 import { MdLogin } from 'react-icons/md';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { FaRegUser } from 'react-icons/fa6';
 
 const Header = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isMobileDepDropdownOpened, setIsMobileDepDropdownOpened] = useState(false)
+    const [isMobileDepDropdownOpened, setIsMobileDepDropdownOpened] = useState(false);
+    const [isProfileDropDownOpened, setIsProfileDropDownOpened] = useState(false);
+    const profileDropdown = useRef(null);
+    const { user } = useContext(AuthContext)
     const mobileDepDropdown = useRef(null);
     const drawerCheckbox = useRef(null);
 
@@ -104,27 +109,53 @@ const Header = () => {
 
                         {/* Right Side - Desktop */}
                         <div className="hidden lg:block lg:w-4/12">
-                            <div className="flex items-center justify-end space-x-4">
-                                {/* Phone Number */}
-                                <div className="hidden lg:block">
-                                    <a href="tel:+1234456789" className="flex items-center gap-3 text-base-content font-medium font-primary">
-                                        <LuPhoneCall className='text-xl mt-0.5 text-primary' />
-                                        <span>+1234 456 789</span>
-                                    </a>
+                            {user ?
+                                <div className="flex items-center justify-end space-x-4">
+                                    <details ref={profileDropdown} className="dropdown relative" onClick={() => setIsProfileDropDownOpened(!isProfileDropDownOpened)}>
+                                        <summary className={`border rounded-full flex items-center  gap-2 cursor-pointer justify-center w-10 h-10 transition-all duration-200 ${isProfileDropDownOpened ? "border-primary text-primary" : "border-stone-300 text-base-content"}`} >
+
+                                            <FaRegUser />
+                                        </summary>
+
+                                        <ul onClick={(e) => {
+                                            if (e.target.tagName === "a" | e.target.tagName === "A") {
+                                                profileDropdown.current?.removeAttribute('open');
+                                                setIsProfileDropDownOpened(!isProfileDropDownOpened);
+                                            }
+                                        }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
+                                            <li><a>English & Grammer</a></li>
+                                            <li><a>Science</a></li>
+                                            <li><a>Biology</a></li>
+                                            <li><a>Physics</a></li>
+                                            <li><a>Mathemetics</a></li>
+                                            <li><a>ICT</a></li>
+                                        </ul>
+                                    </details>
                                 </div>
-                                <hr className='h-5 bg-gray-300 w-px border-0' />
-                                {/* CTA Button */}
+                                :
+                                <div className="flex items-center justify-end space-x-4">
+                                    {/* Phone Number */}
+                                    <div className="hidden lg:block">
+                                        <a href="tel:+1234456789" className="flex items-center gap-3 text-base-content font-medium font-primary">
+                                            <LuPhoneCall className='text-xl mt-0.5 text-primary' />
+                                            <span>+1234 456 789</span>
+                                        </a>
+                                    </div>
+                                    <hr className='h-5 bg-gray-300 w-px border-0' />
+                                    {/* CTA Button */}
 
-                                <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-semibold shadow-md shadow-stone-300 leading-none">
-                                    Find Tutor
-                                </Link>
+                                    <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-semibold shadow-md shadow-stone-300 leading-none">
+                                        Find Tutor
+                                    </Link>
 
-                                <Link to="/login" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300 flex items-center gap-2">
-                                    <MdLogin /> Login
-                                </Link>
+                                    <Link to="/login" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300 flex items-center gap-2">
+                                        <MdLogin /> Login
+                                    </Link>
 
 
-                            </div>
+                                </div>
+                            }
+
                         </div>
 
                         {/* Mobile Menu Toggle */}

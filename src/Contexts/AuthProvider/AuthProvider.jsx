@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createContext } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
 import toast from 'react-hot-toast';
 
@@ -80,12 +80,36 @@ export const AuthProvider = ({ children }) => {
 
     };
 
+    // Login function
+    const handleLogin = async (data) => {
+        const email = await data.email;
+        const password = await data.password;
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                // eslint-disable-next-line no-unused-vars
+                const user = userCredential.user;
+                toast.success('Login Successful');
+                setError('');
+                setLoading(false)
+                // setIsAuthenticated(true);
+            })
+            .catch((err) => {
+                const errorMessage = err.message;
+                toast.error(`Login Failed: ${errorMessage}`);
+            });
+
+    }
+
+    // Log out function
+
     const logOut = () => {
         return signOut(auth)
     }
     const authData = {
         user,
         handleRegister,
+        handleLogin,
         logOut,
         loading,
         setLoading

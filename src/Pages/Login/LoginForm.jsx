@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
 import { Link } from 'react-router';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [selectedRole, setSelectedRole] = useState('student');
+    const { handleLogin, loading } = useContext(AuthContext);
 
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        reset,
         // watch
     } = useForm({
         defaultValues: {
@@ -23,7 +26,13 @@ const LoginForm = () => {
     const onSubmit = async (data) => {
         console.log('Form Data:', data);
         // Handle registration logic here
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+        const success = handleLogin(data);
+
+        if (success) {
+            // Reset the form after successful registration
+            reset(); // This will reset all form fields to default values
+            setSelectedRole('student'); // Reset the role state as well
+        }
     };
 
 

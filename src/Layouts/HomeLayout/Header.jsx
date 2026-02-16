@@ -6,6 +6,7 @@ import { FiMenu } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link, NavLink, useLocation } from 'react-router';
+import { MdLogin } from 'react-icons/md';
 
 const Header = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -118,9 +119,10 @@ const Header = () => {
                                     Find Tutor
                                 </Link>
 
-                                <Link to="/register" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300">
-                                    Be a Tutor
+                                <Link to="/login" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300 flex items-center gap-2">
+                                    <MdLogin /> Login
                                 </Link>
+
 
                             </div>
                         </div>
@@ -189,13 +191,13 @@ const Header = () => {
 
                                             {/* CTA Button */}
 
-                                            <a href="https://demo.tuitionlms.com/courses/" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-bold shadow-md shadow-stone-300 leading-none">
+                                            <Link to="/register" className="bg-secondary hover:bg-transparent border border-secondary hover:border-base-content hover:text-base-content transition-all duration-200 text-white px-6 py-3.5 rounded-xl font-bold shadow-md shadow-stone-300 leading-none">
                                                 Find Tutor
-                                            </a>
+                                            </Link>
 
-                                            <a href="https://demo.tuitionlms.com/courses/" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300">
-                                                Be a Tutor
-                                            </a>
+                                            <Link to="/login" className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300">
+                                                <MdLogin /> Login
+                                            </Link>
                                         </div>
 
 

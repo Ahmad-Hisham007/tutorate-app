@@ -1,6 +1,9 @@
 import React from 'react';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
 import RegistrationForm from './RegistrationForm';
+import Logo from "../../assets/tutorate-logo.png";
+import img1 from "../../assets/img-01.png";
+import toast from 'react-hot-toast';
 
 
 
@@ -8,36 +11,33 @@ import RegistrationForm from './RegistrationForm';
 const Register = () => {
 
     return (
-        <section className="min-h-screen bg-base-100 py-16 lg:py-24">
-            <div className="container mx-auto px-4">
-                <div className="max-w-2xl mx-auto">
+        <section className="min-h-screen">
+            <div className="mx-auto grid grid-cols-1 lg:grid-cols-2">
+                <div className='bg-accent flex items-center justify-start flex-col md:p-12 px-5 py-10 md:pt-30'>
+                    <img src={Logo} alt="Logo" className='max-w-50 mb-12 md:mb-20' />
+                    <img src={img1} alt="image illustration" />
+                    <div className='w-full h-10 md:h-20'></div>
+                    <h2 className='font-primary text-[32px] font-bold text-base-content mb-2.5 text-center'>
+                        Yes! we’re making progress
+                    </h2>
+                    <p className='text-lg font-bold text-primary text-center'>
+                        With every step of your journey
+                    </p>
+
+                </div>
+                <div className="px-5 py-10 md:p-12 md:pt-30 flex items-center justify-center flex-col">
                     {/* Header */}
                     <div className="text-center mb-10">
-                        <h1 className="font-primary text-3xl md:text-4xl lg:text-5xl font-bold text-base-content mb-4">
-                            Create Your <span className="text-primary">Account</span>
+                        <h1 className="font-primary text-4xl font-bold text-base-content mb-4">
+                            Create Your <span className="text-primary">#Account</span>
                         </h1>
                         <p className="text-base-content/70 text-lg">
                             Join our community of learners and educators
                         </p>
                     </div>
-
                     {/* Registration Form */}
                     <RegistrationForm></RegistrationForm>
 
-                    {/* Features Summary */}
-                    <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { icon: '✓', text: 'Free Registration' },
-                            { icon: '🔒', text: 'Secure Platform' },
-                            { icon: '⚡', text: 'Instant Access' },
-                            { icon: '🎓', text: 'Verified Tutors' }
-                        ].map((feature, index) => (
-                            <div key={index} className="text-center p-3">
-                                <div className="text-2xl mb-1">{feature.icon}</div>
-                                <p className="text-xs text-base-content/60">{feature.text}</p>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             </div>
         </section>

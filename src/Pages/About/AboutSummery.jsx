@@ -3,11 +3,11 @@ import React from 'react';
 const AboutSummery = () => {
     return (
         <section className='md:py-17 py-12'>
-            <div className='max-w-6xl mx-auto'>
+            <div className='max-w-6xl mx-auto px-5 md:px-0'>
 
-                <h2 className='font-bold text-4xl text-base-content font-primary max-w-91'>We are providing the best quality online courses.</h2>
+                <h2 className='font-bold text-4xl text-base-content font-primary max-w-180'>We empower learners worldwide with industry-relevant skills through flexible, expert-led online education.</h2>
                 <p className='leading-relaxed text-base mt-7'>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using is that it has a more-or-less normal distribution of letters as opposed to using Content here content here making it look like readable English. There are many variations of passages of available but the majority have suffered alteration in some form by injected words which don’t look even slightly believable.
+                    We are committed to delivering high-quality education that fits your schedule. Our platform offers a wide range of courses designed by industry experts to help you gain practical skills and advance your career. Whether you are looking to upskill or explore a new field, our courses are structured to provide you with the knowledge and support you need to succeed.
                 </p>
             </div>
         </section>

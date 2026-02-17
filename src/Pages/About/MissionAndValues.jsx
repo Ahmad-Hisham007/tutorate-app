@@ -4,13 +4,13 @@ import { FaLightbulb, FaRocket } from 'react-icons/fa';
 const MissionAndValues = () => {
     return (
         <section className="py-16 bg-white">
-            <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-primary font-bold mb-4">
                         Mission & <span className="text-primary">Values</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        The point of using is that it has a more-or-less normal distribution of letters as opposed to English. There are many don't look even slightly believable.
+                        We exist to break down barriers to education. Our mission is to make lifelong learning accessible, affordable, and engaging for everyone, everywhere.
                     </p>
                 </div>
 
@@ -21,7 +21,7 @@ const MissionAndValues = () => {
                         </div>
                         <h3 className="text-2xl font-primary font-bold mb-4">Excellence</h3>
                         <p className="text-gray-600">
-                            The point of using is that it has a more-or-less normal distribution of letters as opposed to English. There are many don't look even slightly believable.
+                            We hold ourselves to the highest standards. Every course is reviewed for accuracy, relevance, and teaching quality before it reaches our learners.
                         </p>
                     </div>
                     <div className="p-8 rounded-2xl border-2 border-gray-200 hover:border-amber-200 transition-all hover:shadow-xl">
@@ -30,7 +30,7 @@ const MissionAndValues = () => {
                         </div>
                         <h3 className="text-2xl font-primary font-bold mb-4">Innovation</h3>
                         <p className="text-gray-600">
-                            The point of using is that it has a more-or-less normal distribution of letters as opposed to English. There are many don't look even slightly believable.
+                            Learning should evolve with technology. We continuously explore new formats, tools, and teaching methods to make education more interactive and effective.
                         </p>
                     </div>
                 </div>

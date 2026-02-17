@@ -19,7 +19,7 @@ const Footer = () => {
                                     <img src={Logo} alt="Logo" className='w-44' />
                                 </Link>
                             </strong>
-                            <p className="tu-footerdescription">Accusamus etidio dignissimos ducimus blanditiis praesentium volupta eleniti atquete corrupti quolores etmquasa molestias epturi sinteam occaecati cupiditate non providente mikume molareshe.</p>
+                            <p className="tu-footerdescription">Tutorate is your personalized learning companion. Whether you need help with a tricky subject or want to explore advanced topics, our tutors provide one-on-one guidance tailored to your pace and goals.</p>
                             <ul className="flex gap-3 mt-6 [&_a:hover]:border-primary [&_a:hover]:bg-primary [&_a:hover]:transition-all [&_a:hover]:duration-200">
                                 <li><a className="w-12 h-12 flex justify-center items-center rounded-full border-2 border-teal-700" href="https://www.facebook.com/" target="_blank"><FaFacebookF /></a></li>
                                 <li><a className="w-12 h-12 flex justify-center items-center rounded-full border-2 border-teal-700" href="https://twitter.com/?lang=en" target="_blank"><FaTwitter /></a></li>
@@ -59,7 +59,7 @@ const Footer = () => {
                         <div className="lg:col-span-6 lg:flex">
                             <div className="tu-footernewsletter">
                                 <h5 className="font-primary font-medium text-lg mb-4">Signup for newsletter</h5>
-                                <p>Corrupti quolores etmquasa molestias epturite sinteam occaecati amet cupiditate mikume molareshe.</p>
+                                <p>Be the first to know about new course launches, exclusive discounts, and learning tips. Join our community of motivated learners today.</p>
                                 <div className="flex items-stretch gap-3 w-full mt-4">
                                     <input id="email" type="text" placeholder="Enter your email" className="input text-base font-medium font-body w-full h-auto text-stone-400 border-0 outline-0 bg-[#3f5850bd] shadow-none" />
                                     <button role="btn" type='submit' className="bg-secondary p-4 text-lg text-base-content rounded"><FaRegPaperPlane /></button>

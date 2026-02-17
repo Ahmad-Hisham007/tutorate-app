@@ -26,7 +26,7 @@ const Statsection2 = () => {
             <section className="bg-slate-100 py-16">
                 <div className="max-w-6xl mx-auto px-4 gap-7.5">
                     {/* Main container with flex layout */}
-                    <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="flex flex-col-reverse lg:flex-row gap-8">
 
                         {/* Stats cards container */}
                         <div className="flex flex-col flex-1 md:max-w-4/12">
@@ -44,7 +44,7 @@ const Statsection2 = () => {
                                         </span>
                                     </div>
                                     <div className="text-gray-600 text-sm md:text-base">
-                                        Undergraduate and graduate students
+                                        Active students enrolled worldwide
                                     </div>
                                 </div>
 
@@ -59,7 +59,7 @@ const Statsection2 = () => {
                                         </span>
                                     </div>
                                     <div className="text-gray-600 text-sm md:text-base">
-                                        Undergraduate and graduate students
+                                        Successful graduates.
                                     </div>
                                 </div>
 
@@ -74,7 +74,7 @@ const Statsection2 = () => {
                                         </span>
                                     </div>
                                     <div className="text-gray-600 text-sm md:text-base">
-                                        Undergraduate and graduate students
+                                        Course completions across all programs
                                     </div>
                                 </div>
                             </div>

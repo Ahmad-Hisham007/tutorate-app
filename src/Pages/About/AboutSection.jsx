@@ -4,16 +4,16 @@ const AboutSection = () => {
     return (
         <section className="py-16 lg:py-24">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-primary font-bold mb-6">
-                            We Providing the best quality online <span className="text-primary">Courses.</span>
+                            We are providing the best quality <span className="text-primary">#Tutors.</span>
                         </h2>
                         <p className="text-gray-600 mb-6 leading-relaxed">
-                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using is that it has a more-or-less normal distribution of letters as opposed to using 'Content here, content here', making it look like readable English.
+                            We focus on delivering courses that are clear, practical, and genuinely useful for your growth. Every lesson is built by experts who know how to explain complex topics in simple ways, so you actually understand and remember what you learn.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            There are many variations of passages of available but the majority have suffered alteration in some form by injected words which don't look even slightly believable.
+                            Our platform includes hundreds of programs across various fields, all designed to help you build real skills at your own pace. We constantly update our content to match industry changes, ensuring you always have access to the most relevant and up-to-date material available.
                         </p>
                     </div>
                     <div className="relative">

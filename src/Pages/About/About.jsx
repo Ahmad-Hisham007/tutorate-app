@@ -16,7 +16,6 @@ const About = () => {
             <Statsection2></Statsection2>
             <AboutSection></AboutSection>
             <StatsSection></StatsSection>
-            <HistorySection></HistorySection>
             <MissionAndValues></MissionAndValues>
 
         </>

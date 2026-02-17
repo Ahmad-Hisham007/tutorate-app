@@ -3,7 +3,7 @@ import React from 'react';
 const AboutSection = () => {
     return (
         <section className="py-16 lg:py-24">
-            <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto px-4">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl md:text-4xl font-primary font-bold mb-6">

@@ -2,8 +2,8 @@ import React from 'react';
 
 const AboutSummery = () => {
     return (
-        <section className='md:py-25 py-17'>
-            <div className='max-w-312 mx-auto'>
+        <section className='md:py-17 py-12'>
+            <div className='max-w-6xl mx-auto'>
 
                 <h2 className='font-bold text-4xl text-base-content font-primary max-w-91'>We are providing the best quality online courses.</h2>
                 <p className='leading-relaxed text-base mt-7'>

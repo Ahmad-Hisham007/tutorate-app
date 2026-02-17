@@ -24,7 +24,7 @@ const Statsection2 = () => {
         <>
             <style>{animationStyles}</style>
             <section className="bg-slate-100 py-16">
-                <div className="max-2-312 mx-auto px-4 gap-7.5">
+                <div className="max-w-6xl mx-auto px-4 gap-7.5">
                     {/* Main container with flex layout */}
                     <div className="flex flex-col lg:flex-row gap-8">
 
@@ -35,7 +35,7 @@ const Statsection2 = () => {
 
                                 {/* Card 1 - Primary Color */}
                                 <div
-                                    className="flex-1 bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
+                                    className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
                                     style={{ animationDelay: '0s', opacity: 0 }}
                                 >
                                     <div className="mb-2">
@@ -50,11 +50,11 @@ const Statsection2 = () => {
 
                                 {/* Card 2 - Secondary Color */}
                                 <div
-                                    className="flex-1 bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
+                                    className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
                                     style={{ animationDelay: '0.2s', opacity: 0 }}
                                 >
                                     <div className="mb-2">
-                                        <span className="text-4xl md:text-5xl font-primary font-bold text-secondary">
+                                        <span className="text-4xl md:text-5xl font-primary font-bold text-primary">
                                             16,214
                                         </span>
                                     </div>
@@ -65,11 +65,11 @@ const Statsection2 = () => {
 
                                 {/* Card 3 - Accent Color */}
                                 <div
-                                    className="flex-1 bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
+                                    className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
                                     style={{ animationDelay: '0.3s', opacity: 0 }}
                                 >
                                     <div className="mb-2">
-                                        <span className="text-4xl md:text-5xl font-primary font-bold text-accent">
+                                        <span className="text-4xl md:text-5xl font-primary font-bold text-primary">
                                             300k
                                         </span>
                                     </div>

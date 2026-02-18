@@ -5,6 +5,8 @@ import { IoMdClose } from 'react-icons/io';
 import TuitionCard from '../../../Components/TuitionCard/TuitionCard';
 
 const TuitionsListing = () => {
+
+
     const tuitionListings = [
         {
             id: 1,

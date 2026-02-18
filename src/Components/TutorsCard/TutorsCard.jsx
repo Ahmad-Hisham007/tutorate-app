@@ -3,15 +3,17 @@ import { IoChevronForwardOutline } from 'react-icons/io5';
 import { LuMapPin, LuMessageCircleMore } from 'react-icons/lu';
 import { MdLocalPhone } from 'react-icons/md';
 import { FaChevronLeft, FaChevronRight, FaUserGraduate } from 'react-icons/fa';
+import useInitials from '../../Hooks/useInitials';
 
 const TutorsCard = ({ tutor }) => {
+
     return (
         <div className="bg-white rounded-sm shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow h-full">
             <div className="p-6 h-full flex flex-col">
                 {/* Profile Header */}
                 <div className="flex items-center flex-wrap gap-2 mb-6">
                     <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-primary/40 to-primary flex items-center justify-center text-white font-bold mr-4">
-                        {tutor.initials}
+                        {useInitials(tutor.name)}
                     </div>
                     <div>
                         <h3 className="md:text-xl text-lg font-bold text-gray-800">
@@ -23,7 +25,7 @@ const TutorsCard = ({ tutor }) => {
                                 {tutor.rating % 1 !== 0 && '½'}
                             </div>
                             <span className="text-gray-600 text-sm font-medium ml-2">
-                                {tutor.rating} ({tutor.reviews.toLocaleString()})
+                                {tutor.rating} ({tutor.totalReviews.toLocaleString()})
                             </span>
                         </div>
                         <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1">
@@ -61,13 +63,13 @@ const TutorsCard = ({ tutor }) => {
                             <FaUserGraduate />
                         </span>
                         <span className="text-gray-700 text-sm font-medium">
-                            {tutor.qualification}
+                            {tutor.qualifications}
                         </span>
                     </div>
                 </div>
 
                 {/* Specializations */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                     <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
                     <div className="flex flex-wrap gap-2">
                         {tutor.specializations.map((spec, index) => (
@@ -79,7 +81,7 @@ const TutorsCard = ({ tutor }) => {
                             </span>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 {/* Availability */}
                 <div className="mb-6">

@@ -66,9 +66,12 @@ const TuitionCard = ({ tuition }) => {
             <div className="p-5 flex flex-col">
                 {/* Title & Institution */}
                 <div className="mb-4">
-                    <h3 className="font-primary text-lg font-bold text-base-content mb-1 line-clamp-1 group-hover:text-primary transition-colors">
-                        {title}
-                    </h3>
+
+                    <Link to={`/tuitions/${tuition._id}`}>
+                        <h3 className="font-primary text-lg font-bold text-base-content mb-1 line-clamp-1 group-hover:text-primary transition-colors">
+                            {title}
+                        </h3>
+                    </Link>
                     <div className="flex items-center gap-2 text-sm">
                         <span className="text-base-content/70">{institution}</span>
                         <span className="w-1 h-1 rounded-full bg-base-content/30"></span>
@@ -126,9 +129,10 @@ const TuitionCard = ({ tuition }) => {
                     <button className="flex-1 bg-primary text-base-100 py-2.5 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
                         Apply Now
                     </button>
-                    <button className="px-4 py-2.5 border border-base-content/20 rounded-lg font-medium text-sm text-base-content hover:bg-base-content/5 transition-colors">
+                    <Link to={`/tuitions/${tuition._id}`} className="px-4 py-2.5 border border-base-content/20 rounded-lg font-medium text-sm text-base-content hover:bg-base-content/5 transition-colors">
                         Details
-                    </button>
+                    </Link>
+
                 </div>
             </div>
         </div>

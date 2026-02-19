@@ -4,6 +4,7 @@ import { LuMapPin, LuMessageCircleMore } from 'react-icons/lu';
 import { MdLocalPhone } from 'react-icons/md';
 import { FaChevronLeft, FaChevronRight, FaUserGraduate } from 'react-icons/fa';
 import useInitials from '../../Hooks/useInitials';
+import { Link } from 'react-router';
 
 const TutorsCard = ({ tutor }) => {
 
@@ -12,25 +13,31 @@ const TutorsCard = ({ tutor }) => {
             <div className="p-6 h-full flex flex-col">
                 {/* Profile Header */}
                 <div className="flex items-center flex-wrap gap-2 mb-6">
-                    <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-primary/40 to-primary flex items-center justify-center text-white font-bold mr-4">
-                        {useInitials(tutor.name)}
-                    </div>
-                    <div>
-                        <h3 className="md:text-xl text-lg font-bold text-gray-800">
-                            {tutor.name}
-                        </h3>
-                        <div className="flex items-center mt-1">
-                            <div className="flex text-yellow-400">
-                                {'★'.repeat(Math.floor(tutor.rating))}
-                                {tutor.rating % 1 !== 0 && '½'}
-                            </div>
-                            <span className="text-gray-600 text-sm font-medium ml-2">
-                                {tutor.rating} ({tutor.totalReviews.toLocaleString()})
-                            </span>
+                    <Link to={`/tutors/${tutor._id}`} >
+                        <div className="md:w-20 md:h-20 md:text-xl w-12 h-12 text-base rounded-full bg-linear-to-r from-primary/40 to-primary flex items-center justify-center text-white font-bold mr-4">
+                            {useInitials(tutor.name)}
                         </div>
-                        <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1">
-                            <LuMapPin /> {tutor.location}
-                        </p>
+                    </Link>
+                    <div className='block w-9/12'>
+                        <Link to={`/tutors/${tutor._id}`} >
+                            <h3 className="md:text-xl text-lg font-bold text-gray-800">
+                                {tutor.name}
+                            </h3>
+                        </Link>
+                        <div className='block'>
+                            <div className="flex items-center mt-1">
+                                <div className="flex text-yellow-400">
+                                    {'★'.repeat(Math.floor(tutor.rating))}
+                                    {tutor.rating % 1 !== 0 && '½'}
+                                </div>
+                                <span className="text-gray-600 text-sm font-medium ml-2">
+                                    {tutor.rating} ({tutor.totalReviews.toLocaleString()})
+                                </span>
+                            </div>
+                            <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1">
+                                <LuMapPin /> {tutor.location}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -101,14 +108,14 @@ const TutorsCard = ({ tutor }) => {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col items-stretch gap-3 mt-auto">
-                    <button className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
+                    <Link to={`/tutors/${tutor._id}`} className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-4 px-9 leading-normal font-bold bg-linear-90 from-amber-200 to-secondary hover:bg-linear-270 transition-all duration-300">
                         <span>Contact now</span>
                         <IoChevronForwardOutline className='text-lg' />
-                    </button>
-                    <button className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
+                    </Link>
+                    <Link to={`/tutors/${tutor._id}`} className="rounded-sm cursor-pointer flex gap-2 items-center justify-between py-3.5 px-8.5 leading-normal font-normal border-2 border-accent hover:bg-accent transition-all duration-300">
                         <span>View full profile</span>
                         <IoChevronForwardOutline className='text-lg' />
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

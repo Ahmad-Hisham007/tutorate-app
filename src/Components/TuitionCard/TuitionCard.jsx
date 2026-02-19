@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const TuitionCard = ({ tuition }) => {
     const {
-        id,
+        _id,
         title,
         institution,
         location,
@@ -19,42 +20,47 @@ const TuitionCard = ({ tuition }) => {
     } = tuition;
     return (
         <div
-            key={id}
+            key={_id}
             className="group bg-base-100 rounded-lg border border-base-content/10 hover:shadow-xl transition-all duration-300 overflow-hidden grid grid-cols-1 grid-rows-[auto_1fr]"
         >
-            {/* Image Placeholder */}
-            <div className="relative bg-linear-to-br from-cyan-300/20 to-amber-200/20 flex items-center justify-center overflow-hidden min-h-48">
-                {/* Dummy Image/Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <pattern id={`grid-${id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                                <path d="M0 20 L40 20 M20 0 L20 40" stroke="currentColor" strokeWidth="0.5" className="text-base-content/20" />
-                            </pattern>
-                        </defs>
-                        <rect x="0" y="0" width="100%" height="100%" fill={`url(#grid-${id})`} />
-                    </svg>
-                </div>
 
-                {/* Centered Icon */}
-                <div className="relative z-10">
-                    <div className="w-20 h-20 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center shadow-lg border-2 border-white/50">
-                        <span className="font-primary text-3xl font-bold text-primary">
-                            {institution.charAt(0)}
-                        </span>
+            <Link to={`/tuitions/${tuition._id}`}>
+                {/* Image Placeholder */}
+                <div className="relative bg-linear-to-br from-cyan-300/20 to-amber-200/20 flex items-center justify-center overflow-hidden min-h-48">
+                    {/* Dummy Image/Pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id={`grid-${_id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                                    <path d="M0 20 L40 20 M20 0 L20 40" stroke="currentColor" strokeWidth="0.5" className="text-base-content/20" />
+                                </pattern>
+                            </defs>
+                            <rect x="0" y="0" width="100%" height="100%" fill={`url(#grid-${_id})`} />
+                        </svg>
+                    </div>
+
+                    {/* Centered Icon */}
+                    <div className="relative z-10">
+                        <div className="w-20 h-20 rounded-full bg-base-100/80 backdrop-blur-sm flex items-center justify-center shadow-lg border-2 border-white/50">
+                            <span className="font-primary text-3xl font-bold text-primary">
+                                {institution.charAt(0)}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Badge */}
+                    <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold border text-secondary`}>
+                        {slots}
+                    </div>
+
+                    {/* Posted Time */}
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-base-100/90 backdrop-blur-sm rounded-full text-xs font-medium text-base-content/70 border border-base-content/10">
+                        {posted}
                     </div>
                 </div>
+            </Link>
 
-                {/* Badge */}
-                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold border text-secondary`}>
-                    {slots}
-                </div>
 
-                {/* Posted Time */}
-                <div className="absolute top-4 right-4 px-3 py-1 bg-base-100/90 backdrop-blur-sm rounded-full text-xs font-medium text-base-content/70 border border-base-content/10">
-                    {posted}
-                </div>
-            </div>
 
             {/* Content */}
             <div className="p-5 flex flex-col">

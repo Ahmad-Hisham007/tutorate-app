@@ -7,32 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../../../Hooks/useAxios';
 import Loading from '../../../../Components/Loading/Loading';
 
-const tutors = [
-    {
-        "_id": "699590a820d4b6e5269c8efd",
-        "name": "Shamima Yasmin",
-        "email": "shamima.yasmin@example.com",
-        "phone": "01998765432",
-        "role": "tutor",
-        "photoURL": "https://i.pravatar.cc/400?img=8",
-        "status": "active",
-        "createdAt": "2026-02-18T10:12:55.996Z",
-        "qualifications": "M.Sc in Zoology (Dhaka University)",
-        "experience": 12,
-        "subjects": ["Biology", "Zoology", "Human Anatomy"],
-        "bio": "Senior biology teacher with DU degree. On the other hand, we denounce with rigor and indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment.",
-        "hourlyRate": 800,
-        "location": "Mirpur, Dhaka",
-        "rating": 5,
-        "totalReviews": 2345,
-        "availability": {
-            "weekdays": "Sun-Thu: 3 PM - 8 PM",
-            "weekends": "Friday: 9 AM - 1 PM"
-        },
-        "whatsapp": "01998765432",
-        "isVerified": true
-    }
-];
 
 const TutorProfileSimple = () => {
     const { id } = useParams();

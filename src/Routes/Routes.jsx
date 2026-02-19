@@ -9,6 +9,7 @@ import Contact from '../Pages/Contact/Contact';
 import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
 import TutorsProfile from '../Pages/Users/Tutors/TutorsProfile/TutorsProfile';
+import TuitionsSingle from '../Pages/Tuitions/TuitionsSingle/TuitionsSingle';
 
 const Routes = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const Routes = createBrowserRouter([
             {
                 path: "/tuitions",
                 element: <TuitionsListing />
+            },
+            {
+                path: "/tuitions/:id",
+                element: <TuitionsSingle />
             },
             {
                 path: "/about",

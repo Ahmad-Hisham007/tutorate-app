@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { formatTimeAgo } from '../../utils/formatTimeAgo';
 
 const TuitionCard = ({ tuition }) => {
     const {
@@ -15,8 +16,6 @@ const TuitionCard = ({ tuition }) => {
         posted,
         applicants,
         slots,
-        // badge,
-        // badgeColor
     } = tuition;
     return (
         <div
@@ -55,7 +54,7 @@ const TuitionCard = ({ tuition }) => {
 
                     {/* Posted Time */}
                     <div className="absolute top-4 right-4 px-3 py-1 bg-base-100/90 backdrop-blur-sm rounded-full text-xs font-medium text-base-content/70 border border-base-content/10">
-                        {posted}
+                        {formatTimeAgo(posted)}
                     </div>
                 </div>
             </Link>

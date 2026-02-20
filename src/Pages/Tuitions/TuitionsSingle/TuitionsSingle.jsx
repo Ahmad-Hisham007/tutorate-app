@@ -1,4 +1,5 @@
 // TuitionJobDetails.jsx
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import {
     FaMapMarkerAlt,
@@ -20,88 +21,100 @@ import {
     FaStar,
     FaRegStar
 } from 'react-icons/fa';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
+import useAxios from '../../../Hooks/useAxios';
+import Loading from '../../../Components/Loading/Loading';
+import { formatDateTime } from '../../../utils/formatDateTime';
 
 const TuitionsSingle = () => {
-    // const { id } = useParams();
+    const { id } = useParams();
+    const axios = useAxios();
     const [activeTab, setActiveTab] = useState('details');
     const [isSaved, setIsSaved] = useState(false);
 
+    const { data: tuitionJob = [], isLoading: isDataLoading } = useQuery({
+        queryKey: ["tuitionJob", id],
+        queryFn: async () => {
+            const { data } = await axios.get(`/tuitions/${id}`);
+            return data.data
+        }
+    })
+    console.log(tuitionJob)
     // Tuition job data based on the provided fields
-    const tuitionJob = {
-        "_id": "6996bc64e608082ae59e56a0",
-        "title": "Mathematics Tutor for High School",
-        "institution": "Lincoln High School",
-        "location": "Boston, MA",
-        "type": "Part-time",
-        "mode": "Hybrid",
-        "budget": "$45-60/hr",
-        "students": "Grade 9-12",
-        "subject": "Calculus & Algebra",
-        "posted": "2 days ago",
-        "applicants": 12,
-        "slots": 2,
-        "badge": "FEATURED",
-        "badgeColor": "primary",
-        // Additional fields for comprehensive details
-        "description": "Lincoln High School is seeking an enthusiastic and experienced Mathematics Tutor to join our academic support team. The ideal candidate will have a strong background in calculus and algebra, with the ability to engage high school students and help them excel in their mathematical studies.",
-        "responsibilities": [
-            "Conduct one-on-one and small group tutoring sessions for students in grades 9-12",
-            "Develop personalized lesson plans based on student needs and curriculum requirements",
-            "Assist students with homework, test preparation, and concept reinforcement",
-            "Track student progress and provide regular feedback to parents and teachers",
-            "Prepare teaching materials and resources for effective learning",
-            "Maintain a positive and encouraging learning environment"
-        ],
-        "requirements": [
-            "Bachelor's degree in Mathematics, Education, or related field (Master's preferred)",
-            "Minimum 2 years of teaching or tutoring experience at high school level",
-            "Strong knowledge of calculus, algebra, and advanced mathematics",
-            "Excellent communication and interpersonal skills",
-            "Patience and ability to explain complex concepts in simple terms",
-            "Teaching certification is a plus"
-        ],
-        "qualifications": [
-            "Experience with hybrid/online teaching platforms",
-            "Familiarity with high school curriculum standards",
-            "Background check required",
-            "CPR/First Aid certification preferred"
-        ],
-        "schedule": {
-            "days": "Monday to Friday",
-            "hours": "3:00 PM - 6:00 PM",
-            "flexible": true,
-            "startDate": "September 1, 2024",
-            "duration": "Academic Year 2024-2025"
-        },
-        "benefits": [
-            "Competitive hourly rate ($45-60/hr based on experience)",
-            "Flexible scheduling options",
-            "Professional development opportunities",
-            "Access to school facilities and resources",
-            "Potential for full-time position",
-            "Paid training sessions"
-        ],
-        "instructor": {
-            "name": "Dr. Sarah Johnson",
-            "title": "Department Head, Mathematics",
-            "email": "sarah.johnson@lincolnhigh.edu",
-            "phone": "(617) 555-0123",
-            "avatar": "https://i.pravatar.cc/150?img=8"
-        },
-        "schoolInfo": {
-            "established": "1975",
-            "type": "Public High School",
-            "students": "1,200+",
-            "website": "www.lincolnhigh.edu",
-            "rating": 4.5,
-            "accreditation": "New England Association of Schools and Colleges"
-        },
-        "applicationDeadline": "August 15, 2024",
-        "startDate": "September 1, 2024",
-        "experience": "2+ years",
-        "education": "Bachelor's Degree Minimum"
-    };
+    // const tuitionJob = {
+    //     "_id": "6996bc64e608082ae59e56a0",
+    //     "title": "Mathematics Tutor for High School",
+    //     "institution": "Lincoln High School",
+    //     "location": "Boston, MA",
+    //     "type": "Part-time",
+    //     "mode": "Hybrid",
+    //     "budget": "$45-60/hr",
+    //     "class": "Grade 9-12",
+    //     "subject": "Calculus & Algebra",
+    //     "posted": "2 days ago",
+    //     "applicants": 12,
+    //     "slots": 2,
+    //     "badge": "FEATURED",
+    //     "badgeColor": "primary",
+    //     // Additional fields for comprehensive details
+    //     "description": "Lincoln High School is seeking an enthusiastic and experienced Mathematics Tutor to join our academic support team. The ideal candidate will have a strong background in calculus and algebra, with the ability to engage high school students and help them excel in their mathematical studies.",
+    //     "responsibilities": [
+    //         "Conduct one-on-one and small group tutoring sessions for students in grades 9-12",
+    //         "Develop personalized lesson plans based on student needs and curriculum requirements",
+    //         "Assist students with homework, test preparation, and concept reinforcement",
+    //         "Track student progress and provide regular feedback to parents and teachers",
+    //         "Prepare teaching materials and resources for effective learning",
+    //         "Maintain a positive and encouraging learning environment"
+    //     ],
+    //     "requirements": [
+    //         "Bachelor's degree in Mathematics, Education, or related field (Master's preferred)",
+    //         "Minimum 2 years of teaching or tutoring experience at high school level",
+    //         "Strong knowledge of calculus, algebra, and advanced mathematics",
+    //         "Excellent communication and interpersonal skills",
+    //         "Patience and ability to explain complex concepts in simple terms",
+    //         "Teaching certification is a plus"
+    //     ],
+    //     "qualifications": [
+    //         "Experience with hybrid/online teaching platforms",
+    //         "Familiarity with high school curriculum standards",
+    //         "Background check required",
+    //         "CPR/First Aid certification preferred"
+    //     ],
+    //     "schedule": {
+    //         "days": "Monday to Friday",
+    //         "hours": "3:00 PM - 6:00 PM",
+    //         "flexible": true,
+    //         "startDate": "September 1, 2024",
+    //         "duration": "Academic Year 2024-2025"
+    //     },
+    //     "benefits": [
+    //         "Competitive hourly rate ($45-60/hr based on experience)",
+    //         "Flexible scheduling options",
+    //         "Professional development opportunities",
+    //         "Access to school facilities and resources",
+    //         "Potential for full-time position",
+    //         "Paid training sessions"
+    //     ],
+    //     "instructor": {
+    //         "name": "Dr. Sarah Johnson",
+    //         "title": "Department Head, Mathematics",
+    //         "email": "sarah.johnson@lincolnhigh.edu",
+    //         "phone": "(617) 555-0123",
+    //         "avatar": "https://i.pravatar.cc/150?img=8"
+    //     },
+    //     "schoolInfo": {
+    //         "established": "1975",
+    //         "type": "Public High School",
+    //         "students": "1,200+",
+    //         "website": "www.lincolnhigh.edu",
+    //         "rating": 4.5,
+    //         "accreditation": "New England Association of Schools and Colleges"
+    //     },
+    //     "applicationDeadline": "August 15, 2024",
+    //     "startDate": "September 1, 2024",
+    //     "experience": "2+ years",
+    //     "education": "Bachelor's Degree Minimum"
+    // };
 
     // Similar jobs
     const similarJobs = [
@@ -151,7 +164,9 @@ const TuitionsSingle = () => {
         }
         return stars;
     };
-
+    if (isDataLoading) {
+        return <Loading />;
+    }
     return (
         <div className="font-primary text-base-content bg-gradient-to-b from-gray-50 to-white min-h-screen">
             {/* Breadcrumb */}
@@ -243,7 +258,7 @@ const TuitionsSingle = () => {
                             <div className="flex flex-wrap gap-4 pb-6 border-b border-gray-200">
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <FaGraduationCap className="text-primary" />
-                                    <span>{tuitionJob.students}</span>
+                                    <span>{tuitionJob.class}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <FaBookOpen className="text-secondary" />
@@ -255,7 +270,7 @@ const TuitionsSingle = () => {
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <FaCalendarAlt className="text-gray-400" />
-                                    <span>Posted {tuitionJob.posted}</span>
+                                    <span>Posted {formatDateTime(tuitionJob.posted)}</span>
                                 </div>
                             </div>
                         </div>
@@ -283,13 +298,13 @@ const TuitionsSingle = () => {
                                         Requirements
                                     </button>
                                     <button
-                                        onClick={() => setActiveTab('school')}
+                                        onClick={() => setActiveTab('student')}
                                         className={`py-4 font-medium border-b-2 transition-colors ${activeTab === 'school'
                                             ? 'border-primary text-primary'
                                             : 'border-transparent text-gray-500 hover:text-gray-700'
                                             }`}
                                     >
-                                        School Info
+                                        Student Info
                                     </button>
                                 </div>
                             </div>
@@ -402,33 +417,33 @@ const TuitionsSingle = () => {
                                     </div>
                                 )}
 
-                                {activeTab === 'school' && (
+                                {activeTab === 'student' && (
                                     <div className="space-y-6">
                                         {/* School Info */}
                                         <div className="grid sm:grid-cols-2 gap-6">
                                             <div>
-                                                <h3 className="text-xl font-primary font-bold mb-4">About {tuitionJob.institution}</h3>
+                                                <h3 className="text-xl font-primary font-bold mb-4">About Vikrunnesa</h3>
                                                 <div className="space-y-3">
                                                     <p className="flex justify-between">
                                                         <span className="text-gray-500">Established:</span>
-                                                        <span className="font-medium">{tuitionJob.schoolInfo.established}</span>
+                                                        <span className="font-medium">1975</span>
                                                     </p>
                                                     <p className="flex justify-between">
                                                         <span className="text-gray-500">School Type:</span>
-                                                        <span className="font-medium">{tuitionJob.schoolInfo.type}</span>
+                                                        <span className="font-medium">Public High School</span>
                                                     </p>
                                                     <p className="flex justify-between">
                                                         <span className="text-gray-500">Total Students:</span>
-                                                        <span className="font-medium">{tuitionJob.schoolInfo.students}</span>
+                                                        <span className="font-medium">1,200+</span>
                                                     </p>
                                                     <p className="flex justify-between">
                                                         <span className="text-gray-500">Accreditation:</span>
-                                                        <span className="font-medium">{tuitionJob.schoolInfo.accreditation}</span>
+                                                        <span className="font-medium">4.5</span>
                                                     </p>
                                                     <p className="flex justify-between">
                                                         <span className="text-gray-500">Website:</span>
-                                                        <a href={`https://${tuitionJob.schoolInfo.website}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                                            {tuitionJob.schoolInfo.website}
+                                                        <a href={`www.lincolnhigh.edu`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                                            {"www.lincolnhigh.edu"}
                                                         </a>
                                                     </p>
                                                 </div>
@@ -438,9 +453,9 @@ const TuitionsSingle = () => {
                                                     <h4 className="font-primary font-bold mb-3">School Rating</h4>
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <div className="flex gap-1">
-                                                            {renderStars(tuitionJob.schoolInfo.rating)}
+                                                            {renderStars(4.5)}
                                                         </div>
-                                                        <span className="font-medium">{tuitionJob.schoolInfo.rating}/5.0</span>
+                                                        <span className="font-medium">4.5/5.0</span>
                                                     </div>
                                                     <p className="text-sm text-gray-500">Based on parent and student reviews</p>
                                                 </div>
@@ -489,11 +504,11 @@ const TuitionsSingle = () => {
                             <div className="mt-6 pt-6 border-t border-gray-200">
                                 <h4 className="font-primary font-bold mb-3">Contact Person</h4>
                                 <div className="flex items-center gap-3">
-                                    <img src={tuitionJob.instructor.avatar} alt={tuitionJob.instructor.name} className="w-12 h-12 rounded-xl" />
+                                    {/* <img src={tuitionJob.instructor.avatar} alt={tuitionJob.instructor.name} className="w-12 h-12 rounded-xl" /> */}
                                     <div>
-                                        <p className="font-medium">{tuitionJob.instructor.name}</p>
-                                        <p className="text-sm text-gray-500">{tuitionJob.instructor.title}</p>
-                                        <p className="text-sm text-primary mt-1">{tuitionJob.instructor.email}</p>
+                                        <p className="font-medium">Dr. Sarah Johnson</p>
+                                        <p className="text-sm text-gray-500">Department Head, Mathematics</p>
+                                        <p className="text-sm text-primary mt-1">sarah.johnson@lincolnhigh.edu</p>
                                     </div>
                                 </div>
                             </div>

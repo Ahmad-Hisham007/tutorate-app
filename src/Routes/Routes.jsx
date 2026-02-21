@@ -12,6 +12,7 @@ import TutorsProfile from '../Pages/Users/Tutors/TutorsProfile/TutorsProfile';
 import TuitionsSingle from '../Pages/Tuitions/TuitionsSingle/TuitionsSingle';
 import DashboardLayout from '../Layouts/DashboardLayout/DashboardLayout';
 import PrivateRoute from './PrivateRoute';
+import Dashboard from '../Pages/Dashboard/Dashboard';
 
 const Routes = createBrowserRouter([
     {
@@ -59,8 +60,14 @@ const Routes = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        element: <PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoute>,
         children: [
+            {
+                index: true,
+                element: <Dashboard></Dashboard>
+            }
 
         ]
     }

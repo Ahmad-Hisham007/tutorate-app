@@ -1,15 +1,19 @@
 import React from 'react';
 import DashboardFooter from './DashboardFooter';
+import Header from './Header';
+import { Outlet } from 'react-router';
 
 const DashboardLayout = () => {
     return (
         <section className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-            <aside className="drawer-content">
+            <aside className="drawer-content min-h-screen flex flex-col justify-start">
                 {/* Navbar */}
-                <DashboardLayout></DashboardLayout>
+                <Header></Header>
                 {/* Page content here */}
-                <main className="p-4 h-max"></main>
+                <main className="p-4">
+                    <Outlet></Outlet>
+                </main>
                 <DashboardFooter></DashboardFooter>
             </aside>
 

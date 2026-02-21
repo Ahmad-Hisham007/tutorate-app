@@ -25,12 +25,14 @@ import { useParams } from 'react-router';
 import useAxios from '../../../Hooks/useAxios';
 import Loading from '../../../Components/Loading/Loading';
 import { formatDateTime } from '../../../utils/formatDateTime';
+import BreadCrumbs from '../../../Components/BreadCrumbs/BreadCrumbs';
 
 const TuitionsSingle = () => {
     const { id } = useParams();
     const axios = useAxios();
     const [activeTab, setActiveTab] = useState('details');
     const [isSaved, setIsSaved] = useState(false);
+
 
     const { data: tuitionJob = [], isLoading: isDataLoading } = useQuery({
         queryKey: ["tuitionJob", id],
@@ -39,7 +41,10 @@ const TuitionsSingle = () => {
             return data.data
         }
     })
-    console.log(tuitionJob)
+    const breadCrumbItems = [
+        { title: "Tuitions", path: "/tuitions" },
+        { title: tuitionJob.title, path: "" }
+    ]
     // Tuition job data based on the provided fields
     // const tuitionJob = {
     //     "_id": "6996bc64e608082ae59e56a0",
@@ -171,22 +176,16 @@ const TuitionsSingle = () => {
         <div className="font-primary text-base-content bg-gradient-to-b from-gray-50 to-white min-h-screen">
             {/* Breadcrumb */}
             <div className="bg-white border-b border-gray-200">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center text-sm text-gray-500">
-                        <a href="/" className="hover:text-primary transition-colors">Home</a>
-                        <FaChevronRight className="mx-2 w-3 h-3" />
-                        <a href="/tuition-jobs" className="hover:text-primary transition-colors">Tuition Jobs</a>
-                        <FaChevronRight className="mx-2 w-3 h-3" />
-                        <span className="text-base-content font-medium">{tuitionJob.title}</span>
-                    </div>
+                <div className=" flex justify-start container mx-auto px-4 py-4">
+                    <BreadCrumbs items={breadCrumbItems}></BreadCrumbs>
                 </div>
             </div>
 
             {/* Main Content */}
             <div className="container mx-auto px-4 py-8 lg:py-12">
-                <div className="grid lg:grid-cols-3 gap-8">
+                <div className="grid lg:grid-cols-3 grid-cols-1 gap-8">
                     {/* Left Column - Main Content */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 col-span-1 space-y-6">
                         {/* Job Header Card */}
                         <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
                             {/* Badge and Save Button */}
@@ -255,7 +254,7 @@ const TuitionsSingle = () => {
                             </div>
 
                             {/* Additional Info Row */}
-                            <div className="flex flex-wrap gap-4 pb-6 border-b border-gray-200">
+                            <div className="flex flex-wrap gap-4 pb-6">
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <FaGraduationCap className="text-primary" />
                                     <span>{tuitionJob.class}</span>
@@ -276,9 +275,9 @@ const TuitionsSingle = () => {
                         </div>
 
                         {/* Tabs Navigation */}
-                        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                            <div className="border-b border-gray-200 px-6">
-                                <div className="flex gap-6">
+                        <div className="bg-white rounded-2xl shadow-lg overflow-hidden ">
+                            <div className="border-b border-gray-200 overflow-x-auto px-6">
+                                <div className="flex gap-6 max-w-max w-max">
                                     <button
                                         onClick={() => setActiveTab('details')}
                                         className={`py-4 font-medium border-b-2 transition-colors ${activeTab === 'details'
@@ -334,7 +333,7 @@ const TuitionsSingle = () => {
                                         {/* Schedule */}
                                         <div className="bg-primary/5 rounded-xl p-5">
                                             <h3 className="text-xl font-primary font-bold mb-3">Schedule & Duration</h3>
-                                            <div className="grid sm:grid-cols-2 gap-4">
+                                            <div className="grid sm:grid-cols-2  gap-4">
                                                 <div>
                                                     <p className="text-sm text-gray-500 mb-1">Days</p>
                                                     <p className="font-medium">{tuitionJob.schedule.days}</p>
@@ -469,8 +468,33 @@ const TuitionsSingle = () => {
 
                     {/* Right Column - Sidebar */}
                     <div className="space-y-6">
+                        {/* Quick Tips */}
+                        <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-6">
+                            <h3 className="font-primary font-bold mb-3 flex items-center gap-2">
+                                <FaExclamationCircle className="text-primary" />
+                                Application Tips
+                            </h3>
+                            <ul className="space-y-2 text-sm text-gray-600">
+                                <li className="flex items-start gap-2">
+                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
+                                    Tailor your resume to highlight math teaching experience
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
+                                    Include any teaching certifications or credentials
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
+                                    Prepare a brief teaching demo or portfolio
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
+                                    Apply before the deadline for best consideration
+                                </li>
+                            </ul>
+                        </div>
                         {/* Application Card */}
-                        <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-5">
+                        <div className="bg-white rounded-2xl shadow-lg p-6 ">
                             <h3 className="text-xl font-primary font-bold mb-4">Apply for this position</h3>
 
                             <div className="space-y-4 mb-6">
@@ -500,18 +524,6 @@ const TuitionsSingle = () => {
                                 Save for Later
                             </button>
 
-                            {/* Contact Person */}
-                            <div className="mt-6 pt-6 border-t border-gray-200">
-                                <h4 className="font-primary font-bold mb-3">Contact Person</h4>
-                                <div className="flex items-center gap-3">
-                                    {/* <img src={tuitionJob.instructor.avatar} alt={tuitionJob.instructor.name} className="w-12 h-12 rounded-xl" /> */}
-                                    <div>
-                                        <p className="font-medium">Dr. Sarah Johnson</p>
-                                        <p className="text-sm text-gray-500">Department Head, Mathematics</p>
-                                        <p className="text-sm text-primary mt-1">sarah.johnson@lincolnhigh.edu</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Similar Jobs */}
@@ -554,31 +566,7 @@ const TuitionsSingle = () => {
                             </button>
                         </div>
 
-                        {/* Quick Tips */}
-                        <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-6">
-                            <h3 className="font-primary font-bold mb-3 flex items-center gap-2">
-                                <FaExclamationCircle className="text-primary" />
-                                Application Tips
-                            </h3>
-                            <ul className="space-y-2 text-sm text-gray-600">
-                                <li className="flex items-start gap-2">
-                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
-                                    Tailor your resume to highlight math teaching experience
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
-                                    Include any teaching certifications or credentials
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
-                                    Prepare a brief teaching demo or portfolio
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="w-1 h-1 rounded-full bg-primary mt-2"></span>
-                                    Apply before the deadline for best consideration
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                 </div>
             </div>

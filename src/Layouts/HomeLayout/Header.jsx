@@ -5,10 +5,11 @@ import { LuCircleUser, LuPhoneCall } from 'react-icons/lu';
 import { FiMenu } from 'react-icons/fi';
 import { IoClose, IoNewspaperOutline } from 'react-icons/io5';
 import { IoIosArrowDown } from 'react-icons/io';
-import { Link, NavLink, useLocation } from 'react-router';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router';
 import { MdCreditScore, MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { FaRegUser } from 'react-icons/fa6';
+import toast from 'react-hot-toast';
 
 const Header = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -18,7 +19,7 @@ const Header = () => {
     const { user, logOut } = useContext(AuthContext)
     const mobileDepDropdown = useRef(null);
     const drawerCheckbox = useRef(null);
-
+    const navigate = useNavigate();
     const handleDrawerToggle = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
@@ -57,13 +58,21 @@ const Header = () => {
             <NavLink to="/tuitions">Tuitions</NavLink>
         </li>
     </>
-
+    const handleLogout = () => {
+        logOut().then(() => {
+            navigate('/login');
+            toast.success('Logout Successful');
+            return;
+        }).catch((error) => {
+            toast.error(error.message);
+        });
+    }
     const studentProfileMenu = <>
         <li><a className='flex items-center gap-3'><LuCircleUser /> Profile</a></li>
         <li><a className='flex items-center gap-3'><MdOutlineDashboardCustomize /> My tuition posts</a></li>
         <li><a className='flex items-center gap-3'><IoNewspaperOutline /> Tutor Applications</a></li>
         <li><a className='flex items-center gap-3'><MdCreditScore /> Payment History</a></li>
-        <li><a className='flex items-center gap-3' onClick={logOut}><MdLogout /> Log-out</a></li>
+        <li><a className='flex items-center gap-3' onClick={handleLogout}><MdLogout /> Log-out</a></li>
     </>
     return (
         <header>
@@ -249,7 +258,7 @@ const Header = () => {
 
                                             {/* CTA Button */}
                                             {user ?
-                                                <button className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300" onClick={logOut}>
+                                                <button className="flex gap-2 items-center hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-bold leading-none shadow-md shadow-stone-300" onClick={handleLogout}>
                                                     <MdLogout /> Logout
                                                 </button>
                                                 :

@@ -3,6 +3,7 @@ import { createContext } from 'react';
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -105,7 +106,7 @@ export const AuthProvider = ({ children }) => {
     // Log out function
 
     const logOut = () => {
-        return signOut(auth)
+        return signOut(auth);
     }
     const authData = {
         user,

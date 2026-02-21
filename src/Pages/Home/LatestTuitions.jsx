@@ -3,6 +3,7 @@ import TuitionCard from '../../Components/TuitionCard/TuitionCard';
 import useAxios from '../../Hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../Components/Loading/Loading';
+import { Link } from 'react-router';
 
 const LatestTuitions = () => {
 
@@ -140,14 +141,17 @@ const LatestTuitions = () => {
     // ];
 
 
-    const { data: tuitionListings = [], isLoading: isDataLoading } = useQuery({
+    const { data: response, isLoading: isDataLoading } = useQuery({
         queryKey: ["tuitions"],
         queryFn: async () => {
             const { data } = await axios.get("/tuitions")
-            return data.data
+            return data;
         }
     })
-    console.log(tuitionListings)
+
+    const tuitionListings = response?.data || [];
+    const total = response?.total || 0;
+    console.log(response)
     if (isDataLoading) {
         return <Loading />;
     }
@@ -173,15 +177,15 @@ const LatestTuitions = () => {
 
                 {/* View All Link */}
                 <div className="text-center mt-12">
-                    <a
-                        href="#"
+                    <Link
+                        to="/tuitions"
                         className="inline-flex items-center gap-2 font-primary font-semibold text-primary hover:text-primary/80 transition-colors group"
                     >
                         <span>Explore all tuition listings</span>
                         <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
-                    </a>
+                    </Link>
                     <p className="text-sm text-base-content/50 mt-2">
-                        48+ active tuition opportunities available
+                        {total}+ active tuition opportunities available
                     </p>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
-import { Link } from 'react-router';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import toast from 'react-hot-toast';
@@ -11,8 +11,9 @@ import toast from 'react-hot-toast';
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [selectedRole, setSelectedRole] = useState('student');
-    const { handleRegister, loading } = useContext(AuthContext);
-
+    const { handleRegister } = useContext(AuthContext);
+    const location = useLocation();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const {
         register,
         handleSubmit,
@@ -33,10 +34,14 @@ const RegistrationForm = () => {
             // Reset the form after successful registration
             reset(); // This will reset all form fields to default values
             setSelectedRole('student'); // Reset the role state as well
+            setIsAuthenticated(true)
         }
 
     };
-
+    if (isAuthenticated) {
+        return <Navigate Navigate to={`${location.state ? location.state : "/"}`
+        }></Navigate >
+    }
 
     return (
         <>

@@ -7,7 +7,7 @@ import Loading from '../../Components/Loading/Loading';
 
 const HomeLayout = () => {
 
-    const { user, loading } = useContext(AuthContext);
+    const { loading } = useContext(AuthContext);
     console.log(loading)
     if (loading) {
         return <Loading></Loading>

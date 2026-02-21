@@ -10,6 +10,8 @@ import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
 import TutorsProfile from '../Pages/Users/Tutors/TutorsProfile/TutorsProfile';
 import TuitionsSingle from '../Pages/Tuitions/TuitionsSingle/TuitionsSingle';
+import DashboardLayout from '../Layouts/DashboardLayout/DashboardLayout';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = createBrowserRouter([
     {
@@ -53,6 +55,13 @@ const Routes = createBrowserRouter([
                 path: "/login",
                 element: <Login />
             }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
+
         ]
     }
 ])

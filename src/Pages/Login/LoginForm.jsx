@@ -9,7 +9,7 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [selectedRole, setSelectedRole] = useState('student');
-    const { handleLogin, loading } = useContext(AuthContext);
+    const { handleLogin } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const {

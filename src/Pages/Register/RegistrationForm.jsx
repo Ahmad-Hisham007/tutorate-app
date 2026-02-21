@@ -3,10 +3,9 @@ import { useForm } from 'react-hook-form';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router';
+import { Link, Navigate, useLocation } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
-import toast from 'react-hot-toast';
 
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);

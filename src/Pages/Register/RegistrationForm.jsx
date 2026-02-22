@@ -1,46 +1,51 @@
-import React, { useContext } from 'react';
+// Pages/Register/RegistrationForm.jsx
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
-import { Link, Navigate, useLocation } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import toast from 'react-hot-toast';
 
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [selectedRole, setSelectedRole] = useState('student');
     const { handleRegister } = useContext(AuthContext);
-    const location = useLocation();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        setValue,
         reset
-        // watch
     } = useForm({
         defaultValues: {
             role: 'student'
         }
     });
 
-    const onSubmit = (data) => {
-        console.log('Form Data:', data);
-        const success = handleRegister(data);
+    // Update form value when role changes
+    useEffect(() => {
+        setValue('role', selectedRole);
+    }, [selectedRole, setValue]);
 
-        if (success) {
-            // Reset the form after successful registration
-            reset(); // This will reset all form fields to default values
-            setSelectedRole('student'); // Reset the role state as well
-            setIsAuthenticated(true)
+    const onSubmit = async (data) => {
+        const result = await handleRegister(data);
+
+        if (result.success) {
+            toast.success('Registration successful! Please login.');
+            reset();
+            setSelectedRole('student');
+
+            // Redirect to login after 2 seconds
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 2000);
         }
-
     };
-    if (isAuthenticated) {
-        return <Navigate Navigate to={`${location.state ? location.state : "/"}`
-        }></Navigate >
-    }
 
     return (
         <>
@@ -65,7 +70,6 @@ const RegistrationForm = () => {
                                 <div className={`text-3xl mb-2 ${selectedRole === 'student' ? 'text-primary' : 'text-base-content'
                                     } flex justify-center items-center`}>
                                     <PiStudentFill />
-
                                 </div>
                                 <h3 className={`font-primary font-bold ${selectedRole === 'student' ? 'text-primary' : 'text-base-content'
                                     }`}>
@@ -103,7 +107,6 @@ const RegistrationForm = () => {
                         <input
                             type="hidden"
                             {...register('role', { required: 'Please select a role' })}
-                            value={selectedRole}
                         />
                         {errors.role && (
                             <p className="mt-2 text-sm text-secondary">{errors.role.message}</p>
@@ -114,9 +117,6 @@ const RegistrationForm = () => {
                     <div className="space-y-5">
                         {/* Full Name */}
                         <div>
-                            <label className="text-base-content/70 text-sm font-medium mb-2 hidden">
-                                Full Name
-                            </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <LuUser className="text-base-content/40" />
@@ -131,7 +131,7 @@ const RegistrationForm = () => {
                                         }
                                     })}
                                     className="w-full pl-10 pr-4 py-3 border border-base-content/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-base-100 text-base-content"
-                                    placeholder="John Doe"
+                                    placeholder="Full Name"
                                 />
                             </div>
                             {errors.name && (
@@ -141,9 +141,6 @@ const RegistrationForm = () => {
 
                         {/* Email */}
                         <div>
-                            <label className="hidden text-base-content/70 text-sm font-medium mb-2">
-                                Email Address
-                            </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <LuMail className="text-base-content/40" />
@@ -158,7 +155,7 @@ const RegistrationForm = () => {
                                         }
                                     })}
                                     className="w-full pl-10 pr-4 py-3 border border-base-content/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-base-100 text-base-content"
-                                    placeholder="john@example.com"
+                                    placeholder="Email Address"
                                 />
                             </div>
                             {errors.email && (
@@ -168,9 +165,6 @@ const RegistrationForm = () => {
 
                         {/* Phone */}
                         <div>
-                            <label className="hidden text-base-content/70 text-sm font-medium mb-2">
-                                Phone Number
-                            </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <LuPhone className="text-base-content/40" />
@@ -185,7 +179,7 @@ const RegistrationForm = () => {
                                         }
                                     })}
                                     className="w-full pl-10 pr-4 py-3 border border-base-content/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-base-100 text-base-content"
-                                    placeholder="+1 234 567 8900"
+                                    placeholder="Phone Number"
                                 />
                             </div>
                             {errors.phone && (
@@ -195,30 +189,21 @@ const RegistrationForm = () => {
 
                         {/* Photo URL */}
                         <div>
-                            <label className="hidden text-base-content/70 text-sm font-medium mb-2">
-                                Photo URL
-                            </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <MdOutlineAddPhotoAlternate className="text-base-content/40" />
                                 </div>
                                 <input
-                                    type="tel"
+                                    type="url"
                                     {...register('photoURL')}
                                     className="w-full pl-10 pr-4 py-3 border border-base-content/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-base-100 text-base-content"
-                                    placeholder="https://tinypng.com/profile.png"
+                                    placeholder="Profile Photo URL (optional)"
                                 />
                             </div>
-                            {errors.phone && (
-                                <p className="mt-1 text-sm text-secondary">{errors.phone.message}</p>
-                            )}
                         </div>
 
                         {/* Password */}
                         <div>
-                            <label className="hidden text-base-content/70 text-sm font-medium mb-2">
-                                Password
-                            </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <LuLock className="text-base-content/40" />
@@ -237,7 +222,7 @@ const RegistrationForm = () => {
                                         }
                                     })}
                                     className="w-full pl-10 pr-12 py-3 border border-base-content/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-base-100 text-base-content"
-                                    placeholder="••••••••"
+                                    placeholder="Password"
                                 />
                                 <button
                                     type="button"

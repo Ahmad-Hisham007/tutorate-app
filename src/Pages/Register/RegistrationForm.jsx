@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import toast from 'react-hot-toast';
+import { FaGoogle } from 'react-icons/fa';
 
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -36,17 +37,18 @@ const RegistrationForm = () => {
         const result = await handleRegister(data);
 
         if (result.success) {
-            toast.success('Registration successful! Please login.');
+            toast.success('Registration successful!');
             reset();
             setSelectedRole('student');
 
             // Redirect to login after 2 seconds
             setTimeout(() => {
                 navigate('/dashboard');
-            }, 2000);
+            }, 500);
+        } else {
+            toast.error(result.error);
         }
     };
-
     return (
         <>
             {/* Registration Form */}

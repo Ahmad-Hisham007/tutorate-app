@@ -13,6 +13,8 @@ import TuitionsSingle from '../Pages/Tuitions/TuitionsSingle/TuitionsSingle';
 import DashboardLayout from '../Layouts/DashboardLayout/DashboardLayout';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../Pages/Dashboard/Dashboard';
+import Profile from '../Pages/Profile/Profile';
+import ProfileSettings from '../Pages/ProfileSettings/ProfileSettings';
 
 const Routes = createBrowserRouter([
     {
@@ -67,8 +69,49 @@ const Routes = createBrowserRouter([
             {
                 index: true,
                 element: <Dashboard></Dashboard>
+            },
+            // Routes for all loggedin user
+            {
+                path: '/myprofile',
+                element: <Profile></Profile>
+            },
+            {
+                path: "/profile-settings",
+                element: <ProfileSettings></ProfileSettings>
+            },
+            // Admin Routes
+            {
+                path: "/users"
+            },
+            {
+                path: "/manage-tuitions"
+            },
+            {
+                path: "reports"
+            },
+            // Tutor Routes
+            {
+                path: "/my-applications"
+            },
+            {
+                path: "/ongoing-tuitions"
+            },
+            {
+                path: "/revenue-history"
+            },
+            // Student Routes
+            {
+                path: "/my-tuitions"
+            },
+            {
+                path: "/my-tuitions/post"
+            },
+            {
+                path: "/applications"
+            },
+            {
+                path: "/payments"
             }
-
         ]
     }
 ])

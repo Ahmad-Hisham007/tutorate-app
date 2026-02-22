@@ -12,7 +12,6 @@ import {
     signInWithPopup
 } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
-import toast from 'react-hot-toast';
 import useAxios from '../../hooks/useAxios';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -63,19 +62,9 @@ export const AuthProvider = ({ children }) => {
             };
 
             await axios.post('/users', userData);
-
-            toast.success('Registration successful! Please login.');
             return { success: true };
 
         } catch (error) {
-            console.error('Registration failed:', error);
-
-            if (error.response?.status === 400) {
-                toast.error(error.response.data.error || 'Registration failed');
-            } else {
-                toast.error('Registration failed. Please try again.');
-            }
-
             return { success: false, error: error.message };
         } finally {
             setLoading(false);
@@ -89,10 +78,8 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
             await signInWithEmailAndPassword(auth, email, password);
-            toast.success('Login Successful');
             return { success: true };
         } catch (err) {
-            toast.error('Login Failed: ' + err.message);
             return { success: false, error: err.message };
         } finally {
             setLoading(false);
@@ -112,12 +99,9 @@ export const AuthProvider = ({ children }) => {
                 name: firebaseUser.displayName,
                 photoURL: firebaseUser.photoURL
             });
-
-            toast.success('Google Login Successful');
             return { success: true };
         } catch (error) {
-            console.error('Google login failed:', error);
-            toast.error('Google login failed');
+            console.error('Login failed:', error);
             return { success: false, error: error.message };
         } finally {
             setLoading(false);

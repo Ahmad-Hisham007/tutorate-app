@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from 'react-icons/lu';
+import { FaGoogle } from "react-icons/fa";
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
 import { Link, Navigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [selectedRole, setSelectedRole] = useState('student');
-    const { handleLogin } = useContext(AuthContext);
+    const { handleLogin, handleGoogleLogin } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const {
@@ -18,24 +19,33 @@ const LoginForm = () => {
         formState: { errors, isSubmitting },
         reset,
         // watch
-    } = useForm({
-        defaultValues: {
-            role: 'student'
-        }
-    });
+    } = useForm();
 
     const onSubmit = async (data) => {
         console.log('Form Data:', data);
         // Handle registration logic here
-        const success = handleLogin(data);
-
-        if (success) {
+        const response = await handleLogin(data);
+        console.log(response)
+        if (response.success) {
             // Reset the form after successful registration
-            reset(); // This will reset all form fields to default values
-            setSelectedRole('student'); // Reset the role state as well
+            reset();
+            toast.success("Login Successful")
             setIsAuthenticated(true)
+        } else {
+            toast.error(`Login failed ${response.error}`)
         }
     };
+    const handleGoogleSubmit = async () => {
+        const response = await handleGoogleLogin();
+        console.log(response)
+        if (response.success) {
+            // Reset the form after successful registration
+            toast.success("Login Successful")
+            setIsAuthenticated(true)
+        } else {
+            toast.error(`Login failed ${response.error}`)
+        }
+    }
     if (isAuthenticated) {
         return <Navigate Navigate to={`${location.state ? location.state : "/"}`
         }></Navigate >
@@ -43,71 +53,9 @@ const LoginForm = () => {
 
     return (
         <>
-            {/* Registration Form */}
+            {/* Login Form */}
             <div className="bg-base-100 rounded-xl md:max-w-175 lg:max-w-125 max-w-full w-full">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
-                    {/* Role Selection - Visual Tabs */}
-                    <div className="mb-8">
-                        <label className="block text-base-content/70 text-sm font-medium mb-3">
-                            I want to register as
-                        </label>
-                        <div className="grid grid-cols-2 gap-4">
-                            {/* Student Option */}
-                            <button
-                                type="button"
-                                onClick={() => setSelectedRole('student')}
-                                className={`p-4 rounded-lg border-2 transition-all duration-300 ${selectedRole === 'student'
-                                    ? 'border-primary bg-primary/5'
-                                    : 'border-base-content/10 hover:border-primary/30'
-                                    }`}
-                            >
-                                <div className={`text-3xl mb-2 ${selectedRole === 'student' ? 'text-primary' : 'text-base-content'
-                                    } flex justify-center items-center`}>
-                                    <PiStudentFill />
-
-                                </div>
-                                <h3 className={`font-primary font-bold ${selectedRole === 'student' ? 'text-primary' : 'text-base-content'
-                                    }`}>
-                                    Student
-                                </h3>
-                                <p className="text-xs text-base-content/50 mt-1">
-                                    Find tutors & learn
-                                </p>
-                            </button>
-
-                            {/* Tutor Option */}
-                            <button
-                                type="button"
-                                onClick={() => setSelectedRole('tutor')}
-                                className={`p-4 rounded-lg border-2 transition-all duration-300 ${selectedRole === 'tutor'
-                                    ? 'border-secondary bg-secondary/5'
-                                    : 'border-base-content/10 hover:border-secondary/30'
-                                    }`}
-                            >
-                                <div className={`text-3xl mb-2 ${selectedRole === 'tutor' ? 'text-secondary' : 'text-base-content'
-                                    } flex justify-center items-center`}>
-                                    <PiChalkboardTeacherFill />
-                                </div>
-                                <h3 className={`font-primary font-bold ${selectedRole === 'tutor' ? 'text-secondary' : 'text-base-content'
-                                    }`}>
-                                    Tutor
-                                </h3>
-                                <p className="text-xs text-base-content/50 mt-1">
-                                    Teach & earn
-                                </p>
-                            </button>
-                        </div>
-
-                        {/* Hidden input for react-hook-form */}
-                        <input
-                            type="hidden"
-                            {...register('role', { required: 'Please select a role' })}
-                            value={selectedRole}
-                        />
-                        {errors.role && (
-                            <p className="mt-2 text-sm text-secondary">{errors.role.message}</p>
-                        )}
-                    </div>
 
                     {/* Form Fields Grid */}
                     <div className="space-y-5">
@@ -198,8 +146,7 @@ const LoginForm = () => {
                                 <LuArrowRight className="text-xl group-hover:translate-x-1 transition-transform" />
                             </>
                         )}
-                    </button>
-
+                    </button >
                     {/* Login Link */}
                     <p className="text-center text-base-content/70 mt-6">
                         Don't have an account?{' '}
@@ -208,6 +155,12 @@ const LoginForm = () => {
                         </Link>
                     </p>
                 </form>
+                <button className="w-full border-2 border-primary text-primary py-4 rounded-lg font-primary font-bold text-lg hover:border-primary/20 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group mt-4" onClick={handleGoogleSubmit}>
+                    <>
+                        <span>Login</span>
+                        <FaGoogle className="text-xl group-hover:translate-x-1 transition-transform" />
+                    </>
+                </button>
             </div>
         </>
     );

@@ -14,7 +14,7 @@ const useAxiosSecure = () => {
   axiosInstance.interceptors.request.use(
     async (config) => {
       if (user) {
-        const token = await user.getIdToken();
+        const token = await user.getIdToken(true);
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
@@ -24,7 +24,10 @@ const useAxiosSecure = () => {
 
   // Response interceptor - Handle 401 errors
   axiosInstance.interceptors.response.use(
-    (response) => response,
+    (response) => {
+      console.log(response);
+      return response;
+    },
     (error) => {
       if (error.response?.status === 401) {
         console.log("Unauthorized - redirect to login");

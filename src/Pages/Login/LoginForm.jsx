@@ -4,7 +4,7 @@ import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from '
 import { FaGoogle } from "react-icons/fa";
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
-import { Link, Navigate } from 'react-router';
+import { Link, Navigate, useLocation } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
@@ -12,6 +12,8 @@ const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { handleLogin, handleGoogleLogin } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const location = useLocation();
+    const { user } = useContext(AuthContext)
 
     const {
         register,
@@ -47,10 +49,13 @@ const LoginForm = () => {
         }
     }
     if (isAuthenticated) {
-        return <Navigate Navigate to={`${location.state ? location.state : "/"}`
+        return <Navigate to={`${location.state ? location.state : "/dashboard"}`
         }></Navigate >
     }
-
+    if (user) {
+        return <Navigate to={`${location.state ? location.state : "/dashboard"}`
+        }></Navigate >
+    }
     return (
         <>
             {/* Login Form */}

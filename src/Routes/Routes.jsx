@@ -72,45 +72,45 @@ const Routes = createBrowserRouter([
             },
             // Routes for all loggedin user
             {
-                path: '/myprofile',
+                path: 'myprofile',
                 element: <Profile></Profile>
             },
             {
-                path: "/profile-settings",
+                path: "profile-settings",
                 element: <ProfileSettings></ProfileSettings>
             },
             // Admin Routes
             {
-                path: "/users"
+                path: "users"
             },
             {
-                path: "/manage-tuitions"
+                path: "manage-tuitions"
             },
             {
                 path: "reports"
             },
             // Tutor Routes
             {
-                path: "/my-applications"
+                path: "my-applications"
             },
             {
-                path: "/ongoing-tuitions"
+                path: "ongoing-tuitions"
             },
             {
-                path: "/revenue-history"
+                path: "revenue-history"
             },
             // Student Routes
             {
-                path: "/my-tuitions"
+                path: "my-tuitions"
             },
             {
-                path: "/my-tuitions/post"
+                path: "my-tuitions/post"
             },
             {
-                path: "/applications"
+                path: "applications"
             },
             {
-                path: "/payments"
+                path: "payments"
             }
         ]
     }

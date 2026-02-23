@@ -9,7 +9,8 @@ import {
     signOut,
     updateProfile,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithPopup,
+    deleteUser
 } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
 import useAxios from '../../hooks/useAxios';
@@ -91,17 +92,31 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
             const result = await signInWithPopup(auth, googleProvider);
-            const firebaseUser = result.user;
+            const { email } = result.user;
 
-            await axios.post('/users/google', {
-                uid: firebaseUser.uid,
-                email: firebaseUser.email,
-                name: firebaseUser.displayName,
-                photoURL: firebaseUser.photoURL
-            });
-            return { success: true };
+            // Check if user exists in DB - only send email
+            const response = await axios.post('/users/google', { email });
+
+            if (response.data.success) {
+                return { success: true };
+            }
+
         } catch (error) {
-            console.error('Login failed:', error);
+            // User doesn't exist in DB
+            if (error.response?.data?.code === "USER_NOT_FOUND") {
+                // Delete from Firebase and sign out
+                if (auth.currentUser) {
+                    await deleteUser(auth.currentUser);
+                    await signOut(auth);
+                }
+
+                return {
+                    success: false,
+                    code: "USER_NOT_FOUND",
+                    error: "No account found. Please register first."
+                };
+            }
+
             return { success: false, error: error.message };
         } finally {
             setLoading(false);

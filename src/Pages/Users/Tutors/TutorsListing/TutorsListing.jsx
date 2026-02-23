@@ -1,7 +1,7 @@
 import React from 'react';
 import PageHeroes from '../../../../Components/PageHeroes/PageHeroes';
 import TutorsCard from '../../../../Components/TutorsCard/TutorsCard';
-import useAxios from '../../../../Hooks/useAxios';
+import useAxios from '../../../../hooks/useAxios';
 import { useQuery } from "@tanstack/react-query"
 import Loading from '../../../../Components/Loading/Loading';
 

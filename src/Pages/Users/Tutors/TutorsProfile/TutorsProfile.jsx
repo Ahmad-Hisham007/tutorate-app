@@ -4,7 +4,7 @@ import { FaStar, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaGraduationCa
 import { useParams } from 'react-router';
 import BreadCrumbs from '../../../../Components/BreadCrumbs/BreadCrumbs';
 import { useQuery } from '@tanstack/react-query';
-import useAxios from '../../../../Hooks/useAxios';
+import useAxios from '../../../../hooks/useAxios';
 import Loading from '../../../../Components/Loading/Loading';
 
 
@@ -73,7 +73,24 @@ const TutorProfileSimple = () => {
                             {/* Info */}
                             <div className="flex-1">
                                 <h1 className="text-2xl md:text-3xl font-primary font-bold mb-2">{tutor.name}</h1>
-                                <p className="text-gray-600 mb-3">{tutor.qualifications}</p>
+                                {/* Specializations */}
+                                <div className="flex items-center gap-1 mb-6">
+                                    {Array.isArray(tutor.qualifications) ? (
+                                        tutor.qualifications.map((quallity, index) => (
+
+                                            <span
+                                                key={index}
+                                                className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full"
+                                            >
+                                                {quallity.degree} from  {quallity.institution}
+                                            </span>
+                                        ))
+                                    ) : (
+                                        <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                                            {tutor.qualifications}
+                                        </span>
+                                    )}
+                                </div>
 
                                 <div className="flex flex-wrap gap-4 mb-4">
                                     <div className="flex items-center gap-2">

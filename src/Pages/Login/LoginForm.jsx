@@ -4,7 +4,7 @@ import { LuUser, LuMail, LuLock, LuPhone, LuEye, LuEyeOff, LuArrowRight } from '
 import { FaGoogle } from "react-icons/fa";
 import { useState } from 'react';
 import { PiChalkboardTeacherFill, PiStudentFill } from 'react-icons/pi';
-import { Link, Navigate, useLocation } from 'react-router';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
@@ -13,7 +13,8 @@ const LoginForm = () => {
     const { handleLogin, handleGoogleLogin } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const location = useLocation();
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -39,13 +40,17 @@ const LoginForm = () => {
     };
     const handleGoogleSubmit = async () => {
         const response = await handleGoogleLogin();
-        console.log(response)
+
         if (response.success) {
-            // Reset the form after successful registration
-            toast.success("Login Successful")
-            setIsAuthenticated(true)
+            toast.success("Login Successful");
+            setIsAuthenticated(true);
         } else {
-            toast.error(`Login failed ${response.error}`)
+            if (response.code === "USER_NOT_FOUND") {
+                toast.error("No account found! Please register first.");
+                setTimeout(() => navigate('/register'), 2000);
+            } else {
+                toast.error(`Login failed: ${response.error}`);
+            }
         }
     }
     if (isAuthenticated) {

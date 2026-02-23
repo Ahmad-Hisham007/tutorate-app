@@ -20,19 +20,21 @@ import {
     LuStar,
     LuUsers,
     LuFileText,
-    LuCreditCard
+    LuCreditCard,
+    LuCheckCheck
 } from 'react-icons/lu';
 import { FaWhatsapp } from 'react-icons/fa';
 
 import Loading from '../../Components/Loading/Loading';
 import { Link } from 'react-router';
 import { FaEnvelopeCircleCheck, FaEnvelopeOpen } from 'react-icons/fa6';
+import useSubjectOptions from '../../Hooks/useSubjectOptions';
 
 const Profile = () => {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
     const [activeTab, setActiveTab] = useState('overview');
-
+    const { getSubjectLabel } = useSubjectOptions();
     // Fetch profile data
     const { data: profileData, isLoading: profileLoading } = useQuery({
         queryKey: ['profile', user?.email],
@@ -89,7 +91,7 @@ const Profile = () => {
                     color: 'bg-blue-100 text-primary'
                 },
                 {
-                    // icon: <LuCheckCircle className="text-2xl" />,
+                    icon: <LuCheckCheck className="text-2xl" />,
                     label: 'Accepted',
                     value: statsData?.acceptedApplications || 0,
                     color: 'bg-green-100 text-green-600'
@@ -354,7 +356,7 @@ const Profile = () => {
                                             <div className="flex flex-wrap gap-2">
                                                 {profile.subjects.slice(0, 5).map((subject, index) => (
                                                     <span key={index} className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm">
-                                                        {subject}
+                                                        {subject.label || subject.value || subject}
                                                     </span>
                                                 ))}
                                                 {profile.subjects.length > 5 && (
@@ -397,18 +399,22 @@ const Profile = () => {
                         {/* Subjects Tab (Tutor only) */}
                         {activeTab === 'subjects' && profile?.role === 'tutor' && (
                             <div>
-                                <h3 className="text-lg font-primary font-bold text-base-content mb-4">Teaching Subjects</h3>
-                                {profile?.subjects?.length > 0 ? (
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                        {profile.subjects.map((subject, index) => (
-                                            <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                                                <LuBookOpen className="text-primary" />
-                                                <span className="text-base-content">{subject}</span>
-                                            </div>
-                                        ))}
+                                {profile?.subjects?.length > 0 && (
+                                    <div>
+                                        <h3 className="text-lg font-primary font-bold text-base-content mb-3">Subjects</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {profile.subjects.slice(0, 5).map((subject, index) => (
+                                                <span key={index} className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm">
+                                                    {subject.label || subject.value || subject}
+                                                </span>
+                                            ))}
+                                            {profile.subjects.length > 5 && (
+                                                <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                                                    +{profile.subjects.length - 5} more
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                ) : (
-                                    <p className="text-gray-500 italic">No subjects added yet</p>
                                 )}
                             </div>
                         )}
@@ -429,8 +435,8 @@ const Profile = () => {
                                             <p className="text-gray-600 mb-2">Preferred Subjects:</p>
                                             <div className="flex flex-wrap gap-2">
                                                 {profile.preferredSubjects.map((subject, index) => (
-                                                    <span key={index} className="px-3 py-1 bg-blue-50 text-primary rounded-full text-sm">
-                                                        {subject}
+                                                    <span key={index} className="px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm">
+                                                        {getSubjectLabel(subject.value || subject)}
                                                     </span>
                                                 ))}
                                             </div>

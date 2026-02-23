@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile, updatePassword } from 'firebase/auth';
 import { auth } from '../../Contexts/AuthProvider/AuthProvider';
+import useSubjectOptions from '../../Hooks/useSubjectOptions';
 
 import {
     LuUser,
@@ -30,11 +31,10 @@ import useClassOptions from '../../Hooks/useClassOptions';
 import Loading from '../../Components/Loading/Loading';
 
 const ProfileSettings = () => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
     const [activeTab, setActiveTab] = useState('profile');
-    const [isSaving, setIsSaving] = useState(false);
     const [passwordData, setPasswordData] = useState({
         new: '',
         confirm: ''
@@ -42,7 +42,7 @@ const ProfileSettings = () => {
     const [passwordError, setPasswordError] = useState('');
     const { classOptions } = useClassOptions();
     // React Hook Form
-    const { register, handleSubmit, control, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm({
         defaultValues: {
             name: '',
             phone: '',
@@ -60,7 +60,7 @@ const ProfileSettings = () => {
             class: ''
         }
     });
-
+    const { subjectOptions, getSubjectLabel } = useSubjectOptions();
     // For dynamic fields
     const { fields: qualificationFields, append: appendQualification, remove: removeQualification } = useFieldArray({
         control,
@@ -89,25 +89,25 @@ const ProfileSettings = () => {
             return response.data.data;
         },
         enabled: !!user?.email,
-        onSuccess: (data) => {
-            // Reset form with fetched data
+    });
+    useEffect(() => {
+        if (profile) {
             reset({
-                name: data.name || '',
-                phone: data.phone || '',
-                photoURL: data.photoURL || '',
-                location: data.location || '',
-                bio: data.bio || '',
-                whatsapp: data.whatsapp || '',
-                qualifications: data.qualifications || [],
-                subjects: data.subjects || [],
-                experience: data.experience || '',
-                hourlyRate: data.hourlyRate || '',
-                preferredSubjects: data.preferredSubjects || [],
-                class: data.class || ''
+                name: profile.name || '',
+                phone: profile.phone || '',
+                photoURL: profile.photoURL || '',
+                location: profile.location || '',
+                bio: profile.bio || '',
+                whatsapp: profile.whatsapp || '',
+                qualifications: profile.qualifications || [],
+                subjects: profile.subjects || [],
+                experience: profile.experience || '',
+                hourlyRate: profile.hourlyRate || '',
+                preferredSubjects: profile.preferredSubjects || [],
+                class: profile.class || ''
             });
         }
-    });
-
+    }, [profile, reset]);
     // Update profile mutation with email query
     const updateMutation = useMutation({
         mutationFn: async (data) => {
@@ -125,7 +125,6 @@ const ProfileSettings = () => {
 
 
     const onSubmit = async (data) => {
-        setIsSaving(true);
         try {
             await updateMutation.mutateAsync(data);
 
@@ -135,11 +134,9 @@ const ProfileSettings = () => {
                     displayName: data.name,
                     photoURL: data.photoURL
                 });
-                // Refresh user in context
-                setUser({ ...user, displayName: data.name, photoURL: data.photoURL });
             }
-        } finally {
-            setIsSaving(false);
+        } catch (error) {
+            console.error('Update failed:', error);
         }
     };
 
@@ -158,7 +155,6 @@ const ProfileSettings = () => {
         }
 
         try {
-            setIsSaving(true);
 
             // Update password directly (user is already logged in)
             await updatePassword(auth.currentUser, passwordData.new);
@@ -171,32 +167,42 @@ const ProfileSettings = () => {
             } else {
                 setPasswordError(error.message);
             }
-        } finally {
-            setIsSaving(false);
         }
     };
 
 
     const handleAddSubject = () => {
-        if (newSubject.trim()) {
-            appendSubject({ value: newSubject.trim() });
-            setNewSubject('');
+        if (newSubject) {
+            // Check if already added
+            const exists = subjectFields.some(field => field.value === newSubject);
+            if (!exists) {
+                appendSubject({ value: newSubject });
+                setNewSubject('');
+            } else {
+                toast.error('Subject already added!');
+            }
         }
     };
 
     const handleAddPreferredSubject = () => {
-        if (newPreferredSubject.trim()) {
-            appendPreferredSubject({ value: newPreferredSubject.trim() });
-            setNewPreferredSubject('');
+        if (newPreferredSubject) {
+            // Check if already added
+            const exists = preferredSubjectFields.some(field => field.value === newPreferredSubject);
+            if (!exists) {
+                appendPreferredSubject({ value: newPreferredSubject });
+                setNewPreferredSubject('');
+            } else {
+                toast.error('Subject already added!');
+            }
         }
     };
 
     if (isLoading) {
         return <Loading />;
     }
-
+    console.log(profile)
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen py-8">
             <div className="container mx-auto px-4 max-w-4xl">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                     {/* Header */}
@@ -278,6 +284,7 @@ const ProfileSettings = () => {
                                         <label
                                             htmlFor="profile-picture"
                                             className="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-colors"
+
                                         >
                                             <LuCamera className="text-sm" />
                                         </label>
@@ -304,6 +311,18 @@ const ProfileSettings = () => {
                                     {errors.name && (
                                         <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
                                     )}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-base-content mb-2">
+                                        <LuCamera className="inline mr-2" />
+                                        PhotoUrl
+                                    </label>
+                                    <input
+                                        type="text"
+                                        {...register('photoURL')}
+                                        id="profile-picture"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-base-content mb-2">
@@ -381,11 +400,11 @@ const ProfileSettings = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={isSaving}
+                                    disabled={isSubmitting}
                                     className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
-                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
                         </form>
@@ -436,10 +455,10 @@ const ProfileSettings = () => {
 
                                     <button
                                         type="submit"
-                                        disabled={isSaving}
+                                        disabled={isSubmitting}
                                         className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
                                     >
-                                        {isSaving ? 'Updating...' : 'Update Password'}
+                                        {isSubmitting ? 'Updating...' : 'Update Password'}
                                     </button>
                                 </div>
                             </form>
@@ -525,7 +544,7 @@ const ProfileSettings = () => {
                             </div>
 
                             {/* Subjects */}
-                            <div className="mb-6">
+                            {/* <div className="mb-6">
                                 <label className="block text-sm font-medium text-base-content mb-2">
                                     <LuBookOpen className="inline mr-2" />
                                     Subjects you teach
@@ -562,8 +581,53 @@ const ProfileSettings = () => {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
+                            <div className="mb-6">
+                                <label className="block text-sm font-medium text-base-content mb-2">
+                                    <LuBookOpen className="inline mr-2" />
+                                    Subjects you teach
+                                </label>
 
+                                {/* Selected subjects display */}
+                                <div className="flex flex-wrap gap-2 mb-3">
+                                    {subjectFields.map((field, index) => (
+                                        <span key={field.id} className="px-3 py-1 bg-blue-100 text-primary rounded-full text-sm flex items-center gap-2">
+                                            {getSubjectLabel(field.value)}
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSubject(index)}
+                                                className="hover:text-red-500"
+                                            >
+                                                <LuX className="text-xs" />
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Subject selector */}
+                                <div className="flex gap-2">
+                                    <select
+                                        value={newSubject}
+                                        onChange={(e) => setNewSubject(e.target.value)}
+                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    >
+                                        <option value="">Select a subject</option>
+                                        {subjectOptions.map(subject => (
+                                            <option key={subject.value} value={subject.value}>
+                                                {subject.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddSubject}
+                                        disabled={!newSubject}
+                                        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
                             {/* Save Button */}
                             <div className="flex justify-end gap-3">
                                 <button
@@ -576,11 +640,11 @@ const ProfileSettings = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={isSaving}
+                                    disabled={isSubmitting}
                                     className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
-                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
                         </form>
@@ -609,16 +673,18 @@ const ProfileSettings = () => {
                             </div>
 
                             {/* Preferred Subjects */}
+                            {/* Preferred Subjects */}
                             <div className="mb-6">
                                 <label className="block text-sm font-medium text-base-content mb-2">
                                     <LuBookOpen className="inline mr-2" />
                                     Preferred Subjects
                                 </label>
                                 <div className="space-y-3">
+                                    {/* Selected subjects display */}
                                     <div className="flex flex-wrap gap-2">
                                         {preferredSubjectFields.map((field, index) => (
                                             <span key={field.id} className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm flex items-center gap-2">
-                                                {field.value}
+                                                {getSubjectLabel(field.value)}
                                                 <button
                                                     type="button"
                                                     onClick={() => removePreferredSubject(index)}
@@ -629,18 +695,26 @@ const ProfileSettings = () => {
                                             </span>
                                         ))}
                                     </div>
+
+                                    {/* Subject selector */}
                                     <div className="flex gap-2">
-                                        <input
-                                            type="text"
-                                            placeholder="Add a preferred subject"
+                                        <select
                                             value={newPreferredSubject}
                                             onChange={(e) => setNewPreferredSubject(e.target.value)}
                                             className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                        />
+                                        >
+                                            <option value="">Select a preferred subject</option>
+                                            {subjectOptions.map(subject => (
+                                                <option key={subject.value} value={subject.value}>
+                                                    {subject.label}
+                                                </option>
+                                            ))}
+                                        </select>
                                         <button
                                             type="button"
                                             onClick={handleAddPreferredSubject}
-                                            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                                            disabled={!newPreferredSubject}
+                                            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
                                         >
                                             Add
                                         </button>
@@ -660,11 +734,11 @@ const ProfileSettings = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={isSaving}
+                                    disabled={isSubmitting}
                                     className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
-                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
                         </form>

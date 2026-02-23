@@ -27,11 +27,24 @@ const TutorsCard = ({ tutor }) => {
                         <div className='block'>
                             <div className="flex items-center mt-1">
                                 <div className="flex text-yellow-400">
+                                    {/* Full stars */}
                                     {'★'.repeat(Math.floor(tutor.rating))}
-                                    {tutor.rating % 1 !== 0 && '½'}
+
+                                    {/* Half star check */}
+                                    {tutor.rating % 1 !== 0 && (
+                                        <span className="relative">
+                                            <span className="text-gray-300">★</span>
+                                            <span className="absolute top-0 left-0 w-1/2 overflow-hidden text-yellow-400">★</span>
+                                        </span>
+                                    )}
+
+                                    {/* Empty stars to make total 5 stars */}
+                                    {[...Array(5 - Math.ceil(tutor.rating))].map((_, i) => (
+                                        <span key={i} className="text-gray-300">★</span>
+                                    ))}
                                 </div>
                                 <span className="text-gray-600 text-sm font-medium ml-2">
-                                    {tutor.rating} ({tutor.totalReviews.toLocaleString()})
+                                    {tutor.rating.toFixed(1)} ({tutor.totalReviews.toLocaleString()})
                                 </span>
                             </div>
                             <p className="text-gray-500 text-sm font-medium mt-1 flex items-center gap-1">
@@ -46,7 +59,7 @@ const TutorsCard = ({ tutor }) => {
                     <div className="flex justify-between">
                         <span className="text-gray-500">Starting from:</span>
                         <span className="font-bold text-gray-800">
-                            ${tutor.hourlyRate.toFixed(2)}/hr
+                            ${Number(tutor.hourlyRate)}/hr
                         </span>
                     </div>
                     <div className="flex items-center gap-1">
@@ -65,30 +78,35 @@ const TutorsCard = ({ tutor }) => {
                             {tutor.whatsapp}
                         </span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    {/* <div className="flex items-center gap-1">
                         <span className="text-gray-500 mr-2">
                             <FaUserGraduate />
                         </span>
                         <span className="text-gray-700 text-sm font-medium">
                             {tutor.qualifications}
                         </span>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Specializations */}
-                {/* <div className="mb-6">
-                    <p className="text-gray-500 text-sm mb-2">Specializes in:</p>
-                    <div className="flex flex-wrap gap-2">
-                        {tutor.specializations.map((spec, index) => (
+                <div className="flex items-center gap-1 mb-6">
+                    {Array.isArray(tutor.qualifications) ? (
+                        tutor.qualifications.map((quallity, index) => (
+
                             <span
                                 key={index}
                                 className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full"
                             >
-                                {spec}
+                                {quallity.degree} from  {quallity.institution}
                             </span>
-                        ))}
-                    </div>
-                </div> */}
+                        ))
+                    ) : (
+                        <span className="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">
+                            {tutor.qualifications}
+                        </span>
+                    )}
+                </div>
+
 
                 {/* Availability */}
                 <div className="mb-6">

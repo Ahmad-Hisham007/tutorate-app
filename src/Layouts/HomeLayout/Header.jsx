@@ -68,11 +68,9 @@ const Header = () => {
         });
     }
     const studentProfileMenu = <>
-        <li><a className='flex items-center gap-3'><LuCircleUser /> Profile</a></li>
-        <li><a className='flex items-center gap-3'><MdOutlineDashboardCustomize /> My tuition posts</a></li>
-        <li><a className='flex items-center gap-3'><IoNewspaperOutline /> Tutor Applications</a></li>
-        <li><a className='flex items-center gap-3'><MdCreditScore /> Payment History</a></li>
-        <li><a className='flex items-center gap-3' onClick={handleLogout}><MdLogout /> Log-out</a></li>
+        <li><Link to="/dashboard/myprofile" className='flex items-center gap-3'><LuCircleUser /> Profile</Link></li>
+        <li><Link to="/dashboard/profile-settings" className='flex items-center gap-3'><MdCreditScore /> Edit Profile</Link></li>
+        <li><Link className='flex items-center gap-3' onClick={handleLogout}><MdLogout /> Log-out</Link></li>
     </>
     return (
         <header>

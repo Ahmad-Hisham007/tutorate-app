@@ -15,11 +15,16 @@ import PrivateRoute from './PrivateRoute';
 import Dashboard from '../Pages/Dashboard/Dashboard';
 import Profile from '../Pages/Profile/Profile';
 import ProfileSettings from '../Pages/ProfileSettings/ProfileSettings';
+import EmptyState from '../Components/EmptyState/EmptyState';
+import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
+import MyTuitions from '../Pages/MyTuitions/MyTuitions';
+import ProtectedRoute from './ProtectedRoute';
 
 const Routes = createBrowserRouter([
     {
         path: '/',
         element: <HomeLayout />,
+        errorElement: <ErrorBoundary />,
         children: [
             {
                 index: true,
@@ -28,15 +33,18 @@ const Routes = createBrowserRouter([
             },
             {
                 path: "/tutors",
-                element: <TutorsListing />
+                element: <TutorsListing />,
+                errorElement: <EmptyState type="tutors" />
             },
             {
                 path: "/tutors/:id",
-                element: <TutorsProfile />
+                element: <TutorsProfile />,
+                errorElement: <ErrorBoundary />
             },
             {
                 path: "/tuitions",
-                element: <TuitionsListing />
+                element: <TuitionsListing />,
+                errorElement: <EmptyState type="tuitions" />
             },
             {
                 path: "/tuitions/:id",
@@ -65,6 +73,7 @@ const Routes = createBrowserRouter([
         element: <PrivateRoute>
             <DashboardLayout></DashboardLayout>
         </PrivateRoute>,
+        errorElement: <ErrorBoundary />,
         children: [
             {
                 index: true,
@@ -101,7 +110,8 @@ const Routes = createBrowserRouter([
             },
             // Student Routes
             {
-                path: "my-tuitions"
+                path: "my-tuitions",
+                element: <ProtectedRoute allowedRoles={["student"]}><MyTuitions></MyTuitions></ProtectedRoute>
             },
             {
                 path: "my-tuitions/post"

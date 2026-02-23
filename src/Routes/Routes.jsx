@@ -19,6 +19,9 @@ import EmptyState from '../Components/EmptyState/EmptyState';
 import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
 import MyTuitions from '../Pages/MyTuitions/MyTuitions';
 import ProtectedRoute from './ProtectedRoute';
+import PostTuition from '../Pages/PostTuition/PostTuition';
+import TutorApplications from '../Pages/TutorApplications/TutorApplications';
+import PaymentsHistory from '../Pages/PaymentsHistory/PaymentsHistory';
 
 const Routes = createBrowserRouter([
     {
@@ -114,13 +117,22 @@ const Routes = createBrowserRouter([
                 element: <ProtectedRoute allowedRoles={["student"]}><MyTuitions></MyTuitions></ProtectedRoute>
             },
             {
-                path: "my-tuitions/post"
+                path: "my-tuitions/post",
+                element: <ProtectedRoute allowedRoles={["student"]}>
+                    <PostTuition></PostTuition>
+                </ProtectedRoute>
             },
             {
-                path: "applications"
+                path: "applications",
+                element: <ProtectedRoute allowedRoles={["student"]}>
+                    <TutorApplications></TutorApplications>
+                </ProtectedRoute>
             },
             {
-                path: "payments"
+                path: "payments",
+                element: <ProtectedRoute allowedRoles={["student"]}>
+                    <PaymentsHistory></PaymentsHistory>
+                </ProtectedRoute>
             }
         ]
     }

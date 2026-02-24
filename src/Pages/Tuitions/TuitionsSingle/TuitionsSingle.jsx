@@ -1,6 +1,6 @@
 // TuitionJobDetails.jsx
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     FaMapMarkerAlt,
     FaClock,
@@ -26,100 +26,48 @@ import useAxios from '../../../Hooks/useAxios';
 import Loading from '../../../Components/Loading/Loading';
 import { formatDateTime } from '../../../utils/formatDateTime';
 import BreadCrumbs from '../../../Components/BreadCrumbs/BreadCrumbs';
+import useRole from '../../../Hooks/useRole';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import Forbidden from '../../../Components/ForbiddenError/ForbiddenError';
 
 const TuitionsSingle = () => {
     const { id } = useParams();
     const axios = useAxios();
+    const axiosSecure = useAxiosSecure()
     const [activeTab, setActiveTab] = useState('details');
     const [isSaved, setIsSaved] = useState(false);
+    const { role, isAdmin, isStudent, isLoading: roleLoading } = useRole();
+    const { user, loading: userLoading } = useContext(AuthContext);
 
-
-    const { data: tuitionJob = [], isLoading: isDataLoading } = useQuery({
-        queryKey: ["tuitionJob", id],
+    const { data, isLoading: dataLoading, error } = useQuery({
+        queryKey: ['tuition', id, user?.email, role],
         queryFn: async () => {
-            const { data } = await axios.get(`/tuitions/${id}`);
-            return data.data
-        }
-    })
+            try {
+                const endpoint = `/tuitions/${id}${(isStudent || isAdmin) ? '/student-view' : ''}`;
+                console.log(endpoint)
+                // logged out user -> axios
+                // logged in user -> axiosSecure
+                const api = user ? axiosSecure : axios;
+
+                console.log('Fetching from:', endpoint, 'with:', user ? 'axiosSecure' : 'axios');
+                const response = await api.get(endpoint);
+                console.log(response)
+                return response.data;
+            } catch (error) {
+                console.error('Error fetching tuition:', error);
+                throw error;
+            }
+        },
+        enabled: !!id && !roleLoading,
+    });
+    const tuitionJob = data?.data;
+    console.log(tuitionJob)
     const breadCrumbItems = [
         { title: "Tuitions", path: "/tuitions" },
-        { title: tuitionJob.title, path: "" }
+        { title: tuitionJob?.title, path: "" }
     ]
-    // Tuition job data based on the provided fields
-    // const tuitionJob = {
-    //     "_id": "6996bc64e608082ae59e56a0",
-    //     "title": "Mathematics Tutor for High School",
-    //     "institution": "Lincoln High School",
-    //     "location": "Boston, MA",
-    //     "type": "Part-time",
-    //     "mode": "Hybrid",
-    //     "budget": "$45-60/hr",
-    //     "class": "Grade 9-12",
-    //     "subject": "Calculus & Algebra",
-    //     "posted": "2 days ago",
-    //     "applicants": 12,
-    //     "slots": 2,
-    //     "badge": "FEATURED",
-    //     "badgeColor": "primary",
-    //     // Additional fields for comprehensive details
-    //     "description": "Lincoln High School is seeking an enthusiastic and experienced Mathematics Tutor to join our academic support team. The ideal candidate will have a strong background in calculus and algebra, with the ability to engage high school students and help them excel in their mathematical studies.",
-    //     "responsibilities": [
-    //         "Conduct one-on-one and small group tutoring sessions for students in grades 9-12",
-    //         "Develop personalized lesson plans based on student needs and curriculum requirements",
-    //         "Assist students with homework, test preparation, and concept reinforcement",
-    //         "Track student progress and provide regular feedback to parents and teachers",
-    //         "Prepare teaching materials and resources for effective learning",
-    //         "Maintain a positive and encouraging learning environment"
-    //     ],
-    //     "requirements": [
-    //         "Bachelor's degree in Mathematics, Education, or related field (Master's preferred)",
-    //         "Minimum 2 years of teaching or tutoring experience at high school level",
-    //         "Strong knowledge of calculus, algebra, and advanced mathematics",
-    //         "Excellent communication and interpersonal skills",
-    //         "Patience and ability to explain complex concepts in simple terms",
-    //         "Teaching certification is a plus"
-    //     ],
-    //     "qualifications": [
-    //         "Experience with hybrid/online teaching platforms",
-    //         "Familiarity with high school curriculum standards",
-    //         "Background check required",
-    //         "CPR/First Aid certification preferred"
-    //     ],
-    //     "schedule": {
-    //         "days": "Monday to Friday",
-    //         "hours": "3:00 PM - 6:00 PM",
-    //         "flexible": true,
-    //         "startDate": "September 1, 2024",
-    //         "duration": "Academic Year 2024-2025"
-    //     },
-    //     "benefits": [
-    //         "Competitive hourly rate ($45-60/hr based on experience)",
-    //         "Flexible scheduling options",
-    //         "Professional development opportunities",
-    //         "Access to school facilities and resources",
-    //         "Potential for full-time position",
-    //         "Paid training sessions"
-    //     ],
-    //     "instructor": {
-    //         "name": "Dr. Sarah Johnson",
-    //         "title": "Department Head, Mathematics",
-    //         "email": "sarah.johnson@lincolnhigh.edu",
-    //         "phone": "(617) 555-0123",
-    //         "avatar": "https://i.pravatar.cc/150?img=8"
-    //     },
-    //     "schoolInfo": {
-    //         "established": "1975",
-    //         "type": "Public High School",
-    //         "students": "1,200+",
-    //         "website": "www.lincolnhigh.edu",
-    //         "rating": 4.5,
-    //         "accreditation": "New England Association of Schools and Colleges"
-    //     },
-    //     "applicationDeadline": "August 15, 2024",
-    //     "startDate": "September 1, 2024",
-    //     "experience": "2+ years",
-    //     "education": "Bachelor's Degree Minimum"
-    // };
+    console.log(tuitionJob)
 
     // Similar jobs
     const similarJobs = [
@@ -169,9 +117,26 @@ const TuitionsSingle = () => {
         }
         return stars;
     };
-    if (isDataLoading) {
+    if (roleLoading || dataLoading || userLoading) {
         return <Loading />;
     }
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gray-50 py-8">
+                <div className="container mx-auto px-4">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
+                        <h3 className="text-xl font-primary font-bold text-base-content mb-2">
+                            {error?.response?.data?.error || 'Failed to load tuition details'}
+                        </h3>
+                        <p className="text-gray-600 mb-6">
+                            {error?.response?.status === 403 ? <Forbidden></Forbidden> : ''}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    if (!tuitionJob) return null;
     return (
         <div className="font-primary text-base-content bg-gradient-to-b from-gray-50 to-white min-h-screen">
             {/* Breadcrumb */}

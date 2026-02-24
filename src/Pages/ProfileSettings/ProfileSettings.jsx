@@ -389,11 +389,11 @@ const ProfileSettings = () => {
                             </div>
 
                             {/* Save Button */}
-                            <div className="flex justify-end gap-3">
+                            <div className="flex justify-end flex-wrap md:flex-nowrap gap-3">
                                 <button
                                     type="button"
                                     onClick={() => window.history.back()}
-                                    className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                                    className="px-6 w-full text-center justify-center py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                                 >
                                     <LuX />
                                     Cancel
@@ -401,7 +401,7 @@ const ProfileSettings = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
+                                    className="px-6 py-2 w-full text-center justify-center bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}
@@ -633,7 +633,7 @@ const ProfileSettings = () => {
                                 <button
                                     type="button"
                                     onClick={() => window.history.back()}
-                                    className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                                    className="px-6 py-2 border w-full text-center justify-center border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                                 >
                                     <LuX />
                                     Cancel
@@ -641,7 +641,7 @@ const ProfileSettings = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
+                                    className="px-6 py-2 bg-primary w-full text-center justify-center text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}

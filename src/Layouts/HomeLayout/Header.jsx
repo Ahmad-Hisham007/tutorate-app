@@ -137,7 +137,7 @@ const Header = () => {
                                                 profileDropdown.current?.removeAttribute('open');
                                                 setIsProfileDropDownOpened(!isProfileDropDownOpened);
                                             }
-                                        }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
+                                        }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-3 rounded-xl inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0 [&_a.active]:text-primary [&_a.active]:bg-primary/10">
                                             {studentProfileMenu}
                                         </ul>
                                     </details>
@@ -191,7 +191,7 @@ const Header = () => {
                                                             profileDropdown.current?.removeAttribute('open');
                                                             setIsProfileDropDownOpened(!isProfileDropDownOpened);
                                                         }
-                                                    }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
+                                                    }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-3 rounded-xl inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0 [&_a.active]:text-primary [&_a.active]:bg-primary/10">
                                                         {studentProfileMenu}
                                                     </ul>
                                                 </details>
@@ -281,7 +281,7 @@ const Header = () => {
                 </div>
             </div>
             {/* Header Area End */}
-        </header>
+        </header >
     );
 };
 

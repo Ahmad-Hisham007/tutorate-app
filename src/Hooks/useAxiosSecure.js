@@ -15,9 +15,11 @@ const useAxiosSecure = () => {
   // Request interceptor - Add token
   axiosInstance.interceptors.request.use(
     async (config) => {
+      console.log("Request config:", config.url);
       if (user) {
         try {
           const token = await user.getIdToken(true);
+          console.log("Token obtained:", token ? "Yes" : "No");
           config.headers.Authorization = `Bearer ${token}`;
         } catch (error) {
           console.error("Error getting token:", error);

@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 import Logo from '../../assets/tutorate-logo.png'
-import { Link, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 
 import { LuCircleUser } from 'react-icons/lu';
 import { MdCreditScore, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md';
@@ -24,9 +24,9 @@ const Header = () => {
         });
     }
     const studentProfileMenu = <>
-        <li><Link to="/dashboard/myprofile" className='flex items-center gap-3'><LuCircleUser /> Profile</Link></li>
-        <li><Link to="/dashboard/profile-settings" className='flex items-center gap-3'><MdCreditScore /> Edit Profile</Link></li>
-        <li><Link className='flex items-center gap-3' onClick={handleLogout}><MdLogout /> Log-out</Link></li>
+        <li><NavLink to="/dashboard/myprofile" className='flex items-center gap-3'><LuCircleUser /> Profile</NavLink></li>
+        <li><NavLink to="/dashboard/profile-settings" className='flex items-center gap-3'><MdCreditScore /> Edit Profile</NavLink></li>
+        <li><NavLink className='flex items-center gap-3' onClick={handleLogout}><MdLogout /> Log-out</NavLink></li>
     </>
     return (
         <nav className="navbar w-full bg-base-300">
@@ -56,7 +56,7 @@ const Header = () => {
                                 profileDropdown.current?.removeAttribute('open');
                                 setIsProfileDropDownOpened(!isProfileDropDownOpened);
                             }
-                        }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-7.5 inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:p-0 [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0">
+                        }} className="dropdown-content menu bg-base-100 rounded-b-box z-1 w-full min-w-60 shadow-sm p-3 rounded-xl inset-x-0 md:top-full top-18 space-y-3 text-base-content font-body [&_a:hover]:bg-transparent [&_a:hover]:text-primary [&_a]:text-base md:absolute fixed transition-all duration-300 left-auto right-0 [&_a.active]:text-primary [&_a.active]:bg-primary/10">
                             {studentProfileMenu}
                         </ul>
                     </details>

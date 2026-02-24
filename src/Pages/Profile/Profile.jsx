@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import {
     LuUser,
@@ -336,7 +336,7 @@ const Profile = () => {
                                                     </div>
                                                     <div className="flex items-center gap-3 text-gray-600">
                                                         <LuDollarSign className="text-primary" />
-                                                        <span>Hourly Rate: ${profile?.hourlyRate || 0}/hour</span>
+                                                        <span>Expected Salary: ৳{profile?.expectedSalary || 0}</span>
                                                     </div>
                                                     {profile?.rating > 0 && (
                                                         <div className="flex items-center gap-3 text-gray-600">

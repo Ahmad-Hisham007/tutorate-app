@@ -22,6 +22,10 @@ import ProtectedRoute from './ProtectedRoute';
 import PostTuition from '../Pages/PostTuition/PostTuition';
 import TutorApplications from '../Pages/TutorApplications/TutorApplications';
 import PaymentsHistory from '../Pages/PaymentsHistory/PaymentsHistory';
+import EditTuition from '../Pages/EditTuition/EditTuition';
+import MyApplications from '../Pages/MyApplications/MyApplications';
+import OngoingTuitions from '../Pages/OngoingTuitions/OngoingTuitions';
+import RevenueHistory from '../Pages/RevenueHistory/RevenueHistory';
 
 const Routes = createBrowserRouter([
     {
@@ -103,13 +107,22 @@ const Routes = createBrowserRouter([
             },
             // Tutor Routes
             {
-                path: "my-applications"
+                path: "my-applications",
+                element: <ProtectedRoute allowedRoles={["tutor"]}>
+                    <MyApplications></MyApplications>
+                </ProtectedRoute>
             },
             {
-                path: "ongoing-tuitions"
+                path: "ongoing-tuitions",
+                element: <ProtectedRoute allowedRoles={["tutor"]}>
+                    <OngoingTuitions></OngoingTuitions>
+                </ProtectedRoute>
             },
             {
-                path: "revenue-history"
+                path: "revenue-history",
+                element: <ProtectedRoute allowedRoles={["tutor"]}>
+                    <RevenueHistory></RevenueHistory>
+                </ProtectedRoute>
             },
             // Student Routes
             {
@@ -120,6 +133,12 @@ const Routes = createBrowserRouter([
                 path: "my-tuitions/post",
                 element: <ProtectedRoute allowedRoles={["student"]}>
                     <PostTuition></PostTuition>
+                </ProtectedRoute>
+            },
+            {
+                path: "my-tuitions/edit/:id",
+                element: <ProtectedRoute allowedRoles={["student"]}>
+                    <EditTuition></EditTuition>
                 </ProtectedRoute>
             },
             {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile, updatePassword } from 'firebase/auth';
 import { auth } from '../../Contexts/AuthProvider/AuthProvider';
@@ -54,7 +54,7 @@ const ProfileSettings = () => {
             qualifications: [],
             subjects: [],
             experience: '',
-            hourlyRate: '',
+            expectedSalary: '',
             // Student specific
             preferredSubjects: [],
             class: ''
@@ -102,7 +102,7 @@ const ProfileSettings = () => {
                 qualifications: profile.qualifications || [],
                 subjects: profile.subjects || [],
                 experience: profile.experience || '',
-                hourlyRate: profile.hourlyRate || '',
+                expectedSalary: profile.expectedSalary || '',
                 preferredSubjects: profile.preferredSubjects || [],
                 class: profile.class || ''
             });
@@ -486,11 +486,11 @@ const ProfileSettings = () => {
                                 <div>
                                     <label className="block text-sm font-medium text-base-content mb-2">
                                         <LuDollarSign className="inline mr-2" />
-                                        Hourly Rate ($)
+                                        Expected Salary (৳)
                                     </label>
                                     <input
                                         type="number"
-                                        {...register('hourlyRate')}
+                                        {...register('expectedSalary')}
                                         min="0"
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                                     />

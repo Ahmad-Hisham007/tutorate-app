@@ -3,11 +3,12 @@ import DashboardFooter from './DashboardFooter';
 import Header from './Header';
 import { Link, NavLink, Outlet } from 'react-router';
 import { IoHomeOutline } from 'react-icons/io5';
-import { MdCreditScore, MdOutlineLibraryBooks } from 'react-icons/md';
+import { MdCreditScore, MdOutlineFactCheck, MdOutlineLibraryBooks } from 'react-icons/md';
 import useRole from '../../Hooks/useRole';
 import { LuBriefcaseBusiness, LuCopyPlus } from 'react-icons/lu';
 import { FaEarDeaf } from 'react-icons/fa6';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { BsCreditCard2Front } from 'react-icons/bs';
 
 
 
@@ -44,6 +45,31 @@ const studentMenus = <>
     </li>
 
 </>
+const tutorMenus = <>
+    <li>
+        <NavLink to="/dashboard/my-applications" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Applications">
+
+            <MdOutlineLibraryBooks className='text-xl' />
+            <span className="is-drawer-close:hidden">My Applications</span>
+        </NavLink>
+    </li>
+    <li>
+        <NavLink to="/dashboard/ongoing-tuitions" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Ongoing Tuitions">
+
+            <MdOutlineFactCheck className='text-xl' />
+            <span className="is-drawer-close:hidden">Ongoing Tuitions</span>
+        </NavLink>
+    </li>
+    <li>
+        <NavLink to="/dashboard/revenue-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Revenue History">
+
+            <BsCreditCard2Front className='text-xl' />
+
+            <span className="is-drawer-close:hidden">Revenue History</span>
+        </NavLink>
+    </li>
+
+</>
 
 const DashboardLayout = () => {
     const { isStudent, isAdmin, isTutor, isLoading } = useRole();
@@ -56,15 +82,15 @@ const DashboardLayout = () => {
                 {/* Navbar */}
                 <Header></Header>
                 {/* Page content here */}
-                <main className="p-4">
+                <main className="p-4 bg-gray-50">
                     <Outlet></Outlet>
                 </main>
                 <DashboardFooter></DashboardFooter>
             </aside>
 
-            <aside className="drawer-side is-drawer-close:overflow-visible">
+            <aside className="drawer-side overflow-visible">
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+                <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 shadow-md! !is-drawer-open:shadow-md is-drawer-open:w-64">
                     {/* Sidebar content here */}
                     <ul className="menu w-full grow gap-4 [&_a.active]:text-primary [&_a.active]:bg-primary/10">
                         <Link to="/dashboard/myprofile" className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-4" data-tip="Profile">
@@ -75,6 +101,7 @@ const DashboardLayout = () => {
                         </Link>
                         {/* List item */}
                         {isStudent ? studentMenus : ""}
+                        {isTutor ? tutorMenus : ""}
                     </ul>
                 </div>
             </aside>

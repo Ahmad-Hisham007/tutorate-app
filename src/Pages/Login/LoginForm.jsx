@@ -15,7 +15,7 @@ const LoginForm = () => {
     const location = useLocation();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    console.log(location)
     const {
         register,
         handleSubmit,

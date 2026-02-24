@@ -1,5 +1,5 @@
 // TuitionJobDetails.jsx
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import {
     FaMapMarkerAlt,
@@ -21,7 +21,7 @@ import {
     FaStar,
     FaRegStar
 } from 'react-icons/fa';
-import { useParams } from 'react-router';
+import { Link, useParams, useLocation } from 'react-router';
 import useAxios from '../../../Hooks/useAxios';
 import Loading from '../../../Components/Loading/Loading';
 import { formatDateTime } from '../../../utils/formatDateTime';
@@ -30,6 +30,8 @@ import useRole from '../../../Hooks/useRole';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import Forbidden from '../../../Components/ForbiddenError/ForbiddenError';
+import ApplyModal from './ApplyModal';
+import { formatDate } from '../../../utils/formatDate';
 
 const TuitionsSingle = () => {
     const { id } = useParams();
@@ -37,8 +39,11 @@ const TuitionsSingle = () => {
     const axiosSecure = useAxiosSecure()
     const [activeTab, setActiveTab] = useState('details');
     const [isSaved, setIsSaved] = useState(false);
-    const { role, isAdmin, isStudent, isLoading: roleLoading } = useRole();
+    const { role, isAdmin, isStudent, isTutor, isLoading: roleLoading } = useRole();
     const { user, loading: userLoading } = useContext(AuthContext);
+    const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+    const queryClient = useQueryClient();
+    const location = useLocation();
 
     const { data, isLoading: dataLoading, error } = useQuery({
         queryKey: ['tuition', id, user?.email, role],
@@ -68,7 +73,13 @@ const TuitionsSingle = () => {
         { title: tuitionJob?.title, path: "" }
     ]
     console.log(tuitionJob)
+    const handleApplicationSuccess = () => {
 
+        queryClient.invalidateQueries(['tuition', id, user?.email, role]);
+        // Close modal
+        setIsApplyModalOpen(false);
+
+    };
     // Similar jobs
     const similarJobs = [
         {
@@ -214,7 +225,7 @@ const TuitionsSingle = () => {
                                         <FaMoneyBillWave className="w-4 h-4" />
                                         <span className="text-sm font-medium">Budget</span>
                                     </div>
-                                    <p className="font-semibold">{tuitionJob.budget}</p>
+                                    <p className="font-semibold">{`৳${tuitionJob.minBudget} - ৳${tuitionJob.maxBudget}`}</p>
                                 </div>
                             </div>
 
@@ -309,7 +320,7 @@ const TuitionsSingle = () => {
                                                 </div>
                                                 <div>
                                                     <p className="text-sm text-gray-500 mb-1">Start Date</p>
-                                                    <p className="font-medium">{tuitionJob.schedule.startDate}</p>
+                                                    <p className="font-medium">{formatDate(tuitionJob.schedule.startDate)}</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-sm text-gray-500 mb-1">Duration</p>
@@ -473,17 +484,47 @@ const TuitionsSingle = () => {
                                 </div>
                                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                                     <span className="text-gray-600">Application Deadline</span>
-                                    <span className="font-medium">{tuitionJob.applicationDeadline}</span>
+                                    <span className="font-medium">{formatDate(tuitionJob.applicationDeadline)}</span>
                                 </div>
                                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                                     <span className="text-gray-600">Expected Start</span>
-                                    <span className="font-medium">{tuitionJob.startDate}</span>
+                                    <span className="font-medium">{formatDate(tuitionJob.startDate)}</span>
                                 </div>
                             </div>
 
-                            <button className="w-full bg-primary text-white font-primary font-bold py-4 px-6 rounded-xl hover:bg-primary/90 transition-all transform hover:scale-[1.02] mb-3">
-                                Apply Now
-                            </button>
+                            {!user ? (
+                                // Case 1: User not logged in
+                                <Link
+                                    to="/login"
+                                    state={location.pathname}
+                                    className="w-full block text-center bg-primary text-white font-primary font-bold py-4 px-6 rounded-xl hover:bg-primary/90 transition-all transform hover:scale-[1.02] mb-3"
+                                >
+                                    Login to Apply
+                                </Link>
+                            ) : isTutor ? (
+                                // Case 2: Logged in as Tutor
+                                <label
+                                    htmlFor="apply-modal"
+                                    onClick={() => setIsApplyModalOpen(true)}
+                                    className="w-full block text-center bg-primary text-white font-primary font-bold py-4 px-6 rounded-xl hover:bg-primary/90 transition-all transform hover:scale-[1.02] mb-3 cursor-pointer"
+                                >
+                                    Apply Now
+                                </label>
+                            ) : isStudent ? (
+                                // Case 3: Logged in as Student (can't apply to own type)
+                                <div className="w-full block text-center bg-gray-400 text-white font-primary font-bold py-4 px-6 rounded-xl mb-3 cursor-not-allowed">
+                                    Students Cannot Apply
+                                </div>
+                            ) : isAdmin ? (
+                                // Case 4: Admin (can apply? depends on your logic)
+                                <label
+                                    htmlFor="apply-modal"
+                                    onClick={() => setIsApplyModalOpen(true)}
+                                    className="w-full block text-center bg-primary text-white font-primary font-bold py-4 px-6 rounded-xl hover:bg-primary/90 transition-all transform hover:scale-[1.02] mb-3 cursor-pointer"
+                                >
+                                    Apply Now (Admin)
+                                </label>
+                            ) : null}
 
                             <button className="w-full border-2 border-primary text-primary font-primary font-bold py-4 px-6 rounded-xl hover:bg-primary/5 transition-all">
                                 Save for Later
@@ -496,9 +537,8 @@ const TuitionsSingle = () => {
                             <h3 className="text-xl font-primary font-bold mb-4">Similar Jobs</h3>
                             <div className="space-y-4">
                                 {similarJobs.map((job) => (
-                                    <a
+                                    <div
                                         key={job._id}
-                                        href={`/tuition-jobs/${job._id}`}
                                         className="block p-4 border border-gray-200 rounded-xl hover:border-primary hover:shadow-md transition-all group"
                                     >
                                         <div className="flex justify-between items-start mb-2">
@@ -522,7 +562,7 @@ const TuitionsSingle = () => {
                                             </span>
                                         </div>
                                         <p className="text-xs text-gray-400 mt-2">Posted {job.posted}</p>
-                                    </a>
+                                    </div>
                                 ))}
                             </div>
 
@@ -535,6 +575,10 @@ const TuitionsSingle = () => {
                     </div>
                 </div>
             </div>
+            {/* Application Modal */}
+            <ApplyModal tuition={tuitionJob} isOpen={isApplyModalOpen} onClose={() => {
+                setIsApplyModalOpen(false);
+            }} onSuccess={handleApplicationSuccess}></ApplyModal>
         </div>
     );
 };

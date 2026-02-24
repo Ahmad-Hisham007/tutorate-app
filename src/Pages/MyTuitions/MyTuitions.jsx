@@ -23,6 +23,7 @@ import {
 import Loading from '../../Components/Loading/Loading';
 import { CgBell, CgEditStraight } from 'react-icons/cg';
 import { formatDate } from '../../utils/formatDate';
+import { FaRegEdit } from 'react-icons/fa';
 
 const MyTuitions = () => {
     const { user } = useContext(AuthContext);
@@ -294,7 +295,9 @@ const MyTuitions = () => {
                                                             className="btn btn-circle btn-xs btn-ghost text-primary"
                                                             title="Edit"
                                                         >
-                                                            <CgEditStraight size={16} />
+
+                                                            <FaRegEdit size={16} />
+
                                                         </button>
                                                         <button
                                                             onClick={() => handleDelete(tuition._id, tuition.title)}

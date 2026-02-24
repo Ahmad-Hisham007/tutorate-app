@@ -13,7 +13,7 @@ import {
     deleteUser
 } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
-import useAxios from '../../hooks/useAxios';
+import useAxios from '../../Hooks/useAxios';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();

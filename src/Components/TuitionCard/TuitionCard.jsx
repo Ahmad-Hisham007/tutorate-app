@@ -10,12 +10,13 @@ const TuitionCard = ({ tuition }) => {
         location,
         type,
         mode,
-        budget,
         students,
         subject,
         posted,
         applicants,
         slots,
+        minBudget,
+        maxBudget
     } = tuition;
     return (
         <div
@@ -90,7 +91,7 @@ const TuitionCard = ({ tuition }) => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xs text-base-content/50">Budget</span>
-                        <span className="text-sm font-bold text-primary">{budget}</span>
+                        <span className="text-sm font-bold text-primary">{`৳${minBudget} - ৳${maxBudget}`}</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xs text-base-content/50">Students</span>

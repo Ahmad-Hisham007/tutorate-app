@@ -57,9 +57,9 @@ const TutorsCard = ({ tutor }) => {
                 {/* Contact Details */}
                 <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
-                        <span className="text-gray-500">Starting from:</span>
+                        <span className="text-gray-500">Expected Salary:</span>
                         <span className="font-bold text-gray-800">
-                            ${Number(tutor.hourlyRate)}/hr
+                            ৳{Number(tutor.expectedSalary)}
                         </span>
                     </div>
                     <div className="flex items-center gap-1">

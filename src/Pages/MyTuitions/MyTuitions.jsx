@@ -24,6 +24,7 @@ import Loading from '../../Components/Loading/Loading';
 import { CgBell, CgEditStraight } from 'react-icons/cg';
 import { formatDate } from '../../utils/formatDate';
 import { FaRegEdit } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const MyTuitions = () => {
     const { user } = useContext(AuthContext);
@@ -66,21 +67,44 @@ const MyTuitions = () => {
             setPage(1); // Reset to first page when filter changes
         }
     };
-    const handleDelete = async (id, title) => {
-        if (!window.confirm(`Are you sure you want to delete "${title}"?`)) return;
+    const handleDelete = async (id) => {
 
-        setIsDeleting(true);
-        try {
-            const response = await axiosSecure.delete(`/tuitions/${id}?email=${user?.email}`);
-            if (response.data.success) {
-                toast.success('Tuition deleted successfully');
-                refetch();
+
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm, delete"
+        });
+        if (result.isConfirmed) {
+            setIsDeleting(true);
+            try {
+                const response = await axiosSecure.delete(`/tuitions/${id}?email=${user?.email}`);
+                if (response.data.success) {
+                    toast.success('Tuition deleted successfully');
+                    refetch();
+                }
+            } catch (error) {
+                toast.error(error.response?.data?.error || 'Failed to delete tuition');
+            } finally {
+                setIsDeleting(false);
             }
-        } catch (error) {
-            toast.error(error.response?.data?.error || 'Failed to delete tuition');
-        } finally {
-            setIsDeleting(false);
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your post has been deleted.",
+                icon: "success"
+            });
+
         }
+        // .then((result) => {
+        //     if (result.isConfirmed) {
+
+        //     }
+        // });
+
     };
 
     const getStatusBadge = (status) => {
@@ -299,14 +323,17 @@ const MyTuitions = () => {
                                                             <FaRegEdit size={16} />
 
                                                         </button>
-                                                        <button
-                                                            onClick={() => handleDelete(tuition._id, tuition.title)}
-                                                            disabled={isDeleting}
-                                                            className="btn btn-circle btn-xs btn-ghost text-error"
-                                                            title="Delete"
-                                                        >
-                                                            <LuTrash2 size={16} />
-                                                        </button>
+                                                        {tuition.status === "completed" ?
+                                                            "" : <button
+                                                                onClick={() => handleDelete(tuition._id, tuition.title)}
+                                                                disabled={isDeleting}
+                                                                className="btn btn-circle btn-xs btn-ghost text-error"
+                                                                title="Delete"
+                                                            >
+                                                                <LuTrash2 size={16} />
+                                                            </button>
+                                                        }
+
                                                     </div>
                                                 </td>
                                             </tr>

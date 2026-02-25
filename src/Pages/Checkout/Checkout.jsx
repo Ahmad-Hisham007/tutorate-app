@@ -1,6 +1,6 @@
 // src/Pages/Checkout/Checkout.jsx
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { toast } from 'react-hot-toast';
@@ -124,7 +124,7 @@ const CheckoutForm = ({ applicationId, amount, onSuccess }) => {
 };
 
 const Checkout = () => {
-    const { user } = useContext(AuthContext);
+    // const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const { applicationId, amount, tuitionTitle } = location.state || {};

@@ -26,6 +26,10 @@ import EditTuition from '../Pages/EditTuition/EditTuition';
 import MyApplications from '../Pages/MyApplications/MyApplications';
 import OngoingTuitions from '../Pages/OngoingTuitions/OngoingTuitions';
 import RevenueHistory from '../Pages/RevenueHistory/RevenueHistory';
+import Checkout from '../Pages/Checkout/Checkout';
+import ManageUsers from '../Pages/ManageUsers/ManageUsers';
+import ManageTutions from '../Pages/ManageTutions/ManageTutions';
+import Reports from '../Pages/Reports/Reports';
 
 const Routes = createBrowserRouter([
     {
@@ -97,13 +101,22 @@ const Routes = createBrowserRouter([
             },
             // Admin Routes
             {
-                path: "users"
+                path: "manage-users",
+                element: <ProtectedRoute allowedRoles={["admin"]}>
+                    <ManageUsers></ManageUsers>
+                </ProtectedRoute>
             },
             {
-                path: "manage-tuitions"
+                path: "manage-tuitions",
+                element: <ProtectedRoute allowedRoles={["admin"]}>
+                    <ManageTutions></ManageTutions>
+                </ProtectedRoute>
             },
             {
-                path: "reports"
+                path: "reports",
+                element: <ProtectedRoute allowedRoles={["admin"]}>
+                    <Reports></Reports>
+                </ProtectedRoute>
             },
             // Tutor Routes
             {
@@ -123,6 +136,10 @@ const Routes = createBrowserRouter([
                 element: <ProtectedRoute allowedRoles={["tutor"]}>
                     <RevenueHistory></RevenueHistory>
                 </ProtectedRoute>
+            },
+            {
+                path: "ongoing-tuitions",
+                element: <ProtectedRoute allowedRoles={["tutor"]}><OngoingTuitions /></ProtectedRoute>
             },
             // Student Routes
             {
@@ -148,10 +165,13 @@ const Routes = createBrowserRouter([
                 </ProtectedRoute>
             },
             {
+                path: "checkout",
+                element: <ProtectedRoute allowedRoles={["student"]}><Checkout /></ProtectedRoute>
+            },
+            // Student & Tutor Routes
+            {
                 path: "payments",
-                element: <ProtectedRoute allowedRoles={["student"]}>
-                    <PaymentsHistory></PaymentsHistory>
-                </ProtectedRoute>
+                element: <ProtectedRoute allowedRoles={["student", "tutor"]}><PaymentsHistory /></ProtectedRoute>
             }
         ]
     }

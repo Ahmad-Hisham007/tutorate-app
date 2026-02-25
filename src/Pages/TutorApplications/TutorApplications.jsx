@@ -36,8 +36,8 @@ const TutorApplications = () => {
         },
         enabled: !!user?.email && !!selectedTuition
     });
-    const selectedTuitionObj = tuitions?.find(t => t._id === selectedTuition);
-    console.log(applicationsData, selectedTuition, selectedTuitionObj)
+
+    // console.log(applicationsData, selectedTuition, selectedTuitionObj)
     const handleAction = async (applicationId, action) => {
         try {
             const response = await axiosSecure.patch(
@@ -46,18 +46,19 @@ const TutorApplications = () => {
 
             if (response.data.success) {
                 if (action === 'approve') {
+                    const selectedTuitionObj = tuitions?.find(t => t._id === selectedTuition);
                     toast.success('Proceeding to payment...');
-                    navigate('/checkout', {
+                    navigate('/dashboard/checkout', {
                         state: {
                             applicationId,
                             amount: response.data.data.amount,
-                            tuitionTitle: selectedTuition.title,
+                            tuitionTitle: selectedTuitionObj?.title || 'Tuition Payment',
                         }
                     });
                 } else {
                     toast.success('Application rejected');
-                    refetch();
                     refetchTuitions();
+                    refetch();
                 }
             }
         } catch (error) {
@@ -136,9 +137,11 @@ const TutorApplications = () => {
                                                 </Link>
 
                                                 <div>
-                                                    <h3 className="text-lg font-primary font-bold text-base-content">
-                                                        {app.tutorName}
-                                                    </h3>
+                                                    <Link className='block' to={`/tutors/${app.tutorId}`} target='_blank'>
+                                                        <h3 className="text-lg font-primary font-bold text-base-content">
+                                                            {app.tutorName}
+                                                        </h3>
+                                                    </Link>
                                                     <p className="text-sm text-gray-600">{app.tutorEmail}</p>
                                                 </div>
                                             </div>

@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import DashboardFooter from './DashboardFooter';
 import Header from './Header';
 import { Link, NavLink, Outlet } from 'react-router';
-import { IoHomeOutline } from 'react-icons/io5';
-import { MdCreditScore, MdOutlineFactCheck, MdOutlineLibraryBooks } from 'react-icons/md';
+import { IoHomeOutline, IoStatsChartSharp } from 'react-icons/io5';
+import { MdCreditScore, MdOutlineFactCheck, MdOutlineLibraryBooks, MdOutlineManageAccounts } from 'react-icons/md';
 import useRole from '../../Hooks/useRole';
-import { LuBriefcaseBusiness, LuCopyPlus } from 'react-icons/lu';
+import { LuBriefcaseBusiness, LuCopyPlus, LuFileStack } from 'react-icons/lu';
 import { FaEarDeaf } from 'react-icons/fa6';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { BsCreditCard2Front } from 'react-icons/bs';
@@ -63,9 +63,36 @@ const tutorMenus = <>
     <li>
         <NavLink to="/dashboard/revenue-history" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Revenue History">
 
-            <BsCreditCard2Front className='text-xl' />
-
+            <MdCreditScore className='text-xl' />
             <span className="is-drawer-close:hidden">Revenue History</span>
+        </NavLink>
+    </li>
+
+</>
+
+const adminMenus = <>
+    <li>
+        <NavLink to="/dashboard/manage-tuitions" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Tuitions">
+
+            <LuFileStack className='text-xl' />
+
+            <span className="is-drawer-close:hidden">Manage Tuitions</span>
+        </NavLink>
+    </li>
+    <li>
+        <NavLink to="/dashboard/manage-users" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Users">
+
+            <MdOutlineManageAccounts className='text-xl' />
+
+            <span className="is-drawer-close:hidden">Manage Users</span>
+        </NavLink>
+    </li>
+    <li>
+        <NavLink to="/dashboard/reports" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Reports">
+
+            <IoStatsChartSharp className='text-xl' />
+
+            <span className="is-drawer-close:hidden">Platform Reports</span>
         </NavLink>
     </li>
 
@@ -102,6 +129,7 @@ const DashboardLayout = () => {
                         {/* List item */}
                         {isStudent ? studentMenus : ""}
                         {isTutor ? tutorMenus : ""}
+                        {isAdmin ? adminMenus : ""}
                     </ul>
                 </div>
             </aside>

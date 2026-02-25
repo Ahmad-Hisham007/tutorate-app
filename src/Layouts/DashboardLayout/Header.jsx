@@ -36,7 +36,7 @@ const Header = () => {
             </label>
             <div className='flex justify-between items-center w-full'>
                 <div className="header-logo">
-                    <Link to="/">
+                    <Link to="/dashboard">
                         <img
                             className="logo-white md:w-32 w-24"
                             src={Logo}

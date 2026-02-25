@@ -53,7 +53,11 @@ const Profile = () => {
     const { data: statsData, isLoading: statsLoading } = useQuery({
         queryKey: ['userStats', user?.email],
         queryFn: async () => {
-            const response = await axiosSecure.get('/users/stats');
+            const response = await axiosSecure.get('/users/stats', {
+                params: {
+                    email: user?.email
+                }
+            });
             return response.data.data;
         },
         enabled: !!user

@@ -34,7 +34,7 @@ const ApplyModal = ({ isOpen, onClose, tuition, onSuccess }) => {
         experience: Number(data.experience),
         expectedSalary: Number(data.expectedSalary)
       });
-      console.log('Server response:', response.data);
+
       if (response.data?.success) {
         // Success - only show success toast
         toast.success('Application submitted successfully!');

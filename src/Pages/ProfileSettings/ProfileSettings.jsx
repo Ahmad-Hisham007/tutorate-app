@@ -200,7 +200,7 @@ const ProfileSettings = () => {
     if (isLoading) {
         return <Loading />;
     }
-    console.log(profile)
+    
     return (
         <div className="min-h-screen py-8">
             <div className="container mx-auto px-4 max-w-4xl">

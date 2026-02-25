@@ -7,6 +7,7 @@ import MissionAndValues from './MissionAndValues';
 import TransformSection from './TransformSection';
 import AboutSummery from './AboutSummery';
 import Statsection2 from './Statsection2';
+import Loading from '../../Components/Loading/Loading';
 
 const About = () => {
     return (
@@ -19,6 +20,7 @@ const About = () => {
             <MissionAndValues></MissionAndValues>
 
         </>
+
     );
 };
 

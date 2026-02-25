@@ -99,9 +99,8 @@ const adminMenus = <>
 </>
 
 const DashboardLayout = () => {
-    const { isStudent, isAdmin, isTutor, isLoading } = useRole();
+    const { isStudent, isAdmin, isTutor } = useRole();
     const { user } = useContext(AuthContext)
-    console.log(isStudent, isAdmin, isTutor, isLoading)
     return (
         <section className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

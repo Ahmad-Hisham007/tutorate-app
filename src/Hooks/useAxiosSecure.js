@@ -9,17 +9,15 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: "https://tutorate-server.vercel.app/api",
   });
 
   // Request interceptor - Add token
   axiosInstance.interceptors.request.use(
     async (config) => {
-      console.log("Request config:", config.url);
       if (user) {
         try {
           const token = await user.getIdToken(true);
-          console.log("Token obtained:", token ? "Yes" : "No");
           config.headers.Authorization = `Bearer ${token}`;
         } catch (error) {
           console.error("Error getting token:", error);
@@ -42,7 +40,7 @@ const useAxiosSecure = () => {
     async (error) => {
       // If 401 error, immediately log out and redirect to login
       if (error.response?.status === 401) {
-        console.log("Unauthorized - Logging out immediately");
+
 
         await logOut();
         navigate("/login", {

@@ -6,23 +6,28 @@ import { RouterProvider } from 'react-router'
 import AuthProvider from './Contexts/AuthProvider/AuthProvider.jsx'
 import { Toaster } from 'react-hot-toast'
 import QueryProvider from './Contexts/QueryProvider/QueryProvider.jsx'
+import 'aos/dist/aos.css';
+import Aos from 'aos'
+
+// Initialize AOS
+Aos.init({
+  duration: 800,
+  easing: 'ease-in-out',
+  once: false,
+  mirror: true,
+  offset: 100,
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryProvider>
-
       <AuthProvider>
         <RouterProvider router={Routes}>
-
         </RouterProvider>
         <Toaster position='top-center' containerStyle={{
           top: 120
         }} />
       </AuthProvider>
-
     </QueryProvider>
-
-
-
   </StrictMode>
 )

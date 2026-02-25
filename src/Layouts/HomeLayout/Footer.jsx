@@ -33,7 +33,7 @@ const Footer = () => {
                             <h5 className="font-primary font-medium text-lg mb-4">Feel free to share your question</h5>
                             <ul className="space-y-3 [&_a:hover]:text-primary">
                                 <li><a className='flex items-center gap-4 flex-wrap' href="tel:+8801799290220"><FiPhoneCall />(+88)01799290220<span className='opacity-55'>( Mon to Sun 9am - 11pm GMT )</span></a></li>
-                                <li><a className='flex items-center gap-4 ' href="mailto:hello@youremailid.co.uk"><BsEnvelope />ahhisham413@gmail.com</a></li>
+                                <li><a className='flex items-center gap-4 ' href="mailto:ahhisham413@gmail.com"><BsEnvelope />ahhisham413@gmail.com</a></li>
                                 <li><a className='flex items-center gap-4 ' href="tel:+8801881213277"><FiPrinter />+880 18812 13277</a></li>
                                 <li><a className='flex items-center gap-4 flex-wrap' href="tel:(+88)01799290220"><RiWhatsappLine />(+88)01799290220<span className='opacity-55'>( Mon to Sun 9am - 11pm GMT )</span></a></li>
                             </ul>
@@ -44,16 +44,16 @@ const Footer = () => {
                         <div className="lg:col-span-6">
                             <h5 className="font-primary font-medium text-lg mb-4">Useful links</h5>
                             <ul className="grid ms-5 lg:ms-0 lg:grid-cols-2 items-start [&_a]:relative [&_a]:before:absolute [&_a]:before:w-1 [&_a]:before:h-px [&_a]:before:bg-teal-600 [&_a]:before:content-[''] [&_a]:before:top-6/12 [&_a]:before:-left-4 [&_a]:hover:text-primary [&_a]:transition-all [&_a]:duration-200">
-                                <li><a href="how-it-work.html">About</a></li>
-                                <li><a href="search-listing.html">Success stories</a></li>
-                                <li><a href="search-listing.html">Online class</a></li>
-                                <li><a href="login.html">Join our community</a></li>
-                                <li><a href="search-listing.html">Courses</a></li>
-                                <li><a href="login.html">Sign in now</a></li>
-                                <li><a href="search-listing.html">Programs &amp; degrees</a></li>
-                                <li><a href="how-it-work.html">How it works</a></li>
-                                <li><a href="search-listing.html">Learning materials</a></li>
-                                <li><a href="index.html">F.A.Q</a></li>
+                                <li><Link to="/about">About</Link></li>
+                                <li><Link to="/contact">Contact us</Link></li>
+                                <li><Link to="/register">Create your account</Link></li>
+                                <li><Link to="/Login">Sign in</Link></li>
+                                <li><Link to="/tutors">Tutors</Link></li>
+                                <li><Link to="/tuitions">Tuitions</Link></li>
+                                <li><a >Programs &amp; degrees</a></li>
+                                <li><a>How it works</a></li>
+                                <li><a>Learning materials</a></li>
+                                <li><a>F.A.Q</a></li>
                             </ul>
                         </div>
                         <div className="lg:col-span-6 lg:flex">
@@ -73,10 +73,10 @@ const Footer = () => {
                         <div className="flex flex-wrap md:justify-between justify-center items-center font-body">
                             <p>© 1994 - 2022 All Rights Reserved.</p>
                             <ul className="flex flex-wrap items-center justify-center mt-2.5 md:mt-0 gap-2.5 [&_a]:hover:text-primary">
-                                <li><a href="how-it-work.html">Careers</a></li>
-                                <li><a href="how-it-work.html">Terms of use</a></li>
-                                <li><a href="how-it-work.html">Privacy policy</a></li>
-                                <li><a href="how-it-work.html">Cookie notice</a></li>
+                                <li><a >Careers</a></li>
+                                <li><a >Terms of use</a></li>
+                                <li><a >Privacy policy</a></li>
+                                <li><a >Cookie notice</a></li>
                             </ul>
                         </div>
                     </div>

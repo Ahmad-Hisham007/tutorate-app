@@ -1,11 +1,12 @@
 import React from 'react';
+import img1 from "../../assets/about-img-1.jpg"
 
 const AboutSection = () => {
     return (
         <section className="py-16 lg:py-24">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div>
+                    <div data-aos="fade-right">
                         <h2 className="text-3xl md:text-4xl font-primary font-bold mb-6">
                             We are providing the best quality <span className="text-primary">#Tutors.</span>
                         </h2>
@@ -16,9 +17,9 @@ const AboutSection = () => {
                             Our platform includes hundreds of programs across various fields, all designed to help you build real skills at your own pace. We constantly update our content to match industry changes, ensuring you always have access to the most relevant and up-to-date material available.
                         </p>
                     </div>
-                    <div className="relative">
+                    <div className="relative" data-aos="fade-left">
                         <img
-                            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            src={img1}
                             alt="Online Education"
                             className="rounded-2xl shadow-2xl"
                         />

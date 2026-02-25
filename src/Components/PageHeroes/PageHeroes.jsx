@@ -6,7 +6,6 @@ import { useLocation } from 'react-router';
 
 const PageHeroes = ({ pageTitle }) => {
     const location = useLocation();
-    console.log(location)
     const breadcrumbItems = [
         { title: pageTitle, path: location.pathname }
     ];

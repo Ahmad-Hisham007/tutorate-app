@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutSummery = () => {
     return (
-        <section className='md:py-17 py-12'>
+        <section className='md:py-17 py-12' data-aos="fade-up">
             <div className='max-w-6xl mx-auto px-5 md:px-0'>
 
                 <h2 className='font-bold text-4xl text-base-content font-primary max-w-180'>We empower learners worldwide with industry-relevant skills through flexible, expert-led online education.</h2>

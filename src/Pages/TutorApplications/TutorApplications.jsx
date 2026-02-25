@@ -37,7 +37,7 @@ const TutorApplications = () => {
         enabled: !!user?.email && !!selectedTuition
     });
 
-    // console.log(applicationsData, selectedTuition, selectedTuitionObj)
+    
     const handleAction = async (applicationId, action) => {
         try {
             const response = await axiosSecure.patch(

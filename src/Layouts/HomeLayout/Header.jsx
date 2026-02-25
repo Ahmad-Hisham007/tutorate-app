@@ -39,10 +39,7 @@ const Header = () => {
         }
     }, [location]);
 
-    // const handleMobileDepDropdown = () => {
-    //     console.log(isMobileDepDropdownOpened)
-    //     setIsMobileDepDropdownOpened(!isMobileDepDropdownOpened);
-    // }
+
 
     const primaryNav = <>
         <li>
@@ -146,9 +143,9 @@ const Header = () => {
                                 <div className="flex items-center justify-end space-x-4">
                                     {/* Phone Number */}
                                     <div className="hidden lg:block">
-                                        <a href="tel:+1234456789" className="flex items-center gap-3 text-base-content font-medium font-primary">
+                                        <a href="tel:+8801799290229" className="flex items-center gap-3 text-base-content font-medium font-primary">
                                             <LuPhoneCall className='text-xl mt-0.5 text-primary' />
-                                            <span>+1234 456 789</span>
+                                            <span>+880 1799290229</span>
                                         </a>
                                     </div>
                                     <hr className='h-5 bg-gray-300 w-px border-0' />
@@ -249,9 +246,9 @@ const Header = () => {
 
                                         {/* Phone Number */}
                                         <div className="flex flex-col items-stretch gap-5 mt-auto">
-                                            <a href="tel:+1234456789" className="flex items-center gap-3 text-base-content font-medium font-primary">
+                                            <a href="tel:+8801799290229" className="flex items-center gap-3 text-base-content font-medium font-primary">
                                                 <LuPhoneCall className='text-2xl mt-0.5 text-primary' />
-                                                <span className='text-xl'>+1234 456 789</span>
+                                                <span className='text-xl'>+880 1799290229</span>
                                             </a>
 
                                             {/* CTA Button */}

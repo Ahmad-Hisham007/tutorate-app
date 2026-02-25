@@ -48,13 +48,13 @@ const MyTuitions = () => {
                 if (filter && filter !== 'all') {
                     queryParams.append('status', filter);
                 }
-                console.log('Making request to:', `/tuitions/my-posts?${queryParams.toString()}`);
+
 
                 const response = await axiosSecure.get(`/students/my-tuitions?${queryParams.toString()}`);
-                console.log('Response:', response);
+
                 return response.data;
             } catch (error) {
-                console.log('Error in queryFn:', error);
+
                 console.log('Error response:', error.response);
                 throw error;
             }

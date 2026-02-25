@@ -11,8 +11,9 @@ const MainContactSection = () => {
         reset
     } = useForm();
 
+    // eslint-disable-next-line no-unused-vars
     const onSubmit = (data) => {
-        console.log(data);
+
         // Handle form submission here
         toast.success('Message sent successfully!');
         reset();
@@ -24,7 +25,7 @@ const MainContactSection = () => {
                 {/* Contact Info Cards */}
                 <div className="grid md:grid-cols-3 gap-6 mb-12 lg:mb-16">
                     {/* Hours Card */}
-                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group">
+                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group" data-aos="fade-down">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                             <FaClock className="w-7 h-7 text-primary" />
                         </div>
@@ -37,7 +38,7 @@ const MainContactSection = () => {
                     </div>
 
                     {/* Phone Card */}
-                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group">
+                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group" data-aos="fade-down">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                             <FaPhone className="w-7 h-7 text-primary" />
                         </div>
@@ -50,7 +51,7 @@ const MainContactSection = () => {
                     </div>
 
                     {/* Address Card */}
-                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group">
+                    <div className="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 group" data-aos="fade-down">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                             <FaMapMarkerAlt className="w-7 h-7 text-primary" />
                         </div>
@@ -68,7 +69,7 @@ const MainContactSection = () => {
             <div className="py-17 md:py-22 bg-slate-50">
                 <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 px-4 md:px-0">
                     {/* Left Column - Map */}
-                    <div className="space-y-6">
+                    <div className="space-y-6" data-aos="fade-right">
                         <div className="bg-linear-to-br from-accent to-amber-100 rounded-2xl md:p-8 p-4">
                             <div className='overflow-hidden h-100 lg:h-120 mb-8'>
                                 <iframe
@@ -107,7 +108,7 @@ const MainContactSection = () => {
                     </div>
 
                     {/* Right Column - Contact Form */}
-                    <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+                    <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8" data-aos="fade-left">
                         <h2 className="text-2xl lg:text-3xl font-primary font-bold mb-2">
                             Get In <span className="text-primary">Touch</span>
                         </h2>

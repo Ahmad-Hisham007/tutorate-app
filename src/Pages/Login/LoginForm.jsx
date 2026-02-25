@@ -15,7 +15,6 @@ const LoginForm = () => {
     const location = useLocation();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log(location)
     const {
         register,
         handleSubmit,
@@ -25,10 +24,10 @@ const LoginForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        console.log('Form Data:', data);
+
         // Handle registration logic here
         const response = await handleLogin(data);
-        console.log(response)
+
         if (response.success) {
             // Reset the form after successful registration
             reset();

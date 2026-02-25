@@ -50,14 +50,14 @@ const TuitionsSingle = () => {
         queryFn: async () => {
             try {
                 const endpoint = `/tuitions/${id}${(isStudent || isAdmin) ? '/student-view' : ''}`;
-                console.log(endpoint)
+                
                 // logged out user -> axios
                 // logged in user -> axiosSecure
                 const api = user ? axiosSecure : axios;
 
-                console.log('Fetching from:', endpoint, 'with:', user ? 'axiosSecure' : 'axios');
+               
                 const response = await api.get(endpoint);
-                console.log(response)
+                
                 return response.data;
             } catch (error) {
                 console.error('Error fetching tuition:', error);
@@ -67,12 +67,12 @@ const TuitionsSingle = () => {
         enabled: !!id && !roleLoading,
     });
     const tuitionJob = data?.data;
-    console.log(tuitionJob)
+    
     const breadCrumbItems = [
         { title: "Tuitions", path: "/tuitions" },
         { title: tuitionJob?.title, path: "" }
     ]
-    console.log(tuitionJob)
+    
     const handleApplicationSuccess = () => {
 
         queryClient.invalidateQueries(['tuition', id, user?.email, role]);

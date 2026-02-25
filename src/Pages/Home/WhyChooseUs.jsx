@@ -84,7 +84,7 @@ const WhyChooseUs = () => {
         <section className="py-16 lg:py-24 bg-linear-to-b text-base-content from-white to-gray-50">
             <div className="container mx-auto">
                 {/* Header Section */}
-                <div className="text-center mb-16">
+                <div className="text-center mb-16" data-aos="fade-up">
                     <h2 className="text-3xl font-primary md:text-4xl lg:text-5xl font-bold text-base-content mb-4">
                         Why our working is so <span className="text-primary">#unique</span>
                     </h2>
@@ -95,7 +95,7 @@ const WhyChooseUs = () => {
 
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-6'>
                     {/* Left Column - Features */}
-                    <div className='px-4'>
+                    <div className='px-4' data-aos="fade-left">
                         {/* Feature Tabs */}
                         <div className="space-y-8">
                             {features.map((feature) => (
@@ -155,7 +155,7 @@ const WhyChooseUs = () => {
                     </div>
 
                     {/* Right Column - Image/Visualization */}
-                    <div className='relative h-full'>
+                    <div className='relative h-full' data-aos="fade-right">
                         {/* Main Image/Illustration */}
                         <div className=" sticky top-5 bg-linear-to-br from-accent to-amber-100 rounded-2xl md:p-8 p-4 shadow-xl md:overflow-x-visible overflow-x-clip">
 
@@ -224,13 +224,13 @@ const WhyChooseUs = () => {
 
                             </div>
                             <div className="absolute -top-16 -left-16 w-24 h-24 bg-linear-to-r from-amber-400 to-orange-500 rounded-2xl rotate-12 opacity-20 -z-1"></div>
-                            <div className="absolute -bottom-16 -right-16 w-32 h-32 bg-linear-to-r from-green-400 to-teal-500 rounded-3xl -rotate-12 opacity-20 -z-2"></div>
+                            <div className="absolute -bottom-16 -right-16 w-32 h-32 bg-linear-to-r from-green-400 to-teal-500 rounded-3xl -rotate-12 opacity-20 -z-2 md:hidden"></div>
                         </div>
                     </div>
                 </div>
 
                 {/* Testimonial */}
-                <div className="mt-20 bg-linear-to-r from-amber-200 to-secondary rounded-2xl p-8 text-base-content">
+                <div className="mt-20 mx-5 bg-linear-to-r from-amber-200 to-secondary rounded-2xl p-8 text-base-content" data-aos="fade-up">
                     <div className="max-w-3xl mx-auto text-center">
                         <div className="text-4xl mb-4">"</div>
                         <p className="text-xl mb-6">

@@ -1,5 +1,7 @@
 // StatsSection.jsx
 import React from 'react';
+import img1 from "../../assets/about-img-1.jpg"
+import img2 from "../../assets/about-img-2.jpg"
 
 const Statsection2 = () => {
     // Animation styles
@@ -37,6 +39,7 @@ const Statsection2 = () => {
                                 <div
                                     className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
                                     style={{ animationDelay: '0s', opacity: 0 }}
+                                    data-aos="fade-up"
                                 >
                                     <div className="mb-2">
                                         <span className="text-4xl md:text-5xl font-primary font-bold text-primary">
@@ -52,6 +55,7 @@ const Statsection2 = () => {
                                 <div
                                     className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
                                     style={{ animationDelay: '0.2s', opacity: 0 }}
+                                    data-aos="fade-up"
                                 >
                                     <div className="mb-2">
                                         <span className="text-4xl md:text-5xl font-primary font-bold text-primary">
@@ -66,7 +70,7 @@ const Statsection2 = () => {
                                 {/* Card 3 - Accent Color */}
                                 <div
                                     className="flex-1 bg-white rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 animate-fadeInUp"
-                                    style={{ animationDelay: '0.3s', opacity: 0 }}
+                                    data-aos="fade-up"
                                 >
                                     <div className="mb-2">
                                         <span className="text-4xl md:text-5xl font-primary font-bold text-primary">
@@ -85,10 +89,10 @@ const Statsection2 = () => {
                             {/* Images grid */}
                             <div className="grid grid-cols-2 gap-7.5 w-full">
                                 {/* Image 1 */}
-                                <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                                <div className="relative overflow-hidden rounded-2xl shadow-lg group" data-aos="fade-left">
                                     <img
                                         loading="lazy"
-                                        src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        src={img1}
                                         alt="Educational Image"
                                         className="w-full h-auto object-cover aspect-406/660 transition-transform duration-500 group-hover:scale-110"
                                     />
@@ -96,11 +100,10 @@ const Statsection2 = () => {
                                 </div>
 
                                 {/* Image 2 */}
-                                <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                                <div className="relative overflow-hidden rounded-2xl shadow-lg group" data-aos="fade-left">
                                     <img
                                         loading="lazy"
-                                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                        alt="Educational Image"
+                                        src={img2}
                                         className="w-full h-auto object-cover aspect-406/660 transition-transform duration-500 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

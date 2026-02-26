@@ -49,15 +49,30 @@ const TuitionsSingle = () => {
         queryKey: ['tuition', id, user?.email, role],
         queryFn: async () => {
             try {
-                const endpoint = `/tuitions/${id}${(isStudent || isAdmin) ? '/student-view' : ''}`;
-                
-                // logged out user -> axios
-                // logged in user -> axiosSecure
-                const api = user ? axiosSecure : axios;
+                let endpoint = '';
+                let api = user ? axiosSecure : axios;
 
-               
+                if (!user) {
+                    endpoint = `/tuitions/${id}`;
+                } else if (isStudent || isAdmin) {
+
+                    endpoint = `/tuitions/${id}/student-view`;
+                } else if (isTutor) {
+
+                    try {
+                        const response = await axiosSecure.get(`/tuitions/${id}/tutor-view?email=${user.email}`);
+                        return response.data;
+                    } catch (tutorError) {
+
+                        if (tutorError.response?.status === 403) {
+                            endpoint = `/tuitions/${id}`;
+                        } else {
+                            throw tutorError;
+                        }
+                    }
+                }
+
                 const response = await api.get(endpoint);
-                
                 return response.data;
             } catch (error) {
                 console.error('Error fetching tuition:', error);
@@ -67,12 +82,12 @@ const TuitionsSingle = () => {
         enabled: !!id && !roleLoading,
     });
     const tuitionJob = data?.data;
-    
+
     const breadCrumbItems = [
         { title: "Tuitions", path: "/tuitions" },
         { title: tuitionJob?.title, path: "" }
     ]
-    
+
     const handleApplicationSuccess = () => {
 
         queryClient.invalidateQueries(['tuition', id, user?.email, role]);
@@ -152,7 +167,7 @@ const TuitionsSingle = () => {
         <div className="font-primary text-base-content bg-gradient-to-b from-gray-50 to-white min-h-screen">
             {/* Breadcrumb */}
             <div className="bg-white border-b border-gray-200">
-                <div className=" flex justify-start container mx-auto px-4 py-4">
+                <div className=" flex justify-start md:container mx-auto px-4 py-4 overflow-x-auto">
                     <BreadCrumbs items={breadCrumbItems}></BreadCrumbs>
                 </div>
             </div>
@@ -166,10 +181,12 @@ const TuitionsSingle = () => {
                         <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8">
                             {/* Badge and Save Button */}
                             <div className="flex justify-between items-start mb-4">
-                                <span className={`px-4 py-2 bg-${tuitionJob.badgeColor}/10 text-${tuitionJob.badgeColor} rounded-full text-sm font-bold`}>
-                                    {tuitionJob.badge}
-                                </span>
-                                <div className="flex gap-2">
+                                {tuitionJob?.badge && (
+                                    <span className={`px-4 py-2 bg-${tuitionJob.badgeColor}/10 text-${tuitionJob.badgeColor} rounded-full text-sm font-bold`}>
+                                        {tuitionJob.badge}
+                                    </span>
+                                )}
+                                <div className="flex gap-2 ms-auto">
                                     <button
                                         onClick={() => setIsSaved(!isSaved)}
                                         className={`p-2 rounded-xl transition-all ${isSaved
@@ -214,7 +231,7 @@ const TuitionsSingle = () => {
                                     <p className="font-semibold">{tuitionJob.type}</p>
                                 </div>
                                 <div className="bg-gray-50 rounded-xl p-3">
-                                    <div className="flex items-center gap-2 text-accent mb-1">
+                                    <div className="flex items-center gap-2 text-pink-400 mb-1">
                                         <FaLaptop className="w-4 h-4" />
                                         <span className="text-sm font-medium">Mode</span>
                                     </div>
@@ -240,7 +257,7 @@ const TuitionsSingle = () => {
                                     <span>{tuitionJob.subject}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
-                                    <FaUsers className="text-accent" />
+                                    <FaUsers className="text-pink-400" />
                                     <span>{tuitionJob.applicants} applicants • {tuitionJob.slots} slots</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
@@ -274,7 +291,7 @@ const TuitionsSingle = () => {
                                     </button>
                                     <button
                                         onClick={() => setActiveTab('student')}
-                                        className={`py-4 font-medium border-b-2 transition-colors ${activeTab === 'school'
+                                        className={`py-4 font-medium border-b-2 transition-colors ${activeTab === 'student'
                                             ? 'border-primary text-primary'
                                             : 'border-transparent text-gray-500 hover:text-gray-700'
                                             }`}
@@ -393,50 +410,48 @@ const TuitionsSingle = () => {
                                 )}
 
                                 {activeTab === 'student' && (
-                                    <div className="space-y-6">
-                                        {/* School Info */}
-                                        <div className="grid sm:grid-cols-2 gap-6">
-                                            <div>
-                                                <h3 className="text-xl font-primary font-bold mb-4">About Vikrunnesa</h3>
-                                                <div className="space-y-3">
-                                                    <p className="flex justify-between">
-                                                        <span className="text-gray-500">Established:</span>
-                                                        <span className="font-medium">1975</span>
-                                                    </p>
-                                                    <p className="flex justify-between">
-                                                        <span className="text-gray-500">School Type:</span>
-                                                        <span className="font-medium">Public High School</span>
-                                                    </p>
-                                                    <p className="flex justify-between">
-                                                        <span className="text-gray-500">Total Students:</span>
-                                                        <span className="font-medium">1,200+</span>
-                                                    </p>
-                                                    <p className="flex justify-between">
-                                                        <span className="text-gray-500">Accreditation:</span>
-                                                        <span className="font-medium">4.5</span>
-                                                    </p>
-                                                    <p className="flex justify-between">
-                                                        <span className="text-gray-500">Website:</span>
-                                                        <a href={`www.lincolnhigh.edu`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                                            {"www.lincolnhigh.edu"}
-                                                        </a>
-                                                    </p>
-                                                </div>
+                                    <>
+                                        <div className="space-y-6">
+                                            {/* Student Info - This should come from DB */}
+                                            <div className="grid sm:grid-cols-2 gap-6">
+
                                             </div>
-                                            <div>
-                                                <div className="bg-gray-50 rounded-xl p-5">
-                                                    <h4 className="font-primary font-bold mb-3">School Rating</h4>
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <div className="flex gap-1">
-                                                            {renderStars(4.5)}
-                                                        </div>
-                                                        <span className="font-medium">4.5/5.0</span>
+                                        </div>
+                                        <div className="space-y-6">
+
+                                            <div className="grid sm:grid-cols-2 gap-6">
+                                                <div>
+                                                    <h3 className="text-xl font-primary font-bold mb-4">About the Student</h3>
+                                                    <div className="space-y-3">
+                                                        <p className="flex justify-between">
+                                                            <span className="text-gray-500">Name:</span>
+                                                            <span className="font-medium">{tuitionJob?.studentName || 'N/A'}</span>
+                                                        </p>
+                                                        <p className="flex justify-between">
+                                                            <span className="text-gray-500">Email:</span>
+                                                            <span className="font-medium wrap-break-word">{tuitionJob?.studentEmail || 'N/A'}</span>
+                                                        </p>
+                                                        <p className="flex justify-between">
+                                                            <span className="text-gray-500">Class:</span>
+                                                            <span className="font-medium capitalize">{tuitionJob?.class || 'N/A'}</span>
+                                                        </p>
                                                     </div>
-                                                    <p className="text-sm text-gray-500">Based on parent and student reviews</p>
+                                                </div>
+                                                <div className='mt-auto'>
+                                                    <div className="bg-gray-50 rounded-xl p-5">
+                                                        <h4 className="font-primary font-bold mb-3">School Rating</h4>
+                                                        <div className="flex items-center gap-2 mb-2">
+                                                            <div className="flex gap-1">
+                                                                {renderStars(0)}
+                                                            </div>
+                                                            <span className="font-medium">N/A</span>
+                                                        </div>
+                                                        <p className="text-sm text-gray-500">Based on parent and student reviews</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </>
                                 )}
                             </div>
                         </div>

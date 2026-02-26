@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router';
 import Footer from './Footer';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import Loading from '../../Components/Loading/Loading';
+import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop';
 
 const HomeLayout = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const HomeLayout = () => {
     }
     return (
         <>
+            <ScrollToTop />
             <Header></Header>
             <main className={`max-w-full ${location.pathname === "/" ? "" : "overflow-x-hidden"}`} >
                 <Outlet>

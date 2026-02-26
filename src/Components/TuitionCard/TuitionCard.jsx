@@ -10,7 +10,7 @@ const TuitionCard = ({ tuition }) => {
         location,
         type,
         mode,
-        students,
+        class: className,
         subject,
         posted,
         applicants,
@@ -72,10 +72,12 @@ const TuitionCard = ({ tuition }) => {
                             {title}
                         </h3>
                     </Link>
-                    <div className="flex items-center gap-2 text-sm">
-                        <span className="text-base-content/70">{institution}</span>
-                        <span className="w-1 h-1 rounded-full bg-base-content/30"></span>
-                        <span className="text-base-content/70">{location}</span>
+                    <div className="flex items-top gap-2 text-sm">
+                        <span className="w-1 h-1 shrink-0 rounded-full bg-primary/70 mt-2"></span>
+                        <span className="text-base-content/70">
+                            <span className="w-1 h-1 rounded-full bg-base-content/30"></span>
+                            {institution}, {location}
+                        </span>
                     </div>
                 </div>
 
@@ -83,19 +85,19 @@ const TuitionCard = ({ tuition }) => {
                 <div className="grid grid-cols-2 gap-3 mb-4">
                     <div className="flex flex-col">
                         <span className="text-xs text-base-content/50">Type</span>
-                        <span className="text-sm font-medium text-base-content">{type}</span>
+                        <span className="text-sm font-medium text-base-content capitalize">{type}</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xs text-base-content/50">Mode</span>
-                        <span className="text-sm font-medium text-base-content">{mode}</span>
+                        <span className="text-sm font-medium text-base-content capitalize">{mode}</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xs text-base-content/50">Budget</span>
                         <span className="text-sm font-bold text-primary">{`৳${minBudget} - ৳${maxBudget}`}</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-xs text-base-content/50">Students</span>
-                        <span className="text-sm font-medium text-base-content">{students}</span>
+                        <span className="text-xs text-base-content/50">Class</span>
+                        <span className="text-sm font-medium text-base-content capitalize">{className}</span>
                     </div>
                 </div>
 
@@ -126,9 +128,9 @@ const TuitionCard = ({ tuition }) => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 mt-auto">
-                    <button className="flex-1 bg-primary text-base-100 py-2.5 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
+                    <Link to={`/tuitions/${tuition._id}`} className="block text-center flex-1 bg-primary text-base-100 py-2.5 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
                         Apply Now
-                    </button>
+                    </Link>
                     <Link to={`/tuitions/${tuition._id}`} className="px-4 py-2.5 border border-base-content/20 rounded-lg font-medium text-sm text-base-content hover:bg-base-content/5 transition-colors">
                         Details
                     </Link>

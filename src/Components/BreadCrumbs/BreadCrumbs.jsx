@@ -6,8 +6,8 @@ const BreadCrumbs = ({ items = [] }) => {
     if (!items.length) return null;
 
     return (
-        <nav aria-label="Breadcrumb" className="px-4 rounded-md">
-            <ol className="flex items-center justify-center space-x-1 text-sm">
+        <nav aria-label="Breadcrumb" className="px-4 rounded-md text-center flex justify-center">
+            <ol className="flex w-max overflow-x-auto items-center justify-center space-x-1 text-sm">
                 {/* Home is always first */}
                 <li>
                     <Link to="/" className="text-primary hover:underline">

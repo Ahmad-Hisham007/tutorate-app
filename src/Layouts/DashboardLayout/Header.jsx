@@ -8,6 +8,7 @@ import { IoNewspaperOutline } from 'react-icons/io5';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 import { FaRegUser } from 'react-icons/fa6';
+import { RiSidebarUnfoldLine } from 'react-icons/ri';
 
 const Header = () => {
     const profileDropdown = useRef(null);
@@ -30,11 +31,12 @@ const Header = () => {
     </>
     return (
         <nav className="navbar w-full bg-base-300">
-            <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
+            <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn w-auto! px-0! btn-rounded rounded-full btn-ghost">
                 {/* Sidebar toggle icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
+                <RiSidebarUnfoldLine className='text-base p-2.5 w-10 h-10 bg-white shadow-lg rounded-full' />
+
             </label>
-            <div className='flex justify-between items-center w-full'>
+            <div className='flex justify-between items-center w-full ms-5'>
                 <div className="header-logo">
                     <Link to="/dashboard">
                         <img

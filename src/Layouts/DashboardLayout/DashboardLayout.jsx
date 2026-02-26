@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import DashboardFooter from './DashboardFooter';
 import Header from './Header';
-import { Link, NavLink, Outlet } from 'react-router';
+import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { IoHomeOutline, IoStatsChartSharp } from 'react-icons/io5';
 import { MdCreditScore, MdOutlineFactCheck, MdOutlineLibraryBooks, MdOutlineManageAccounts } from 'react-icons/md';
 import useRole from '../../Hooks/useRole';
@@ -9,6 +9,7 @@ import { LuBriefcaseBusiness, LuCopyPlus, LuFileStack } from 'react-icons/lu';
 import { FaEarDeaf } from 'react-icons/fa6';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { BsCreditCard2Front } from 'react-icons/bs';
+import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop';
 
 
 
@@ -101,14 +102,24 @@ const adminMenus = <>
 const DashboardLayout = () => {
     const { isStudent, isAdmin, isTutor } = useRole();
     const { user } = useContext(AuthContext)
+    const location = useLocation();
+
+    useEffect(() => {
+        const drawerCheckbox = document.getElementById('my-drawer-4');
+        if (drawerCheckbox) {
+            drawerCheckbox.checked = false;
+        }
+    }, [location.pathname]);
+
     return (
         <section className="drawer lg:drawer-open">
+            <ScrollToTop />
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <aside className="drawer-content min-h-screen flex flex-col justify-start">
                 {/* Navbar */}
                 <Header></Header>
                 {/* Page content here */}
-                <main className="p-4 bg-gray-50">
+                <main>
                     <Outlet></Outlet>
                 </main>
                 <DashboardFooter></DashboardFooter>

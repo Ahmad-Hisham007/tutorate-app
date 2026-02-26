@@ -6,11 +6,13 @@ import TuitionCard from '../../../Components/TuitionCard/TuitionCard';
 import useAxios from '../../../Hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Components/Loading/Loading';
+import useSubjectOptions from '../../../Hooks/useSubjectOptions';
+import useClassOptions from '../../../Hooks/useClassOptions';
 
-const subjects = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English', 'Bangla', 'ICT', 'History'];
-const classes = ['Class 6-8', 'Class 9-10', 'SSC', 'HSC', 'HSC & Admission Test', 'University'];
 
 const TuitionsListing = () => {
+    const { subjectOptions } = useSubjectOptions();
+    const { classOptions } = useClassOptions();
     const axios = useAxios();
 
     // State
@@ -285,6 +287,7 @@ const TuitionsListing = () => {
                                             </div>
                                         </div>
 
+
                                         {/* Class Filter */}
                                         <div className="border-t border-gray-200 pt-6">
                                             <h3 className="font-medium mb-3">Classes</h3>
@@ -294,8 +297,8 @@ const TuitionsListing = () => {
                                                 onChange={handleClassChange}
                                             >
                                                 <option value="">Select class</option>
-                                                {classes.map(c => (
-                                                    <option key={c} value={c}>{c}</option>
+                                                {classOptions.map(c => (
+                                                    <option key={c.value} value={c.value}>{c.label}</option>
                                                 ))}
                                             </select>
                                         </div>
@@ -309,8 +312,8 @@ const TuitionsListing = () => {
                                                 onChange={handleSubjectChange}
                                             >
                                                 <option value="">Select subject</option>
-                                                {subjects.map(s => (
-                                                    <option key={s} value={s}>{s}</option>
+                                                {subjectOptions.map(s => (
+                                                    <option key={s.value} value={s.value}>{s.label}</option>
                                                 ))}
                                             </select>
                                         </div>

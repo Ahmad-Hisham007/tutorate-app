@@ -83,7 +83,7 @@ const Profile = () => {
     }
 
     const profile = profileData;
-
+    console.log(statsData?.ongoingTuitions)
     // Stats cards based on user role
     const getStatsCards = () => {
         if (profile?.role === 'tutor') {
@@ -103,7 +103,7 @@ const Profile = () => {
                 {
                     icon: <LuBriefcase className="text-2xl" />,
                     label: 'Ongoing',
-                    value: statsData?.ongoingTuitions || 0,
+                    value: statsData?.ongoingTuitions,
                     color: 'bg-amber-100 text-secondary'
                 },
                 {
@@ -459,7 +459,7 @@ const Profile = () => {
                                 ) : activityData?.length > 0 ? (
                                     <div className="space-y-4">
                                         {activityData.map((item, index) => (
-                                            <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                                            <div key={index} className="flex items-center flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
                                                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${item.type === 'application' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-primary'
                                                     }`}>
                                                     {item.type === 'application' ? <LuFileText /> : <LuBookOpen />}

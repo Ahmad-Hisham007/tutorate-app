@@ -200,10 +200,10 @@ const ProfileSettings = () => {
     if (isLoading) {
         return <Loading />;
     }
-    
+
     return (
-        <div className="min-h-screen py-8">
-            <div className="container mx-auto px-4 max-w-4xl">
+        <div className="min-h-screen">
+            <div className="container mx-auto p-4 max-w-4xl">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-primary to-secondary p-6">
@@ -274,12 +274,12 @@ const ProfileSettings = () => {
                                 <label className="block text-sm font-medium text-base-content mb-2">
                                     Profile Picture
                                 </label>
-                                <div className="flex items-center gap-6">
+                                <div className="flex flex-wrap items-center gap-6">
                                     <div className="relative">
                                         <img
                                             src={profile?.photoURL || `https://ui-avatars.com/api/?name=${profile?.name}&background=random`}
                                             alt="Profile"
-                                            className="w-24 h-24 rounded-full object-cover border-4 border-primary"
+                                            className="w-24 h-24 shrink-0 rounded-full object-cover border-4 border-primary"
                                         />
                                         <label
                                             htmlFor="profile-picture"
@@ -505,7 +505,7 @@ const ProfileSettings = () => {
                                 </label>
                                 <div className="space-y-3">
                                     {qualificationFields.map((field, index) => (
-                                        <div key={field.id} className="grid grid-cols-3 gap-2 items-center">
+                                        <div key={field.id} className="grid md:grid-cols-3 grid-cols-1 gap-2 items-center">
                                             <input
                                                 {...register(`qualifications.${index}.degree`)}
                                                 placeholder="Degree"
@@ -543,45 +543,7 @@ const ProfileSettings = () => {
                                 </div>
                             </div>
 
-                            {/* Subjects */}
-                            {/* <div className="mb-6">
-                                <label className="block text-sm font-medium text-base-content mb-2">
-                                    <LuBookOpen className="inline mr-2" />
-                                    Subjects you teach
-                                </label>
-                                <div className="space-y-3">
-                                    <div className="flex flex-wrap gap-2">
-                                        {subjectFields.map((field, index) => (
-                                            <span key={field.id} className="px-3 py-1 bg-blue-100 text-primary rounded-full text-sm flex items-center gap-2">
-                                                {field.value}
-                                                <button
-                                                    type="button"
-                                                    onClick={() => removeSubject(index)}
-                                                    className="hover:text-red-500"
-                                                >
-                                                    <LuX className="text-xs" />
-                                                </button>
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <input
-                                            type="text"
-                                            placeholder="Add a subject"
-                                            value={newSubject}
-                                            onChange={(e) => setNewSubject(e.target.value)}
-                                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={handleAddSubject}
-                                            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-                                        >
-                                            Add
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> */}
+
                             <div className="mb-6">
                                 <label className="block text-sm font-medium text-base-content mb-2">
                                     <LuBookOpen className="inline mr-2" />
@@ -591,7 +553,7 @@ const ProfileSettings = () => {
                                 {/* Selected subjects display */}
                                 <div className="flex flex-wrap gap-2 mb-3">
                                     {subjectFields.map((field, index) => (
-                                        <span key={field.id} className="px-3 py-1 bg-blue-100 text-primary rounded-full text-sm flex items-center gap-2">
+                                        <span key={field.id} className="px-3 py-1 bg-blue-100 text-primary rounded-full text-sm flex flex-wrap items-center gap-2">
                                             {getSubjectLabel(field.value)}
                                             <button
                                                 type="button"
@@ -605,7 +567,7 @@ const ProfileSettings = () => {
                                 </div>
 
                                 {/* Subject selector */}
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     <select
                                         value={newSubject}
                                         onChange={(e) => setNewSubject(e.target.value)}
@@ -622,18 +584,18 @@ const ProfileSettings = () => {
                                         type="button"
                                         onClick={handleAddSubject}
                                         disabled={!newSubject}
-                                        className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                                        className="px-4 w-full md:w-auto py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
                                     >
                                         Add
                                     </button>
                                 </div>
                             </div>
                             {/* Save Button */}
-                            <div className="flex justify-end gap-3">
+                            <div className="flex justify-end flex-wrap md:flex-nowrap gap-3">
                                 <button
                                     type="button"
                                     onClick={() => window.history.back()}
-                                    className="px-6 py-2 border w-full text-center justify-center border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                                    className="px-6 w-full text-center justify-center py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                                 >
                                     <LuX />
                                     Cancel
@@ -641,7 +603,7 @@ const ProfileSettings = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-6 py-2 bg-primary w-full text-center justify-center text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
+                                    className="px-6 py-2 w-full text-center justify-center bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}
@@ -697,7 +659,7 @@ const ProfileSettings = () => {
                                     </div>
 
                                     {/* Subject selector */}
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 flex-wrap">
                                         <select
                                             value={newPreferredSubject}
                                             onChange={(e) => setNewPreferredSubject(e.target.value)}
@@ -714,7 +676,7 @@ const ProfileSettings = () => {
                                             type="button"
                                             onClick={handleAddPreferredSubject}
                                             disabled={!newPreferredSubject}
-                                            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                                            className="px-4 py-2 bg-primary w-full md:w-auto text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
                                         >
                                             Add
                                         </button>
@@ -723,11 +685,11 @@ const ProfileSettings = () => {
                             </div>
 
                             {/* Save Button */}
-                            <div className="flex justify-end gap-3">
+                            <div className="flex justify-end flex-wrap md:flex-nowrap gap-3">
                                 <button
                                     type="button"
                                     onClick={() => window.history.back()}
-                                    className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                                    className="px-6 w-full text-center justify-center py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                                 >
                                     <LuX />
                                     Cancel
@@ -735,7 +697,7 @@ const ProfileSettings = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
+                                    className="px-6 py-2 w-full text-center justify-center bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
                                 >
                                     <LuSave />
                                     {isSubmitting ? 'Saving...' : 'Save Changes'}

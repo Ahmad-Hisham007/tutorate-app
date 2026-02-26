@@ -81,7 +81,7 @@ const WhyChooseUs = () => {
         { value: '50K+', label: 'Successful Sessions', icon: <LuMessageSquare /> }
     ];
     return (
-        <section className="py-16 lg:py-24 bg-linear-to-b text-base-content from-white to-gray-50">
+        <section className="py-16 lg:py-24 bg-linear-to-b text-base-content from-white to-gray-50 overflow-x-hidden md:overflow-x-visible">
             <div className="container mx-auto">
                 {/* Header Section */}
                 <div className="text-center mb-16" data-aos="fade-up">

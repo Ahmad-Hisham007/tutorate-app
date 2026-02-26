@@ -160,7 +160,7 @@ const TuitionsListing = () => {
             } else {
 
                 window.scrollTo({
-                    top: 400,
+                    top: 100,
                     behavior: 'smooth'
                 });
             }
@@ -168,7 +168,7 @@ const TuitionsListing = () => {
     }, [isLoading]);
     useEffect(() => {
 
-        const tuitionContainer = document.querySelector('.lg\\:col-span-9');
+        const tuitionContainer = document.querySelector('.tuitions-list-container');
         if (tuitionContainer) {
             tuitionContainer.scrollIntoView({
                 behavior: 'smooth',
@@ -188,7 +188,7 @@ const TuitionsListing = () => {
     return (
         <>
             <PageHeroes pageTitle={"Latest Tuitions"} />
-            <section className="px-4 sm:px-6 lg:px-8 py-8 bg-[#F7F8FC]">
+            <section className="px-4 sm:px-6 lg:px-8 py-8 bg-[#F7F8FC] tuitions-list-container">
                 <div className='max-w-7xl mx-auto'>
                     {/* Header Section */}
                     <div className="mb-4 md:mb-8">

@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast'
 import QueryProvider from './Contexts/QueryProvider/QueryProvider.jsx'
 import 'aos/dist/aos.css';
 import Aos from 'aos'
+import ScrollToTopButton from './Components/ScrollToTopButton/ScrollToTopButton.jsx'
 
 // Initialize AOS
 Aos.init({
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <RouterProvider router={Routes}>
         </RouterProvider>
+        <ScrollToTopButton />
         <Toaster position='top-center' containerStyle={{
           top: 120
         }} />

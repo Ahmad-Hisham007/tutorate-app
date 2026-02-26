@@ -81,8 +81,8 @@ const TuitionsSingle = () => {
         },
         enabled: !!id && !roleLoading,
     });
-    const tuitionJob = data?.data;
 
+    const tuitionJob = data?.data;
     const breadCrumbItems = [
         { title: "Tuitions", path: "/tuitions" },
         { title: tuitionJob?.title, path: "" }

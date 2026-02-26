@@ -148,7 +148,34 @@ const TuitionsListing = () => {
             className: ''
         });
     };
+    useEffect(() => {
+        if (isLoading) {
 
+            const tuitionListElement = document.querySelector('.tuitions-list-container');
+            if (tuitionListElement) {
+                tuitionListElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else {
+
+                window.scrollTo({
+                    top: 400,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [isLoading]);
+    useEffect(() => {
+
+        const tuitionContainer = document.querySelector('.lg\\:col-span-9');
+        if (tuitionContainer) {
+            tuitionContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, [page]);
     const tuitionListings = response?.data || [];
     const total = response?.total || 0;
     const totalPages = response?.totalPages || 1;

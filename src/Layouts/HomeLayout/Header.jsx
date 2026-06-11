@@ -89,7 +89,7 @@ const Header = () => {
                         </div>
 
                         {/* Middle Navigation - Desktop */}
-                        <div className="lg:w-2/12 2xl:w-7/12 xl:w-6/12 w-auto mt-1 xl:ms-10 hidden lg:block">
+                        <div className="lg:w-2/12 2xl:w-7/12 xl:w-6/12 w-auto mt-1 xl:ms-10 hidden lg:block lg:me-auto lg:ms-6">
                             <div className="flex items-center justify-start 2xl:gap-18 lg:gap-6">
                                 {/* Categories Menu */}
 
@@ -120,7 +120,7 @@ const Header = () => {
                         </div>
 
                         {/* Right Side - Desktop */}
-                        <div className="hidden lg:block lg:w-6/12">
+                        <div className="hidden xl:block lg:w-6/12">
                             {user ?
                                 <div className="flex items-center justify-end space-x-4">
                                     <details ref={profileDropdown} className="dropdown relative" onClick={() => setIsProfileDropDownOpened(!isProfileDropDownOpened)}>

@@ -10,11 +10,14 @@ import toast from 'react-hot-toast';
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { handleLogin, handleGoogleLogin } = useContext(AuthContext);
+    const { handleLogin, handleGoogleLogin, resetPassword, user } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const location = useLocation();
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
+    const [resetEmail, setResetEmail] = useState('');
+    const [sendingReset, setSendingReset] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -52,6 +55,33 @@ const LoginForm = () => {
             }
         }
     }
+
+    //  Password Reset Handler
+
+    const handleForgotPasswordSubmit = async (e) => {
+        e.preventDefault();
+        setSendingReset(true);
+
+        try {
+            // Trigger Firebase's native transactional email sequence
+            await resetPassword(resetEmail);
+            toast.success("A secure reset link has been sent to your email inbox!");
+            setIsForgotModalOpen(false);
+            setResetEmail('');
+        } catch (error) {
+            console.error(error);
+            // Handle native Firebase error codes cleanly
+            if (error.code === 'auth/user-not-found') {
+                toast.error("No registered account found with this email.");
+            } else if (error.code === 'auth/invalid-email') {
+                toast.error("Please enter a valid email address structure.");
+            } else {
+                toast.error("Failed to send reset link. Please check your network.");
+            }
+        } finally {
+            setSendingReset(false);
+        }
+    };
     if (isAuthenticated) {
         return <Navigate to={`${location.state ? location.state : "/dashboard"}`
         }></Navigate >
@@ -134,8 +164,16 @@ const LoginForm = () => {
                                 <p className="mt-1 text-sm text-secondary">{errors.password.message}</p>
                             )}
                         </div>
-
-
+                        {/* Password Reset */}
+                        <div className="flex justify-start mt-1">
+                            <button
+                                type="button"
+                                onClick={() => setIsForgotModalOpen(true)}
+                                className="text-xs font-semibold text-primary hover:text-base-content cursor-pointer transition-colors"
+                            >
+                                Forgot Password?
+                            </button>
+                        </div>
                         {errors.terms && (
                             <p className="text-sm text-secondary">{errors.terms.message}</p>
                         )}
@@ -170,6 +208,70 @@ const LoginForm = () => {
                         <FaGoogle className="text-xl group-hover:translate-x-1 transition-transform" />
                     </>
                 </button>
+
+                {/* Password Reset Popup */}
+
+                {isForgotModalOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-base-content/60 backdrop-blur-sm">
+                        <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-2xl border border-base-content/10 animate-fadeIn">
+
+                            <div className="flex justify-between items-center mb-3">
+                                <h3 className="text-xl font-black text-base-content">
+                                    Recover Account Access
+                                </h3>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsForgotModalOpen(false)}
+                                    className="text-gray-400 hover:text-gray-600 font-bold"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            <p className="text-xs text-base-content/70 mb-5">
+                                Provide your registered login email. Firebase will dispatch an authenticated password rewrite link securely.
+                            </p>
+
+                            <form onSubmit={handleForgotPasswordSubmit} className="space-y-4">
+                                <div>
+                                    <label htmlFor="modal-email" className="block text-xs font-bold uppercase tracking-wider text-base-content/70 mb-2">
+                                        Email Address
+                                    </label>
+                                    <input
+                                        id="modal-email"
+                                        type="email"
+                                        required
+                                        value={resetEmail}
+                                        onChange={(e) => setResetEmail(e.target.value)}
+                                        placeholder="name@domain.com"
+                                        className="w-full px-4 py-2.5 rounded-xl border border-base-content/20 bg-gray-50 text-sm text-base-content focus:outline-none focus:border-primary "
+                                    />
+                                </div>
+
+                                <div className="flex gap-3 justify-end pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsForgotModalOpen(false)}
+                                        className="px-4 py-2 rounded-xl text-xs font-semibold text-base-content/70 bg-gray-100 hover:bg-gray-200"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={sendingReset}
+                                        className="px-5 py-2 rounded-xl text-xs font-bold text-white bg-primary hover:bg-base-content disabled:bg-gray-400 min-w-25 flex justify-center items-center"
+                                    >
+                                        {sendingReset ? (
+                                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        ) : (
+                                            "Send Link"
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

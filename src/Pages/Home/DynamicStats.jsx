@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 export default function DynamicStats() {
     const [stats, setStats] = useState({ tutors: 142, tuitions: 523, applications: 912 });
+    // eslint-disable-next-line no-unused-vars
     const [loading, setLoading] = useState(true);
 
     // Trigger animation only when section enters viewport
@@ -31,19 +32,19 @@ export default function DynamicStats() {
     return (
         <section ref={ref} className="py-16 px-4 my-12 relative">
             {/* Unique Abstract Background Visual Elements */}
-            <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#33BAAE]/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#F29D42]/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="max-w-6xl mx-auto relative z-10">
                 {/* Section Header with Clear Visual Hierarchy */}
                 <div className="text-center mb-12">
-                    <span className="text-xs font-bold tracking-widest text-[#33BAAE] uppercase bg-[#33BAAE]/10 px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold tracking-widest text-primary uppercase bg-primary/10 px-3 py-1 rounded-full">
                         Live Platform Activity
                     </span>
-                    <h2 className="text-3xl font-black text-[#1B2E28] mt-3 tracking-tight">
+                    <h2 className="text-3xl font-black text-base-content mt-3 tracking-tight">
                         Tutorate by the Numbers
                     </h2>
-                    <p className="text-sm text-[#1B2E28]/70 mt-2 max-w-md mx-auto">
+                    <p className="text-sm text-base-content/70 mt-2 max-w-md mx-auto">
                         Real-time metrics tracking connection, academic growth, and successful placements across the network.
                     </p>
                 </div>
@@ -52,42 +53,42 @@ export default function DynamicStats() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                     {/* Card 1: Instructors */}
-                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-[#1B2E28]/5 transition-all duration-300 hover:-translate-y-1">
+                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-base-content/5 transition-all duration-300 hover:-translate-y-1">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-xs font-bold tracking-wider text-[#1B2E28]/50 uppercase">Network Scale</span>
-                            <div className="w-2 h-2 rounded-full bg-[#33BAAE] animate-pulse"></div>
+                            <span className="text-xs font-bold tracking-wider text-base-content/50 uppercase">Network Scale</span>
+                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                         </div>
-                        <div className="text-5xl font-black text-[#33BAAE] tracking-tight mb-2">
+                        <div className="text-5xl font-black text-primary tracking-tight mb-2">
                             {inView ? <CountUp end={stats.tutors} duration={2.5} separator="," /> : '0'}+
                         </div>
-                        <h3 className="text-base font-bold text-[#1B2E28]">Verified Instructors</h3>
-                        <p className="text-xs text-[#1B2E28]/60 mt-1">Expert educators approved for targeted teaching criteria.</p>
+                        <h3 className="text-base font-bold text-base-content">Verified Instructors</h3>
+                        <p className="text-xs text-base-content/60 mt-1">Expert educators approved for targeted teaching criteria.</p>
                     </div>
 
                     {/* Card 2: Tuition Posts */}
-                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-[#1B2E28]/5 transition-all duration-300 hover:-translate-y-1">
+                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-base-content/5 transition-all duration-300 hover:-translate-y-1">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-xs font-bold tracking-wider text-[#1B2E28]/50 uppercase">Active Demand</span>
-                            <div className="w-2 h-2 rounded-full bg-[#F29D42] animate-pulse"></div>
+                            <span className="text-xs font-bold tracking-wider text-base-content/50 uppercase">Active Demand</span>
+                            <div className="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
                         </div>
-                        <div className="text-5xl font-black text-[#F29D42] tracking-tight mb-2">
+                        <div className="text-5xl font-black text-secondary tracking-tight mb-2">
                             {inView ? <CountUp end={stats.tuitions} duration={2.5} separator="," /> : '0'}+
                         </div>
-                        <h3 className="text-base font-bold text-[#1B2E28]">Tuition Job Posts</h3>
-                        <p className="text-xs text-[#1B2E28]/60 mt-1">Open learning requests posted by parents and pupils looking for help.</p>
+                        <h3 className="text-base font-bold text-base-content">Tuition Job Posts</h3>
+                        <p className="text-xs text-base-content/60 mt-1">Open learning requests posted by parents and pupils looking for help.</p>
                     </div>
 
                     {/* Card 3: Applications */}
-                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-[#1B2E28]/5 transition-all duration-300 hover:-translate-y-1">
+                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-white shadow-xl shadow-base-content/5 transition-all duration-300 hover:-translate-y-1">
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-xs font-bold tracking-wider text-[#1B2E28]/50 uppercase">Success Rate</span>
-                            <div className="w-2 h-2 rounded-full bg-[#33BAAE] animate-pulse"></div>
+                            <span className="text-xs font-bold tracking-wider text-base-content/50 uppercase">Success Rate</span>
+                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                         </div>
-                        <div className="text-5xl font-black text-[#33BAAE] tracking-tight mb-2">
+                        <div className="text-5xl font-black text-primary tracking-tight mb-2">
                             {inView ? <CountUp end={stats.applications} duration={2.5} separator="," /> : '0'}+
                         </div>
-                        <h3 className="text-base font-bold text-[#1B2E28]">Submitted Applications</h3>
-                        <p className="text-xs text-[#1B2E28]/60 mt-1">Tutors applying to meet specific custom class match requirements.</p>
+                        <h3 className="text-base font-bold text-base-content">Submitted Applications</h3>
+                        <p className="text-xs text-base-content/60 mt-1">Tutors applying to meet specific custom class match requirements.</p>
                     </div>
 
                 </div>

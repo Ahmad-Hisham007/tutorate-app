@@ -29,7 +29,7 @@ export default function DynamicStats() {
     }, []);
 
     return (
-        <section ref={ref} className="bg-[#FAE9E2] py-16 px-4 my-12 relative overflow-hidden">
+        <section ref={ref} className="py-16 px-4 my-12 relative">
             {/* Unique Abstract Background Visual Elements */}
             <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#33BAAE]/10 rounded-full blur-3xl pointer-events-none"></div>
             <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#F29D42]/10 rounded-full blur-3xl pointer-events-none"></div>

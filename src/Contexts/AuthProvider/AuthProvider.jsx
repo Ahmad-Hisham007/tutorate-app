@@ -10,7 +10,8 @@ import {
     updateProfile,
     GoogleAuthProvider,
     signInWithPopup,
-    deleteUser
+    deleteUser,
+    sendPasswordResetEmail
 } from 'firebase/auth';
 import app from "../../Firebase/Firebase.init"
 import useAxios from '../../Hooks/useAxios';
@@ -128,12 +129,20 @@ export const AuthProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    // Password reset
+
+    const resetPassword = (email) => {
+        setLoading(true);
+        return sendPasswordResetEmail(auth, email);
+    };
+
     const authData = {
         user,
         handleRegister,
         handleLogin,
         handleGoogleLogin,
         logOut,
+        resetPassword,
         loading,
         setLoading
     };

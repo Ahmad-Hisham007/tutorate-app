@@ -132,7 +132,6 @@ export const AuthProvider = ({ children }) => {
     // Password reset
 
     const resetPassword = (email) => {
-        setLoading(true);
         return sendPasswordResetEmail(auth, email);
     };
 

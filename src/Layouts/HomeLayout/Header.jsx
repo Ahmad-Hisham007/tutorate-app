@@ -120,7 +120,7 @@ const Header = () => {
                         </div>
 
                         {/* Right Side - Desktop */}
-                        <div className="hidden lg:block lg:w-5/12">
+                        <div className="hidden lg:block lg:w-6/12">
                             {user ?
                                 <div className="flex items-center justify-end space-x-4">
                                     <details ref={profileDropdown} className="dropdown relative" onClick={() => setIsProfileDropDownOpened(!isProfileDropDownOpened)}>
@@ -142,7 +142,7 @@ const Header = () => {
                                 :
                                 <div className="flex items-center justify-end space-x-4">
                                     {/* Phone Number */}
-                                    <div className="hidden lg:block">
+                                    <div className="hidden lg:block min-w-45">
                                         <a href="tel:+8801799290229" className="flex items-center gap-3 text-base-content font-medium font-primary">
                                             <LuPhoneCall className='text-xl mt-0.5 text-primary' />
                                             <span>+880 1799290229</span>
@@ -155,7 +155,7 @@ const Header = () => {
                                         Find Tutor
                                     </Link>
 
-                                    <Link to="/login" className="hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300 flex items-center gap-2">
+                                    <Link to="/login" className=" hover:bg-secondary bg-transparent border hover:border-secondary border-base-content text-base-content transition-all duration-200 hover:text-white px-6 py-3.5 rounded-xl font-semibold leading-none shadow-md shadow-stone-300 flex items-center gap-2">
                                         <MdLogin /> Login
                                     </Link>
 
@@ -166,7 +166,7 @@ const Header = () => {
                         </div>
 
                         {/* Mobile Menu Toggle */}
-                        <div className="xl:hidden lg:w-7/12 w-auto">
+                        <div className="xl:hidden xl:w-7/12 w-auto">
                             <div className="drawer">
                                 <input ref={drawerCheckbox} id="my-drawer-1" type="checkbox" className="drawer-toggle"
                                     onChange={handleDrawerToggle} />
@@ -208,7 +208,7 @@ const Header = () => {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="drawer-side top-[unset] bottom-0 max-h-[calc(100vh-62px)]" >
+                                <div className="drawer-side top-[unset] bottom-0 max-h-[calc(100vh-62px)] lg:max-h-[calc(100vh-112px)]" >
                                     <label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay"></label>
 
                                     <div className="menu bg-base-200 min-h-full w-80 px-8 py-6">
